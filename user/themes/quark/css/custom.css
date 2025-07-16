@@ -306,6 +306,58 @@ body.header-fixed #body-wrapper {
   }
 }
 
+/* Enhanced Dropdown Menu Styles */
+#custom-header nav ul li {
+  position: relative;
+}
+
+#custom-header nav ul li ul {
+  /* Dropdown animation */
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+#custom-header nav ul li:hover ul {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  pointer-events: auto;
+}
+
+/* Improved dropdown arrow */
+#custom-header nav ul li span {
+  transition: transform 0.2s ease;
+}
+
+#custom-header nav ul li:hover span {
+  transform: rotate(180deg);
+}
+
+/* Ensure dropdown stays visible when hovering over dropdown items */
+#custom-header nav ul li ul:hover {
+  display: block !important;
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* Mobile dropdown fallback (if needed) */
+@media (max-width: 768px) {
+  #custom-header nav ul li ul {
+    position: static !important;
+    box-shadow: none !important;
+    border: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  
+  #custom-header nav ul li ul li a {
+    padding: 0.4rem 0.8rem !important;
+    font-size: 0.8rem !important;
+  }
+}
+
 /* REMOVE EXTRA SPACING FROM SECTIONS */
 section.section {
   padding-top: 2rem !important;
