@@ -1,8 +1,15 @@
 ---
 title: Сертификаты и награды
 menu: Сертификаты
-template: default
+template: certificates
 visible: true
+certificates:
+  - title: 'Сертификат ISO 9001'
+    image: 'certificate-iso-sample.jpg'
+    description: 'Система менеджмента качества соответствует международным стандартам'
+  - title: 'Награда "Лучший стенд года"'
+    image: 'award-best-stand.jpg'
+    description: 'Получена на выставке "Экспо 2023" за инновационный дизайн'
 ---
 
 # Сертификаты и награды

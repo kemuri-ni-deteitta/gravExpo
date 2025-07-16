@@ -1,8 +1,24 @@
 ---
 title: Клиенты и партнёры
 menu: Клиенты и партнёры
-template: default
+template: partners
 visible: true
+partners:
+  - name: 'ТехИнновации'
+    logo: 'partner-tech-logo.png'
+    website: 'https://tech-innovations.ru'
+    description: 'Стратегический партнёр в области высокотехнологичных решений'
+    featured: true
+  - name: 'Строй Групп'
+    logo: 'partner-build-logo.png'
+    website: 'https://buildgroup.ru'
+    description: 'Надёжный партнёр в строительной индустрии'
+    featured: false
+  - name: 'Экспо Центр Москва'
+    logo: 'partner-expo-logo.png'
+    website: 'https://expocentr.ru'
+    description: 'Ведущая выставочная площадка России'
+    featured: false
 ---
 
 # Наши партнёры

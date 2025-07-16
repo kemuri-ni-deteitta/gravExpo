@@ -1,0 +1,388 @@
+{% extends 'partials/base.html.twig' %}
+
+{% set grid_size = theme_var('grid-size') %}
+
+{% block content %}
+<div class="content-wrapper">
+    <div class="container {{ grid_size }}">
+        <!-- Page Content -->
+        <div class="page-content">
+            {{ page.content|raw }}
+        </div>
+        
+        {% if page.header.partners %}
+        <!-- Partners Section -->
+        <div class="partners-section">
+            
+            {% set featured_partners = [] %}
+            {% set regular_partners = [] %}
+            
+            {% for partner in page.header.partners %}
+                {% if partner.featured %}
+                    {% set featured_partners = featured_partners|merge([partner]) %}
+                {% else %}
+                    {% set regular_partners = regular_partners|merge([partner]) %}
+                {% endif %}
+            {% endfor %}
+            
+            {% if featured_partners|length > 0 %}
+            <!-- Featured Partners -->
+            <div class="featured-partners-section">
+                <h2 class="section-title">Ключевые партнёры</h2>
+                <div class="featured-partners-grid">
+                    {% for partner in featured_partners %}
+                    <div class="partner-item featured">
+                        <div class="partner-card">
+                            {% if partner.logo %}
+                            <div class="partner-logo">
+                                {% if partner.logo is iterable %}
+                                    {% set logo_path = partner.logo|keys|first %}
+                                    {% set logo_name = partner.logo[logo_path].name %}
+                                    {% set partner_logo = page.media[logo_name] %}
+                                {% else %}
+                                    {% set partner_logo = page.media[partner.logo] %}
+                                {% endif %}
+                                
+                                {% if partner_logo %}
+                                    {% if partner.website %}
+                                    <a href="{{ partner.website }}" target="_blank" rel="noopener">
+                                        <img src="{{ partner_logo.url }}" alt="{{ partner.name }}" loading="lazy" />
+                                    </a>
+                                    {% else %}
+                                    <img src="{{ partner_logo.url }}" alt="{{ partner.name }}" loading="lazy" />
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                            {% endif %}
+                            
+                            <div class="partner-content">
+                                <h3 class="partner-name">
+                                    {% if partner.website %}
+                                    <a href="{{ partner.website }}" target="_blank" rel="noopener">{{ partner.name }}</a>
+                                    {% else %}
+                                    {{ partner.name }}
+                                    {% endif %}
+                                </h3>
+                                {% if partner.description %}
+                                <p class="partner-description">{{ partner.description }}</p>
+                                {% endif %}
+                                {% if partner.website %}
+                                <a href="{{ partner.website }}" target="_blank" rel="noopener" class="partner-link">
+                                    Посетить сайт <i class="fa fa-external-link"></i>
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            
+            {% if regular_partners|length > 0 %}
+            <!-- Regular Partners -->
+            <div class="regular-partners-section">
+                {% if featured_partners|length > 0 %}
+                <h2 class="section-title">Наши партнёры</h2>
+                {% endif %}
+                <div class="partners-grid">
+                    {% for partner in regular_partners %}
+                    <div class="partner-item">
+                        <div class="partner-card">
+                            {% if partner.logo %}
+                            <div class="partner-logo">
+                                {% if partner.logo is iterable %}
+                                    {% set logo_path = partner.logo|keys|first %}
+                                    {% set logo_name = partner.logo[logo_path].name %}
+                                    {% set partner_logo = page.media[logo_name] %}
+                                {% else %}
+                                    {% set partner_logo = page.media[partner.logo] %}
+                                {% endif %}
+                                
+                                {% if partner_logo %}
+                                    {% if partner.website %}
+                                    <a href="{{ partner.website }}" target="_blank" rel="noopener">
+                                        <img src="{{ partner_logo.url }}" alt="{{ partner.name }}" loading="lazy" />
+                                    </a>
+                                    {% else %}
+                                    <img src="{{ partner_logo.url }}" alt="{{ partner.name }}" loading="lazy" />
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                            {% endif %}
+                            
+                            <div class="partner-content">
+                                <h3 class="partner-name">
+                                    {% if partner.website %}
+                                    <a href="{{ partner.website }}" target="_blank" rel="noopener">{{ partner.name }}</a>
+                                    {% else %}
+                                    {{ partner.name }}
+                                    {% endif %}
+                                </h3>
+                                {% if partner.description %}
+                                <p class="partner-description">{{ partner.description }}</p>
+                                {% endif %}
+                                {% if partner.website %}
+                                <a href="{{ partner.website }}" target="_blank" rel="noopener" class="partner-link">
+                                    Посетить сайт <i class="fa fa-external-link"></i>
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        {% else %}
+        <div class="no-partners">
+            <p class="text-center text-muted">Информация о партнёрах будет добавлена в ближайшее время.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+/* Partners Section Styles */
+.partners-section {
+    margin-top: 2rem;
+}
+
+.section-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #2c2c2c;
+    margin: 2rem 0 1.5rem 0;
+    text-align: center;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: #ff6600;
+    margin: 0.5rem auto 0;
+    border-radius: 2px;
+}
+
+.featured-partners-section {
+    margin-bottom: 3rem;
+}
+
+.featured-partners-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2.5rem;
+    margin: 2rem 0;
+}
+
+.partners-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.partner-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.partner-card {
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #f0f0f0;
+}
+
+.partner-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    border-color: #ff6600;
+}
+
+.partner-item.featured .partner-card {
+    border: 2px solid #ff6600;
+    background: linear-gradient(135deg, #ffffff 0%, #fffaf7 100%);
+}
+
+.partner-item.featured .partner-card:hover {
+    border-color: #e55a00;
+    transform: translateY(-8px);
+}
+
+.partner-logo {
+    position: relative;
+    overflow: hidden;
+    background: #f8f9fa;
+    flex: 1;
+    min-height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+}
+
+.partner-item.featured .partner-logo {
+    min-height: 180px;
+    background: #ffffff;
+}
+
+.partner-logo img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+    filter: grayscale(20%);
+}
+
+.partner-logo:hover img {
+    transform: scale(1.05);
+    filter: grayscale(0%);
+}
+
+.partner-logo a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.partner-content {
+    padding: 1.5rem;
+    background: #ffffff;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.partner-item.featured .partner-content {
+    padding: 2rem 1.5rem;
+}
+
+.partner-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2c2c2c;
+    margin: 0 0 0.75rem 0;
+    line-height: 1.4;
+}
+
+.partner-item.featured .partner-name {
+    font-size: 1.3rem;
+    color: #ff6600;
+}
+
+.partner-name a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.partner-name a:hover {
+    color: #ff6600;
+}
+
+.partner-item.featured .partner-name a:hover {
+    color: #e55a00;
+}
+
+.partner-description {
+    color: #666;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0 0 1rem 0;
+    flex-grow: 1;
+}
+
+.partner-item.featured .partner-description {
+    font-size: 1rem;
+}
+
+.partner-link {
+    color: #ff6600;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    align-self: flex-start;
+    margin-top: auto;
+}
+
+.partner-link:hover {
+    color: #e55a00;
+    text-decoration: underline;
+}
+
+.partner-link i {
+    margin-left: 0.3rem;
+    font-size: 0.8rem;
+}
+
+.no-partners {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #666;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .featured-partners-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .partners-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .partner-logo {
+        min-height: 120px;
+        padding: 1rem;
+    }
+    
+    .partner-item.featured .partner-logo {
+        min-height: 140px;
+    }
+    
+    .partner-content {
+        padding: 1rem;
+    }
+    
+    .partner-item.featured .partner-content {
+        padding: 1.5rem 1rem;
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .partners-grid,
+    .featured-partners-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .partner-logo {
+        min-height: 100px;
+        padding: 0.75rem;
+    }
+    
+    .partner-content {
+        padding: 0.75rem;
+    }
+}
+</style>
+{% endblock %} 

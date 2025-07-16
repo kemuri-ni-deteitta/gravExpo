@@ -1,0 +1,31 @@
+1752710550
+O:39:"Grav\Common\Flex\Types\Pages\PageObject":4:{s:4:"type";s:5:"pages";s:3:"key";s:6:"uslugi";s:8:"elements";a:4:{s:4:"root";b:0;s:6:"header";a:5:{s:5:"title";s:12:"Услуги";s:4:"menu";s:12:"Услуги";s:8:"template";s:7:"default";s:7:"visible";b:1;s:7:"content";a:2:{s:5:"items";a:1:{i:0;s:14:"@self.children";}s:5:"order";a:2:{s:2:"by";s:4:"date";s:3:"dir";s:4:"desc";}}}s:11:"frontmatter";s:163:"title: Услуги
+menu: Услуги
+template: default
+visible: true
+content:
+    items:
+        - '@self.children'
+    order:
+        by: date
+        dir: desc";s:8:"markdown";s:1228:"# Наши услуги
+
+Компания Expo Land предлагает полный спектр услуг в области выставочного бизнеса, наружной рекламы и дизайна интерьеров:
+
+## Направления деятельности
+
+### Строительство выставочных стендов
+- [Дизайн выставочных стендов](/portfolio/vystavochnye-stendy/dizajn)
+- [Строительство выставочных стендов](/portfolio/vystavochnye-stendy/stroitelstvo)
+- [Эксклюзивные выставочные стенды](/portfolio/vystavochnye-stendy/eksklyuzivnye)
+
+### Наружная реклама
+- [Портфолио наружной рекламы](/portfolio/naruzhnaya-reklama)
+
+### Дизайн интерьеров
+- [Интерьеры магазинов](/portfolio/dizajn-intererov/magaziny)
+- [Другие интерьеры](/portfolio/dizajn-intererov/portfolio)
+
+---
+
+**Хотите увидеть больше работ?** [Свяжитесь с нами](/kontakty) для получения полного портфолио и консультации по вашему проекту. ";}s:7:"storage";a:7:{s:3:"key";s:6:"uslugi";s:11:"storage_key";s:9:"03.uslugi";s:8:"template";s:7:"default";s:17:"storage_timestamp";i:1752706696;s:8:"markdown";a:1:{s:0:"";a:1:{s:7:"default";i:1752706696;}}s:8:"children";a:3:{s:22:"01.vystavochnye-stendy";b:0;s:21:"02.naruzhnaya-reklama";b:0;s:19:"03.dizajn-intererov";b:0;}s:8:"checksum";s:32:"47af94b58f7bd177fc6cd803f7102e3c";}}
