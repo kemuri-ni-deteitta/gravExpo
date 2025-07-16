@@ -37,36 +37,47 @@
     {{ assets.js()|raw }}
 {% endblock %}
 </head>
-<body id="top" class="{% block body_classes %}{{ body_classes }}{% endblock %}">
-    <div id="page-wrapper">
-    {% block header %}
-        <section id="header" class="section">
-            <section class="container {{ grid_size }}">
-                <nav class="navbar">
-                    <section class="navbar-section logo">
-                        {% include 'partials/logo.html.twig' %}
-                    </section>
-                    <section class="navbar-section desktop-menu">
-                        <nav class="dropmenu animated">
-                        {% block header_navigation %}
-                            {% include 'partials/navigation.html.twig' %}
-                        {% endblock %}
-                        </nav>
-
-                        {% if config.plugins.login.enabled and grav.user.username %}
-                            <span class="login-status-wrapper"><i class="fa fa-user"></i> {% include 'partials/login-status.html.twig' ignore missing %}</span>
-                        {% endif %}
-                    </section>
+<body id="top" class="{% block body_classes %}{{ body_classes }}{% endblock %}" style="margin: 0 !important; padding: 0 !important; padding-top: 60px !important;">
+    
+    <!-- CUSTOM NAVBAR - COMPLETELY BYPASSING THEME SYSTEM -->
+    <div id="custom-header" style="position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; width: 100% !important; height: 60px !important; background: #ffffff !important; border-bottom: 1px solid #e0e0e0 !important; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important; z-index: 99999 !important; margin: 0 !important; padding: 0 !important;">
+        <div style="height: 60px !important; padding: 0 1.5rem !important; margin: 0 auto !important; max-width: 1200px !important; display: flex !important; align-items: center !important; justify-content: space-between !important;">
+            <!-- Logo Section -->
+            <div style="display: flex !important; align-items: center !important; height: 60px !important;">
+                {% set logo = theme_var('custom_logo') %}
+                {% if logo %}
+                    {% set logo_file = (logo|first).name %}
+                    <a href="{{ home_url }}" style="display: flex !important; align-items: center !important; text-decoration: none !important;">
+                        <img src="{{ url('theme://images/logo/' ~ logo_file) }}" alt="{{ site.title }}" style="max-height: 40px !important; width: auto !important; margin-right: 10px !important;" />
+                    </a>
+                {% endif %}
+            </div>
+            
+            <!-- Navigation Menu -->
+            <div style="display: flex !important; align-items: center !important; height: 60px !important;">
+                <nav style="display: flex !important; align-items: center !important; height: 60px !important;">
+                                         <ul style="display: flex !important; align-items: center !important; margin: 0 !important; padding: 0 !important; list-style: none !important; height: 60px !important; flex-wrap: nowrap !important; white-space: nowrap !important;">
+                        {% for p in pages.children.visible %}
+                            {% set active_page = (p.active or p.activeChild) ? 'active' : '' %}
+                                                         <li style="margin: 0 0.8rem !important; display: flex !important; align-items: center !important; height: 60px !important; white-space: nowrap !important; flex-shrink: 0 !important;">
+                                <a href="{{ p.url }}" style="display: flex !important; align-items: center !important; justify-content: center !important; padding: 0.3rem 0.6rem !important; text-decoration: none !important; color: #2c2c2c !important; font-weight: 500 !important; font-size: 0.9rem !important; transition: all 0.2s ease !important; border-radius: 2px !important; height: 28px !important; white-space: nowrap !important; min-width: fit-content !important; {% if active_page %}color: #ff6600 !important; background: rgba(255, 102, 0, 0.08) !important;{% endif %}" 
+                                   onmouseover="this.style.color='#ff6600'; this.style.background='rgba(255, 102, 0, 0.08)'" 
+                                   onmouseout="this.style.color='#2c2c2c'; this.style.background='transparent'; {% if active_page %}this.style.color='#ff6600'; this.style.background='rgba(255, 102, 0, 0.08)';{% endif %}">
+                                    {{ p.menu }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
                 </nav>
-            </section>
-        </section>
-        <div class="mobile-menu">
-            <div class="button_container" id="toggle">
-                <span class="top"></span>
-                <span class="middle"></span>
-                <span class="bottom"></span>
             </div>
         </div>
+    </div>
+    
+    <div id="page-wrapper" style="margin: 0 !important; padding: 0 !important;">
+    {% block header %}
+        <!-- HIDE ORIGINAL HEADER -->
+        <section id="header" class="section" style="display: none !important;">
+        </section>
     {% endblock %}
 
     {% block hero %}{% endblock %}

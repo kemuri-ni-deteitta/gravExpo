@@ -21,6 +21,17 @@ body {
   line-height: 1.6;
 }
 
+/* RESET BODY AND HTML TO REMOVE ANY TOP SPACING */
+html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+body {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
 /* COMPACT NAVBAR - 60px height instead of 100px */
 #header {
   background: var(--light-color) !important;
@@ -33,10 +44,84 @@ body {
   left: 0 !important;
   right: 0 !important;
   width: 100% !important;
-  z-index: 1000 !important;
+  z-index: 9999 !important;
   height: 60px !important;
   min-height: 60px !important;
   max-height: 60px !important;
+}
+
+/* Force header section to be properly positioned */
+#header.section {
+  margin: 0 !important;
+  padding: 0 !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  height: 60px !important;
+}
+
+/* NUCLEAR OPTION - FORCE HEADER TO TOP WITH MAXIMUM SPECIFICITY */
+html body #page-wrapper #header,
+html body #page-wrapper #header.section,
+html body.header-fixed #page-wrapper #header,
+html body.header-fixed #page-wrapper #header.section,
+html body.header-animated #page-wrapper #header,
+html body.header-animated #page-wrapper #header.section,
+html body.header-fixed.header-animated #page-wrapper #header,
+html body.header-fixed.header-animated #page-wrapper #header.section,
+html body.header-fixed.header-animated.header-dark #page-wrapper #header,
+html body.header-fixed.header-animated.header-dark #page-wrapper #header.section,
+html body.header-fixed.header-animated.header-dark.header-transparent #page-wrapper #header,
+html body.header-fixed.header-animated.header-dark.header-transparent #page-wrapper #header.section,
+html body.header-fixed.header-animated.header-dark.header-transparent.sticky-footer #page-wrapper #header,
+html body.header-fixed.header-animated.header-dark.header-transparent.sticky-footer #page-wrapper #header.section,
+html body #header,
+html body #header.section,
+html body.header-fixed #header,
+html body.header-fixed #header.section,
+html body.header-animated #header,
+html body.header-animated #header.section,
+html body.header-fixed.header-animated #header,
+html body.header-fixed.header-animated #header.section,
+html body.header-fixed.header-animated.header-dark #header,
+html body.header-fixed.header-animated.header-dark #header.section,
+html body.header-fixed.header-animated.header-dark.header-transparent #header,
+html body.header-fixed.header-animated.header-dark.header-transparent #header.section,
+html body.header-fixed.header-animated.header-dark.header-transparent.sticky-footer #header,
+html body.header-fixed.header-animated.header-dark.header-transparent.sticky-footer #header.section,
+#header.scrolled,
+#header.section.scrolled {
+  position: fixed !important;
+  top: 0px !important;
+  left: 0px !important;
+  right: 0px !important;
+  margin: 0px !important;
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+  padding: 0px !important;
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+  height: 60px !important;
+  min-height: 60px !important;
+  max-height: 60px !important;
+  transform: none !important;
+  translate: none !important;
+  background: var(--light-color) !important;
+  border-bottom: 1px solid #e0e0e0 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+  z-index: 9999 !important;
+  width: 100% !important;
+  max-width: none !important;
+}
+
+/* Force page wrapper to not interfere */
+#page-wrapper {
+  margin: 0 !important;
+  padding: 0 !important;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
 }
 
 /* Ensure body content doesn't hide under fixed header */
@@ -50,6 +135,8 @@ body.header-fixed #body-wrapper {
   margin: 0 auto !important;
   max-width: 1200px !important;
   height: 60px !important;
+  display: flex !important;
+  align-items: center !important;
 }
 
 /* Navbar flex layout */
@@ -62,6 +149,7 @@ body.header-fixed #body-wrapper {
   padding: 0 !important;
   margin: 0 !important;
   background: transparent !important;
+  position: relative !important;
 }
 
 /* Logo section */
@@ -97,6 +185,7 @@ body.header-fixed #body-wrapper {
   display: flex !important;
   align-items: center !important;
   height: 60px !important;
+
 }
 
 #header .navbar-section.desktop-menu .dropmenu {
@@ -108,6 +197,7 @@ body.header-fixed #body-wrapper {
 #header .navbar-section.desktop-menu .dropmenu > ul {
   display: flex !important;
   align-items: center !important;
+  justify-content: flex-start !important;
   margin: 0 !important;
   padding: 0 !important;
   list-style: none !important;
@@ -115,7 +205,8 @@ body.header-fixed #body-wrapper {
 }
 
 #header .navbar-section.desktop-menu .dropmenu > ul > li {
-  margin: 0 0.2rem !important;
+  margin: 0 0.8rem !important;
+  white-space: nowrap;
   position: relative !important;
   display: flex !important;
   align-items: center !important;
@@ -125,22 +216,23 @@ body.header-fixed #body-wrapper {
 #header .navbar-section.desktop-menu .dropmenu > ul > li > a {
   display: flex !important;
   align-items: center !important;
-  padding: 0.5rem 0.8rem !important;
+  justify-content: center !important;
+  padding: 0.3rem 0.6rem !important;
   text-decoration: none !important;
   color: var(--dark-color) !important;
   font-weight: 500 !important;
   font-size: 0.9rem !important;
   transition: all 0.2s ease !important;
   white-space: nowrap !important;
-  border-radius: 4px !important;
-  height: 36px !important;
+  border-radius: 2px !important;
+  height: 28px !important;
 }
 
 #header .navbar-section.desktop-menu .dropmenu > ul > li > a:hover,
 #header .navbar-section.desktop-menu .dropmenu > ul > li > a:focus,
 #header .navbar-section.desktop-menu .dropmenu > ul > li > a.active {
   color: var(--primary-color) !important;
-  background: rgba(255, 102, 0, 0.1) !important;
+  background: rgba(255, 102, 0, 0.08) !important;
 }
 
 /* Dropdown menus */
