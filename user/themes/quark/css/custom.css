@@ -312,33 +312,73 @@ body.header-fixed #body-wrapper {
 }
 
 #custom-header nav ul li ul {
-  /* Dropdown animation */
+  /* Smooth dropdown animation */
   opacity: 0;
   transform: translateY(-10px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease;
   pointer-events: none;
+  /* Increase the hoverable area slightly */
+  margin-top: 2px !important;
 }
 
-#custom-header nav ul li:hover ul {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
-  pointer-events: auto;
-}
-
-/* Improved dropdown arrow */
+/* Enhanced dropdown arrow with smooth rotation */
 #custom-header nav ul li span {
-  transition: transform 0.2s ease;
+  transition: transform 0.3s ease;
+  display: inline-block;
 }
 
 #custom-header nav ul li:hover span {
   transform: rotate(180deg);
 }
 
-/* Ensure dropdown stays visible when hovering over dropdown items */
-#custom-header nav ul li ul:hover {
-  display: block !important;
-  opacity: 1 !important;
-  transform: translateY(0) !important;
+/* Better dropdown item spacing and hover effects */
+#custom-header nav ul li ul li {
+  transition: background-color 0.15s ease;
+}
+
+#custom-header nav ul li ul li:hover {
+  background-color: #f8f9fa !important;
+}
+
+/* Improved hover area for main navigation items */
+#custom-header nav ul li > a {
+  position: relative;
+  z-index: 100002;
+}
+
+/* Create a larger hit area for dropdown navigation */
+#custom-header nav ul li ul {
+  /* Add some padding to the dropdown container for easier navigation */
+  padding-top: 8px !important;
+  margin-top: -4px !important;
+}
+
+/* Create an invisible bridge between menu item and dropdown for easier navigation */
+#custom-header nav ul li ul::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: -10px;
+  right: -10px;
+  height: 16px;
+  background: transparent;
+  z-index: 100000;
+}
+
+/* Smooth fade-in animation when dropdown becomes visible */
+#custom-header nav ul li ul[style*="display: block"] {
+  animation: fadeInDropdown 0.2s ease forwards;
+}
+
+@keyframes fadeInDropdown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Mobile dropdown fallback (if needed) */

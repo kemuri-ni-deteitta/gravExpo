@@ -124,8 +124,8 @@ class __TwigTemplate_58a766b00a7d3fc8f1fdba937db60305f7924ed980cc4bb70df332a3676
             $context["has_children"] = ($this->getAttribute($this->getAttribute($this->getAttribute($context["p"], "children", []), "visible", []), "count", []) > 0);
             // line 59
             echo "                            <li style=\"margin: 0 0.8rem !important; position: relative !important; display: flex !important; align-items: center !important; height: 60px !important; white-space: nowrap !important; flex-shrink: 0 !important;\" 
-                                onmouseenter=\"if(this.querySelector('ul')) this.querySelector('ul').style.display='block'\" 
-                                onmouseleave=\"if(this.querySelector('ul')) this.querySelector('ul').style.display='none'\">
+                                onmouseenter=\"showDropdown(this)\" 
+                                onmouseleave=\"hideDropdown(this)\">
                                 <a href=\"";
             // line 62
             echo twig_escape_filter($this->env, $this->getAttribute($context["p"], "url", []), "html", null, true);
@@ -243,6 +243,108 @@ class __TwigTemplate_58a766b00a7d3fc8f1fdba937db60305f7924ed980cc4bb70df332a3676
         $this->displayBlock('bottom', $context, $blocks);
         // line 133
         echo "
+<script>
+// Enhanced dropdown navigation with delays and better UX
+let dropdownTimeouts = new Map();
+
+function showDropdown(element) {
+    const dropdown = element.querySelector('ul');
+    if (!dropdown) return;
+    
+    // Clear any existing timeout for this element
+    if (dropdownTimeouts.has(element)) {
+        clearTimeout(dropdownTimeouts.get(element));
+        dropdownTimeouts.delete(element);
+    }
+    
+    // Show dropdown immediately
+    dropdown.style.display = 'block';
+    dropdown.style.opacity = '1';
+    dropdown.style.transform = 'translateY(0)';
+    dropdown.style.pointerEvents = 'auto';
+    
+    // Also add hover listeners to the dropdown itself
+    dropdown.addEventListener('mouseenter', function() {
+        if (dropdownTimeouts.has(element)) {
+            clearTimeout(dropdownTimeouts.get(element));
+            dropdownTimeouts.delete(element);
+        }
+    });
+    
+    dropdown.addEventListener('mouseleave', function() {
+        hideDropdown(element);
+    });
+}
+
+function hideDropdown(element) {
+    const dropdown = element.querySelector('ul');
+    if (!dropdown) return;
+    
+    // Clear any existing timeout
+    if (dropdownTimeouts.has(element)) {
+        clearTimeout(dropdownTimeouts.get(element));
+    }
+    
+    // Set a delay before hiding (300ms for comfortable navigation)
+    const timeout = setTimeout(function() {
+        dropdown.style.display = 'none';
+        dropdown.style.opacity = '0';
+        dropdown.style.transform = 'translateY(-10px)';
+        dropdown.style.pointerEvents = 'none';
+        dropdownTimeouts.delete(element);
+    }, 300);
+    
+    dropdownTimeouts.set(element, timeout);
+}
+
+// Enhanced hover behavior for better UX
+document.addEventListener('DOMContentLoaded', function() {
+    const navItems = document.querySelectorAll('#custom-header nav ul li');
+    
+    navItems.forEach(function(item) {
+        const dropdown = item.querySelector('ul');
+        if (!dropdown) return;
+        
+        // Create an invisible hover area for better navigation
+        const hoverArea = document.createElement('div');
+        hoverArea.style.cssText = `
+            position: absolute !important;
+            top: -10px !important;
+            left: -10px !important;
+            right: -10px !important;
+            bottom: -10px !important;
+            z-index: 100000 !important;
+            pointer-events: none !important;
+        `;
+        item.style.position = 'relative';
+        item.appendChild(hoverArea);
+        
+        // Improve dropdown positioning and styling
+        dropdown.style.cssText += `
+            transition: opacity 0.2s ease, transform 0.2s ease !important;
+        `;
+    });
+});
+
+// Keyboard navigation support
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        // Close all dropdowns on Escape key
+        dropdownTimeouts.forEach(function(timeout, element) {
+            clearTimeout(timeout);
+            const dropdown = element.querySelector('ul');
+            if (dropdown) {
+                dropdown.style.display = 'none';
+                dropdown.style.opacity = '0';
+                dropdown.style.transform = 'translateY(-10px)';
+                dropdown.style.pointerEvents = 'none';
+            }
+        });
+        dropdownTimeouts.clear();
+    }
+});
+</script>
+
 </body>
 </html>
 ";
@@ -463,7 +565,7 @@ class __TwigTemplate_58a766b00a7d3fc8f1fdba937db60305f7924ed980cc4bb70df332a3676
 
     public function getDebugInfo()
     {
-        return array (  448 => 131,  445 => 130,  438 => 125,  436 => 124,  432 => 122,  430 => 121,  425 => 118,  422 => 117,  418 => 115,  415 => 114,  412 => 113,  408 => 104,  397 => 103,  394 => 102,  385 => 105,  383 => 102,  379 => 101,  376 => 100,  373 => 99,  368 => 96,  361 => 91,  358 => 90,  352 => 40,  345 => 37,  340 => 36,  337 => 35,  327 => 32,  324 => 31,  321 => 30,  318 => 29,  313 => 26,  310 => 25,  307 => 24,  302 => 23,  297 => 22,  294 => 21,  291 => 20,  284 => 17,  280 => 16,  277 => 15,  275 => 14,  264 => 10,  261 => 9,  258 => 8,  245 => 133,  243 => 130,  240 => 129,  238 => 117,  235 => 116,  233 => 113,  227 => 109,  225 => 99,  221 => 97,  219 => 96,  216 => 95,  214 => 90,  205 => 83,  198 => 81,  194 => 79,  184 => 75,  178 => 74,  169 => 72,  166 => 71,  163 => 70,  159 => 69,  156 => 68,  154 => 67,  151 => 66,  146 => 65,  140 => 64,  131 => 62,  126 => 59,  123 => 58,  120 => 57,  116 => 56,  103 => 48,  99 => 47,  89 => 40,  86 => 39,  84 => 35,  81 => 34,  79 => 29,  76 => 28,  74 => 20,  71 => 19,  69 => 8,  64 => 6,  61 => 5,  59 => 3,  57 => 2,  55 => 1,  25 => 4,);
+        return array (  550 => 131,  547 => 130,  540 => 125,  538 => 124,  534 => 122,  532 => 121,  527 => 118,  524 => 117,  520 => 115,  517 => 114,  514 => 113,  510 => 104,  499 => 103,  496 => 102,  487 => 105,  485 => 102,  481 => 101,  478 => 100,  475 => 99,  470 => 96,  463 => 91,  460 => 90,  454 => 40,  447 => 37,  442 => 36,  439 => 35,  429 => 32,  426 => 31,  423 => 30,  420 => 29,  415 => 26,  412 => 25,  409 => 24,  404 => 23,  399 => 22,  396 => 21,  393 => 20,  386 => 17,  382 => 16,  379 => 15,  377 => 14,  366 => 10,  363 => 9,  360 => 8,  245 => 133,  243 => 130,  240 => 129,  238 => 117,  235 => 116,  233 => 113,  227 => 109,  225 => 99,  221 => 97,  219 => 96,  216 => 95,  214 => 90,  205 => 83,  198 => 81,  194 => 79,  184 => 75,  178 => 74,  169 => 72,  166 => 71,  163 => 70,  159 => 69,  156 => 68,  154 => 67,  151 => 66,  146 => 65,  140 => 64,  131 => 62,  126 => 59,  123 => 58,  120 => 57,  116 => 56,  103 => 48,  99 => 47,  89 => 40,  86 => 39,  84 => 35,  81 => 34,  79 => 29,  76 => 28,  74 => 20,  71 => 19,  69 => 8,  64 => 6,  61 => 5,  59 => 3,  57 => 2,  55 => 1,  25 => 4,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -535,8 +637,8 @@ class __TwigTemplate_58a766b00a7d3fc8f1fdba937db60305f7924ed980cc4bb70df332a3676
                             {% set active_page = (p.active or p.activeChild) ? 'active' : '' %}
                             {% set has_children = p.children.visible.count > 0 %}
                             <li style=\"margin: 0 0.8rem !important; position: relative !important; display: flex !important; align-items: center !important; height: 60px !important; white-space: nowrap !important; flex-shrink: 0 !important;\" 
-                                onmouseenter=\"if(this.querySelector('ul')) this.querySelector('ul').style.display='block'\" 
-                                onmouseleave=\"if(this.querySelector('ul')) this.querySelector('ul').style.display='none'\">
+                                onmouseenter=\"showDropdown(this)\" 
+                                onmouseleave=\"hideDropdown(this)\">
                                 <a href=\"{{ p.url }}\" style=\"display: flex !important; align-items: center !important; justify-content: center !important; padding: 0.3rem 0.6rem !important; text-decoration: none !important; color: #2c2c2c !important; font-weight: 500 !important; font-size: 0.9rem !important; transition: all 0.2s ease !important; border-radius: 2px !important; height: 28px !important; white-space: nowrap !important; min-width: fit-content !important; {% if active_page %}color: #ff6600 !important; background: rgba(255, 102, 0, 0.08) !important;{% endif %}\" 
                                    onmouseover=\"this.style.color='#ff6600'; this.style.background='rgba(255, 102, 0, 0.08)'\" 
                                    onmouseout=\"this.style.color='#2c2c2c'; this.style.background='transparent'; {% if active_page %}this.style.color='#ff6600'; this.style.background='rgba(255, 102, 0, 0.08)';{% endif %}\">
@@ -608,6 +710,108 @@ class __TwigTemplate_58a766b00a7d3fc8f1fdba937db60305f7924ed980cc4bb70df332a3676
 {% block bottom %}
     {{ assets.js('bottom')|raw }}
 {% endblock %}
+
+<script>
+// Enhanced dropdown navigation with delays and better UX
+let dropdownTimeouts = new Map();
+
+function showDropdown(element) {
+    const dropdown = element.querySelector('ul');
+    if (!dropdown) return;
+    
+    // Clear any existing timeout for this element
+    if (dropdownTimeouts.has(element)) {
+        clearTimeout(dropdownTimeouts.get(element));
+        dropdownTimeouts.delete(element);
+    }
+    
+    // Show dropdown immediately
+    dropdown.style.display = 'block';
+    dropdown.style.opacity = '1';
+    dropdown.style.transform = 'translateY(0)';
+    dropdown.style.pointerEvents = 'auto';
+    
+    // Also add hover listeners to the dropdown itself
+    dropdown.addEventListener('mouseenter', function() {
+        if (dropdownTimeouts.has(element)) {
+            clearTimeout(dropdownTimeouts.get(element));
+            dropdownTimeouts.delete(element);
+        }
+    });
+    
+    dropdown.addEventListener('mouseleave', function() {
+        hideDropdown(element);
+    });
+}
+
+function hideDropdown(element) {
+    const dropdown = element.querySelector('ul');
+    if (!dropdown) return;
+    
+    // Clear any existing timeout
+    if (dropdownTimeouts.has(element)) {
+        clearTimeout(dropdownTimeouts.get(element));
+    }
+    
+    // Set a delay before hiding (300ms for comfortable navigation)
+    const timeout = setTimeout(function() {
+        dropdown.style.display = 'none';
+        dropdown.style.opacity = '0';
+        dropdown.style.transform = 'translateY(-10px)';
+        dropdown.style.pointerEvents = 'none';
+        dropdownTimeouts.delete(element);
+    }, 300);
+    
+    dropdownTimeouts.set(element, timeout);
+}
+
+// Enhanced hover behavior for better UX
+document.addEventListener('DOMContentLoaded', function() {
+    const navItems = document.querySelectorAll('#custom-header nav ul li');
+    
+    navItems.forEach(function(item) {
+        const dropdown = item.querySelector('ul');
+        if (!dropdown) return;
+        
+        // Create an invisible hover area for better navigation
+        const hoverArea = document.createElement('div');
+        hoverArea.style.cssText = `
+            position: absolute !important;
+            top: -10px !important;
+            left: -10px !important;
+            right: -10px !important;
+            bottom: -10px !important;
+            z-index: 100000 !important;
+            pointer-events: none !important;
+        `;
+        item.style.position = 'relative';
+        item.appendChild(hoverArea);
+        
+        // Improve dropdown positioning and styling
+        dropdown.style.cssText += `
+            transition: opacity 0.2s ease, transform 0.2s ease !important;
+        `;
+    });
+});
+
+// Keyboard navigation support
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        // Close all dropdowns on Escape key
+        dropdownTimeouts.forEach(function(timeout, element) {
+            clearTimeout(timeout);
+            const dropdown = element.querySelector('ul');
+            if (dropdown) {
+                dropdown.style.display = 'none';
+                dropdown.style.opacity = '0';
+                dropdown.style.transform = 'translateY(-10px)';
+                dropdown.style.pointerEvents = 'none';
+            }
+        });
+        dropdownTimeouts.clear();
+    }
+});
+</script>
 
 </body>
 </html>
