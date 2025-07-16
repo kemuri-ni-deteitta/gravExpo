@@ -122,7 +122,7 @@ class __TwigTemplate_58a766b00a7d3fc8f1fdba937db60305f7924ed980cc4bb70df332a3676
             <!-- Navigation Menu -->
             <div style=\"display: flex !important; align-items: center !important; height: 60px !important;\">
                 <nav style=\"display: flex !important; align-items: center !important; height: 60px !important;\">
-                    <ul style=\"display: flex !important; align-items: center !important; margin: 0 !important; padding: 0 !important; list-style: none !important; height: 60px !important;\">
+                                         <ul style=\"display: flex !important; align-items: center !important; margin: 0 !important; padding: 0 !important; list-style: none !important; height: 60px !important; flex-wrap: nowrap !important; white-space: nowrap !important;\">
                         ";
         // line 60
         $context['_parent'] = $context;
@@ -132,11 +132,11 @@ class __TwigTemplate_58a766b00a7d3fc8f1fdba937db60305f7924ed980cc4bb70df332a3676
             echo "                            ";
             $context["active_page"] = ((($this->getAttribute($context["p"], "active", []) || $this->getAttribute($context["p"], "activeChild", []))) ? ("active") : (""));
             // line 62
-            echo "                            <li style=\"margin: 0 0.8rem !important; display: flex !important; align-items: center !important; height: 60px !important;\">
+            echo "                                                         <li style=\"margin: 0 0.8rem !important; display: flex !important; align-items: center !important; height: 60px !important; white-space: nowrap !important; flex-shrink: 0 !important;\">
                                 <a href=\"";
             // line 63
             echo twig_escape_filter($this->env, $this->getAttribute($context["p"], "url", []), "html", null, true);
-            echo "\" style=\"display: flex !important; align-items: center !important; padding: 0.3rem 0.6rem !important; text-decoration: none !important; color: #2c2c2c !important; font-weight: 500 !important; font-size: 0.9rem !important; transition: all 0.2s ease !important; border-radius: 2px !important; height: 28px !important; ";
+            echo "\" style=\"display: flex !important; align-items: center !important; justify-content: center !important; padding: 0.3rem 0.6rem !important; text-decoration: none !important; color: #2c2c2c !important; font-weight: 500 !important; font-size: 0.9rem !important; transition: all 0.2s ease !important; border-radius: 2px !important; height: 28px !important; white-space: nowrap !important; min-width: fit-content !important; ";
             if (($context["active_page"] ?? null)) {
                 echo "color: #ff6600 !important; background: rgba(255, 102, 0, 0.08) !important;";
             }
@@ -492,11 +492,11 @@ class __TwigTemplate_58a766b00a7d3fc8f1fdba937db60305f7924ed980cc4bb70df332a3676
             <!-- Navigation Menu -->
             <div style=\"display: flex !important; align-items: center !important; height: 60px !important;\">
                 <nav style=\"display: flex !important; align-items: center !important; height: 60px !important;\">
-                    <ul style=\"display: flex !important; align-items: center !important; margin: 0 !important; padding: 0 !important; list-style: none !important; height: 60px !important;\">
+                                         <ul style=\"display: flex !important; align-items: center !important; margin: 0 !important; padding: 0 !important; list-style: none !important; height: 60px !important; flex-wrap: nowrap !important; white-space: nowrap !important;\">
                         {% for p in pages.children.visible %}
                             {% set active_page = (p.active or p.activeChild) ? 'active' : '' %}
-                            <li style=\"margin: 0 0.8rem !important; display: flex !important; align-items: center !important; height: 60px !important;\">
-                                <a href=\"{{ p.url }}\" style=\"display: flex !important; align-items: center !important; padding: 0.3rem 0.6rem !important; text-decoration: none !important; color: #2c2c2c !important; font-weight: 500 !important; font-size: 0.9rem !important; transition: all 0.2s ease !important; border-radius: 2px !important; height: 28px !important; {% if active_page %}color: #ff6600 !important; background: rgba(255, 102, 0, 0.08) !important;{% endif %}\" 
+                                                         <li style=\"margin: 0 0.8rem !important; display: flex !important; align-items: center !important; height: 60px !important; white-space: nowrap !important; flex-shrink: 0 !important;\">
+                                <a href=\"{{ p.url }}\" style=\"display: flex !important; align-items: center !important; justify-content: center !important; padding: 0.3rem 0.6rem !important; text-decoration: none !important; color: #2c2c2c !important; font-weight: 500 !important; font-size: 0.9rem !important; transition: all 0.2s ease !important; border-radius: 2px !important; height: 28px !important; white-space: nowrap !important; min-width: fit-content !important; {% if active_page %}color: #ff6600 !important; background: rgba(255, 102, 0, 0.08) !important;{% endif %}\" 
                                    onmouseover=\"this.style.color='#ff6600'; this.style.background='rgba(255, 102, 0, 0.08)'\" 
                                    onmouseout=\"this.style.color='#2c2c2c'; this.style.background='transparent'; {% if active_page %}this.style.color='#ff6600'; this.style.background='rgba(255, 102, 0, 0.08)';{% endif %}\">
                                     {{ p.menu }}
