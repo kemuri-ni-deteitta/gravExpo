@@ -41,17 +41,13 @@
     
     <!-- CUSTOM NAVBAR - COMPLETELY BYPASSING THEME SYSTEM -->
     <div id="custom-header" style="position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; width: 100% !important; height: 60px !important; background: #ffffff !important; border-bottom: 1px solid #e0e0e0 !important; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important; z-index: 99999 !important; margin: 0 !important; padding: 0 !important;">
-        <div style="height: 60px !important; padding: 0 1.5rem !important; margin: 0 auto !important; max-width: 1200px !important; display: flex !important; align-items: center !important; justify-content: space-between !important;">
-            <!-- Logo Section -->
-            <div style="display: flex !important; align-items: center !important; height: 60px !important;">
-                {% set logo = theme_var('custom_logo') %}
-                {% if logo %}
-                    {% set logo_file = (logo|first).name %}
-                    <a href="{{ home_url }}" style="display: flex !important; align-items: center !important; text-decoration: none !important;">
-                        <img src="{{ url('theme://images/logo/' ~ logo_file) }}" alt="{{ site.title }}" style="max-height: 40px !important; width: auto !important; margin-right: 10px !important;" />
-                    </a>
-                {% endif %}
-            </div>
+                          <div style="height: 60px !important; padding: 0 1.5rem 0 0 !important; margin: 0 auto !important; max-width: 1200px !important; display: flex !important; align-items: center !important; justify-content: space-between !important;">
+             <!-- Logo Section - ABSOLUTE LEFT POSITIONING -->
+             <div style="position: absolute !important; left: 15px !important; top: 0 !important; display: flex !important; align-items: center !important; height: 60px !important; z-index: 100000 !important;">
+                 <a href="{{ home_url }}" style="display: flex !important; align-items: center !important; text-decoration: none !important;">
+                     <img src="{{ url('theme://images/logo/logo.gif') }}" alt="{{ site.title }}" style="height: 50px !important; width: auto !important; margin-right: 25px !important;" />
+                 </a>
+             </div>
             
             <!-- Navigation Menu -->
             <div style="display: flex !important; align-items: center !important; height: 60px !important;">

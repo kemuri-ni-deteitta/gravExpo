@@ -91,50 +91,38 @@ class __TwigTemplate_58a766b00a7d3fc8f1fdba937db60305f7924ed980cc4bb70df332a3676
     
     <!-- CUSTOM NAVBAR - COMPLETELY BYPASSING THEME SYSTEM -->
     <div id=\"custom-header\" style=\"position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; width: 100% !important; height: 60px !important; background: #ffffff !important; border-bottom: 1px solid #e0e0e0 !important; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important; z-index: 99999 !important; margin: 0 !important; padding: 0 !important;\">
-        <div style=\"height: 60px !important; padding: 0 1.5rem !important; margin: 0 auto !important; max-width: 1200px !important; display: flex !important; align-items: center !important; justify-content: space-between !important;\">
-            <!-- Logo Section -->
-            <div style=\"display: flex !important; align-items: center !important; height: 60px !important;\">
-                ";
+                          <div style=\"height: 60px !important; padding: 0 1.5rem 0 0 !important; margin: 0 auto !important; max-width: 1200px !important; display: flex !important; align-items: center !important; justify-content: space-between !important;\">
+             <!-- Logo Section - ABSOLUTE LEFT POSITIONING -->
+             <div style=\"position: absolute !important; left: 15px !important; top: 0 !important; display: flex !important; align-items: center !important; height: 60px !important; z-index: 100000 !important;\">
+                 <a href=\"";
         // line 47
-        $context["logo"] = $this->env->getExtension('Grav\Common\Twig\Extension\GravExtension')->themeVarFunc($context, "custom_logo");
+        echo twig_escape_filter($this->env, ($context["home_url"] ?? null), "html", null, true);
+        echo "\" style=\"display: flex !important; align-items: center !important; text-decoration: none !important;\">
+                     <img src=\"";
         // line 48
-        echo "                ";
-        if (($context["logo"] ?? null)) {
-            // line 49
-            echo "                    ";
-            $context["logo_file"] = $this->getAttribute(twig_first($this->env, ($context["logo"] ?? null)), "name", []);
-            // line 50
-            echo "                    <a href=\"";
-            echo twig_escape_filter($this->env, ($context["home_url"] ?? null), "html", null, true);
-            echo "\" style=\"display: flex !important; align-items: center !important; text-decoration: none !important;\">
-                        <img src=\"";
-            // line 51
-            echo twig_escape_filter($this->env, $this->env->getExtension('Grav\Common\Twig\Extension\GravExtension')->urlFunc(("theme://images/logo/" . ($context["logo_file"] ?? null))), "html", null, true);
-            echo "\" alt=\"";
-            echo twig_escape_filter($this->env, $this->getAttribute(($context["site"] ?? null), "title", []), "html", null, true);
-            echo "\" style=\"max-height: 40px !important; width: auto !important; margin-right: 10px !important;\" />
-                    </a>
-                ";
-        }
-        // line 54
-        echo "            </div>
+        echo twig_escape_filter($this->env, $this->env->getExtension('Grav\Common\Twig\Extension\GravExtension')->urlFunc("theme://images/logo/logo.gif"), "html", null, true);
+        echo "\" alt=\"";
+        echo twig_escape_filter($this->env, $this->getAttribute(($context["site"] ?? null), "title", []), "html", null, true);
+        echo "\" style=\"height: 50px !important; width: auto !important; margin-right: 25px !important;\" />
+                 </a>
+             </div>
             
             <!-- Navigation Menu -->
             <div style=\"display: flex !important; align-items: center !important; height: 60px !important;\">
                 <nav style=\"display: flex !important; align-items: center !important; height: 60px !important;\">
                                          <ul style=\"display: flex !important; align-items: center !important; margin: 0 !important; padding: 0 !important; list-style: none !important; height: 60px !important; flex-wrap: nowrap !important; white-space: nowrap !important;\">
                         ";
-        // line 60
+        // line 56
         $context['_parent'] = $context;
         $context['_seq'] = twig_ensure_traversable($this->getAttribute($this->getAttribute(($context["pages"] ?? null), "children", []), "visible", []));
         foreach ($context['_seq'] as $context["_key"] => $context["p"]) {
-            // line 61
+            // line 57
             echo "                            ";
             $context["active_page"] = ((($this->getAttribute($context["p"], "active", []) || $this->getAttribute($context["p"], "activeChild", []))) ? ("active") : (""));
-            // line 62
+            // line 58
             echo "                                                         <li style=\"margin: 0 0.8rem !important; display: flex !important; align-items: center !important; height: 60px !important; white-space: nowrap !important; flex-shrink: 0 !important;\">
                                 <a href=\"";
-            // line 63
+            // line 59
             echo twig_escape_filter($this->env, $this->getAttribute($context["p"], "url", []), "html", null, true);
             echo "\" style=\"display: flex !important; align-items: center !important; justify-content: center !important; padding: 0.3rem 0.6rem !important; text-decoration: none !important; color: #2c2c2c !important; font-weight: 500 !important; font-size: 0.9rem !important; transition: all 0.2s ease !important; border-radius: 2px !important; height: 28px !important; white-space: nowrap !important; min-width: fit-content !important; ";
             if (($context["active_page"] ?? null)) {
@@ -143,13 +131,13 @@ class __TwigTemplate_58a766b00a7d3fc8f1fdba937db60305f7924ed980cc4bb70df332a3676
             echo "\" 
                                    onmouseover=\"this.style.color='#ff6600'; this.style.background='rgba(255, 102, 0, 0.08)'\" 
                                    onmouseout=\"this.style.color='#2c2c2c'; this.style.background='transparent'; ";
-            // line 65
+            // line 61
             if (($context["active_page"] ?? null)) {
                 echo "this.style.color='#ff6600'; this.style.background='rgba(255, 102, 0, 0.08)';";
             }
             echo "\">
                                     ";
-            // line 66
+            // line 62
             echo twig_escape_filter($this->env, $this->getAttribute($context["p"], "menu", []), "html", null, true);
             echo "
                                 </a>
@@ -159,7 +147,7 @@ class __TwigTemplate_58a766b00a7d3fc8f1fdba937db60305f7924ed980cc4bb70df332a3676
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['p'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 70
+        // line 66
         echo "                    </ul>
                 </nav>
             </div>
@@ -168,38 +156,38 @@ class __TwigTemplate_58a766b00a7d3fc8f1fdba937db60305f7924ed980cc4bb70df332a3676
     
     <div id=\"page-wrapper\" style=\"margin: 0 !important; padding: 0 !important;\">
     ";
-        // line 77
+        // line 73
         $this->displayBlock('header', $context, $blocks);
-        // line 82
+        // line 78
         echo "
     ";
-        // line 83
+        // line 79
         $this->displayBlock('hero', $context, $blocks);
-        // line 84
+        // line 80
         echo "
         <section id=\"start\">
         ";
-        // line 86
+        // line 82
         $this->displayBlock('body', $context, $blocks);
-        // line 96
+        // line 92
         echo "        </section>
 
     </div>
 
     ";
-        // line 100
+        // line 96
         $this->displayBlock('footer', $context, $blocks);
-        // line 103
+        // line 99
         echo "
     ";
-        // line 104
+        // line 100
         $this->displayBlock('mobile', $context, $blocks);
-        // line 116
+        // line 112
         echo "
 ";
-        // line 117
+        // line 113
         $this->displayBlock('bottom', $context, $blocks);
-        // line 120
+        // line 116
         echo "
 </body>
 </html>
@@ -312,34 +300,34 @@ class __TwigTemplate_58a766b00a7d3fc8f1fdba937db60305f7924ed980cc4bb70df332a3676
         echo twig_escape_filter($this->env, ($context["body_classes"] ?? null), "html", null, true);
     }
 
-    // line 77
+    // line 73
     public function block_header($context, array $blocks = [])
     {
-        // line 78
+        // line 74
         echo "        <!-- HIDE ORIGINAL HEADER -->
         <section id=\"header\" class=\"section\" style=\"display: none !important;\">
         </section>
     ";
     }
 
-    // line 83
+    // line 79
     public function block_hero($context, array $blocks = [])
     {
     }
 
-    // line 86
+    // line 82
     public function block_body($context, array $blocks = [])
     {
-        // line 87
+        // line 83
         echo "            <section id=\"body-wrapper\" class=\"section\">
                 <section class=\"container ";
-        // line 88
+        // line 84
         echo twig_escape_filter($this->env, ($context["grid_size"] ?? null), "html", null, true);
         echo "\">
                     ";
-        // line 89
+        // line 85
         $this->displayBlock('messages', $context, $blocks);
-        // line 92
+        // line 88
         echo "                    ";
         $this->displayBlock("content_surround", $context, $blocks);
         echo "
@@ -348,61 +336,61 @@ class __TwigTemplate_58a766b00a7d3fc8f1fdba937db60305f7924ed980cc4bb70df332a3676
         ";
     }
 
-    // line 89
+    // line 85
     public function block_messages($context, array $blocks = [])
     {
-        // line 90
+        // line 86
         echo "                        ";
         $__internal_f607aeef2c31a95a7bf963452dff024ffaeb6aafbe4603f9ca3bec57be8633f4 = null;
         try {
-            $__internal_f607aeef2c31a95a7bf963452dff024ffaeb6aafbe4603f9ca3bec57be8633f4 =             $this->loadTemplate("partials/messages.html.twig", "partials/base.html.twig", 90);
+            $__internal_f607aeef2c31a95a7bf963452dff024ffaeb6aafbe4603f9ca3bec57be8633f4 =             $this->loadTemplate("partials/messages.html.twig", "partials/base.html.twig", 86);
         } catch (LoaderError $e) {
             // ignore missing template
         }
         if ($__internal_f607aeef2c31a95a7bf963452dff024ffaeb6aafbe4603f9ca3bec57be8633f4) {
             $__internal_f607aeef2c31a95a7bf963452dff024ffaeb6aafbe4603f9ca3bec57be8633f4->display($context);
         }
-        // line 91
+        // line 87
         echo "                    ";
     }
 
-    // line 100
+    // line 96
     public function block_footer($context, array $blocks = [])
     {
-        // line 101
+        // line 97
         echo "        ";
-        $this->loadTemplate("partials/footer.html.twig", "partials/base.html.twig", 101)->display($context);
-        // line 102
+        $this->loadTemplate("partials/footer.html.twig", "partials/base.html.twig", 97)->display($context);
+        // line 98
         echo "    ";
     }
 
-    // line 104
+    // line 100
     public function block_mobile($context, array $blocks = [])
     {
-        // line 105
+        // line 101
         echo "    <div class=\"mobile-container\">
         <div class=\"overlay\" id=\"overlay\">
             <div class=\"mobile-logo\">
                 ";
-        // line 108
-        $this->loadTemplate("partials/logo.html.twig", "partials/base.html.twig", 108)->display(twig_array_merge($context, ["mobile" => true]));
-        // line 109
+        // line 104
+        $this->loadTemplate("partials/logo.html.twig", "partials/base.html.twig", 104)->display(twig_array_merge($context, ["mobile" => true]));
+        // line 105
         echo "            </div>
             <nav class=\"overlay-menu\">
                 ";
-        // line 111
-        $this->loadTemplate("partials/navigation.html.twig", "partials/base.html.twig", 111)->display(twig_array_merge($context, ["tree" => true]));
-        // line 112
+        // line 107
+        $this->loadTemplate("partials/navigation.html.twig", "partials/base.html.twig", 107)->display(twig_array_merge($context, ["tree" => true]));
+        // line 108
         echo "            </nav>
         </div>
     </div>
     ";
     }
 
-    // line 117
+    // line 113
     public function block_bottom($context, array $blocks = [])
     {
-        // line 118
+        // line 114
         echo "    ";
         echo $this->getAttribute(($context["assets"] ?? null), "js", [0 => "bottom"], "method");
         echo "
@@ -421,7 +409,7 @@ class __TwigTemplate_58a766b00a7d3fc8f1fdba937db60305f7924ed980cc4bb70df332a3676
 
     public function getDebugInfo()
     {
-        return array (  406 => 118,  403 => 117,  396 => 112,  394 => 111,  390 => 109,  388 => 108,  383 => 105,  380 => 104,  376 => 102,  373 => 101,  370 => 100,  366 => 91,  355 => 90,  352 => 89,  343 => 92,  341 => 89,  337 => 88,  334 => 87,  331 => 86,  326 => 83,  319 => 78,  316 => 77,  310 => 40,  303 => 37,  298 => 36,  295 => 35,  285 => 32,  282 => 31,  279 => 30,  276 => 29,  271 => 26,  268 => 25,  265 => 24,  260 => 23,  255 => 22,  252 => 21,  249 => 20,  242 => 17,  238 => 16,  235 => 15,  233 => 14,  222 => 10,  219 => 9,  216 => 8,  203 => 120,  201 => 117,  198 => 116,  196 => 104,  193 => 103,  191 => 100,  185 => 96,  183 => 86,  179 => 84,  177 => 83,  174 => 82,  172 => 77,  163 => 70,  153 => 66,  147 => 65,  138 => 63,  135 => 62,  132 => 61,  128 => 60,  120 => 54,  112 => 51,  107 => 50,  104 => 49,  101 => 48,  99 => 47,  89 => 40,  86 => 39,  84 => 35,  81 => 34,  79 => 29,  76 => 28,  74 => 20,  71 => 19,  69 => 8,  64 => 6,  61 => 5,  59 => 3,  57 => 2,  55 => 1,  25 => 4,);
+        return array (  394 => 114,  391 => 113,  384 => 108,  382 => 107,  378 => 105,  376 => 104,  371 => 101,  368 => 100,  364 => 98,  361 => 97,  358 => 96,  354 => 87,  343 => 86,  340 => 85,  331 => 88,  329 => 85,  325 => 84,  322 => 83,  319 => 82,  314 => 79,  307 => 74,  304 => 73,  298 => 40,  291 => 37,  286 => 36,  283 => 35,  273 => 32,  270 => 31,  267 => 30,  264 => 29,  259 => 26,  256 => 25,  253 => 24,  248 => 23,  243 => 22,  240 => 21,  237 => 20,  230 => 17,  226 => 16,  223 => 15,  221 => 14,  210 => 10,  207 => 9,  204 => 8,  191 => 116,  189 => 113,  186 => 112,  184 => 100,  181 => 99,  179 => 96,  173 => 92,  171 => 82,  167 => 80,  165 => 79,  162 => 78,  160 => 73,  151 => 66,  141 => 62,  135 => 61,  126 => 59,  123 => 58,  120 => 57,  116 => 56,  103 => 48,  99 => 47,  89 => 40,  86 => 39,  84 => 35,  81 => 34,  79 => 29,  76 => 28,  74 => 20,  71 => 19,  69 => 8,  64 => 6,  61 => 5,  59 => 3,  57 => 2,  55 => 1,  25 => 4,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -477,17 +465,13 @@ class __TwigTemplate_58a766b00a7d3fc8f1fdba937db60305f7924ed980cc4bb70df332a3676
     
     <!-- CUSTOM NAVBAR - COMPLETELY BYPASSING THEME SYSTEM -->
     <div id=\"custom-header\" style=\"position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; width: 100% !important; height: 60px !important; background: #ffffff !important; border-bottom: 1px solid #e0e0e0 !important; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important; z-index: 99999 !important; margin: 0 !important; padding: 0 !important;\">
-        <div style=\"height: 60px !important; padding: 0 1.5rem !important; margin: 0 auto !important; max-width: 1200px !important; display: flex !important; align-items: center !important; justify-content: space-between !important;\">
-            <!-- Logo Section -->
-            <div style=\"display: flex !important; align-items: center !important; height: 60px !important;\">
-                {% set logo = theme_var('custom_logo') %}
-                {% if logo %}
-                    {% set logo_file = (logo|first).name %}
-                    <a href=\"{{ home_url }}\" style=\"display: flex !important; align-items: center !important; text-decoration: none !important;\">
-                        <img src=\"{{ url('theme://images/logo/' ~ logo_file) }}\" alt=\"{{ site.title }}\" style=\"max-height: 40px !important; width: auto !important; margin-right: 10px !important;\" />
-                    </a>
-                {% endif %}
-            </div>
+                          <div style=\"height: 60px !important; padding: 0 1.5rem 0 0 !important; margin: 0 auto !important; max-width: 1200px !important; display: flex !important; align-items: center !important; justify-content: space-between !important;\">
+             <!-- Logo Section - ABSOLUTE LEFT POSITIONING -->
+             <div style=\"position: absolute !important; left: 15px !important; top: 0 !important; display: flex !important; align-items: center !important; height: 60px !important; z-index: 100000 !important;\">
+                 <a href=\"{{ home_url }}\" style=\"display: flex !important; align-items: center !important; text-decoration: none !important;\">
+                     <img src=\"{{ url('theme://images/logo/logo.gif') }}\" alt=\"{{ site.title }}\" style=\"height: 50px !important; width: auto !important; margin-right: 25px !important;\" />
+                 </a>
+             </div>
             
             <!-- Navigation Menu -->
             <div style=\"display: flex !important; align-items: center !important; height: 60px !important;\">
