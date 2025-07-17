@@ -1,8 +1,8 @@
 <?php
 return [
     '@class' => 'Grav\\Common\\Config\\CompiledConfig',
-    'timestamp' => 1752709949,
-    'checksum' => '0d4215e836aa4fa77fe00107041847d1',
+    'timestamp' => 1752715582,
+    'checksum' => '6758b7bfab99024ce2fb379bad21769f',
     'files' => [
         'user/config' => [
             'media' => [
@@ -27,7 +27,7 @@ return [
             ],
             'system' => [
                 'file' => 'user/config/system.yaml',
-                'modified' => 1752709402
+                'modified' => 1752714640
             ],
             'versions' => [
                 'file' => 'user/config/versions.yaml',
@@ -84,10 +84,6 @@ return [
             'plugins/email' => [
                 'file' => 'user/plugins/email/email.yaml',
                 'modified' => 1736135288
-            ],
-            'plugins/flex-objects' => [
-                'file' => 'user/plugins/flex-objects/flex-objects.yaml',
-                'modified' => 1730104284
             ],
             'plugins/login' => [
                 'file' => 'user/plugins/login/login.yaml',
@@ -353,23 +349,6 @@ return [
                     'flush_time_limit' => 100
                 ],
                 'charset' => 'utf-8'
-            ],
-            'flex-objects' => [
-                'enabled' => true,
-                'built_in_css' => true,
-                'extra_admin_twig_path' => 'theme://admin/templates',
-                'admin_list' => [
-                    'per_page' => 15,
-                    'order' => [
-                        'by' => 'updated_timestamp',
-                        'dir' => 'desc'
-                    ]
-                ],
-                'directories' => [
-                    0 => 'blueprints://flex-objects/pages.yaml',
-                    1 => 'blueprints://flex-objects/user-accounts.yaml',
-                    2 => 'blueprints://flex-objects/user-groups.yaml'
-                ]
             ],
             'login' => [
                 'enabled' => true,

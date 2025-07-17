@@ -1,8 +1,8 @@
 <?php
 return [
     '@class' => 'Grav\\Common\\Config\\CompiledLanguages',
-    'timestamp' => 1752709950,
-    'checksum' => '1c2ed03fd968d71d54ec7041e2ca8848',
+    'timestamp' => 1752715582,
+    'checksum' => '8a16399d2e87566d3d97ce49d1fd1b78',
     'files' => [
         'system/languages' => [
             'ar' => [
@@ -430,29 +430,29 @@ return [
                 'modified' => 1730104284
             ]
         ],
-        'user/plugins/flex-objects/languages' => [
+        'user/plugins/flex-objects.disabled/languages' => [
             'de' => [
-                'file' => 'user/plugins/flex-objects/languages/de.yaml',
+                'file' => 'user/plugins/flex-objects.disabled/languages/de.yaml',
                 'modified' => 1730104284
             ],
             'en' => [
-                'file' => 'user/plugins/flex-objects/languages/en.yaml',
+                'file' => 'user/plugins/flex-objects.disabled/languages/en.yaml',
                 'modified' => 1730104284
             ],
             'es' => [
-                'file' => 'user/plugins/flex-objects/languages/es.yaml',
+                'file' => 'user/plugins/flex-objects.disabled/languages/es.yaml',
                 'modified' => 1730104284
             ],
             'ja' => [
-                'file' => 'user/plugins/flex-objects/languages/ja.yaml',
+                'file' => 'user/plugins/flex-objects.disabled/languages/ja.yaml',
                 'modified' => 1730104284
             ],
             'nl' => [
-                'file' => 'user/plugins/flex-objects/languages/nl.yaml',
+                'file' => 'user/plugins/flex-objects.disabled/languages/nl.yaml',
                 'modified' => 1730104284
             ],
             'ru' => [
-                'file' => 'user/plugins/flex-objects/languages/ru.yaml',
+                'file' => 'user/plugins/flex-objects.disabled/languages/ru.yaml',
                 'modified' => 1730104284
             ]
         ],

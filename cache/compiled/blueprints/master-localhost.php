@@ -1,8 +1,8 @@
 <?php
 return [
     '@class' => 'Grav\\Common\\Config\\CompiledBlueprints',
-    'timestamp' => 1752709974,
-    'checksum' => 'cbbbf1f7f6a1e9e271d8d7e938c10a50',
+    'timestamp' => 1752715583,
+    'checksum' => 'db73f8332d14c6a6c8d0093fbf74f37f',
     'files' => [
         'user/plugins/admin/blueprints/config' => [
             'media' => [
@@ -61,8 +61,8 @@ return [
                 'file' => 'user/plugins/email/blueprints.yaml',
                 'modified' => 1736135288
             ],
-            'plugins/flex-objects' => [
-                'file' => 'user/plugins/flex-objects/blueprints.yaml',
+            'plugins/flex-objects.disabled' => [
+                'file' => 'user/plugins/flex-objects.disabled/blueprints.yaml',
                 'modified' => 1730104284
             ],
             'plugins/login' => [
@@ -4607,14 +4607,19 @@ return [
                 'name' => 'plugins.email.debug',
                 'validation' => 'loose'
             ],
-            'plugins.flex-objects' => [
+            'plugins.flex-objects.disabled' => [
                 'type' => '_root',
                 'form_field' => false,
                 'form' => [
                     'validation' => 'loose'
                 ]
             ],
-            'plugins.flex-objects.enabled' => [
+            'plugins.flex-objects' => [
+                'type' => '_parent',
+                'name' => 'plugins.flex-objects',
+                'form_field' => false
+            ],
+            'plugins.flex-objects.disabled.enabled' => [
                 'type' => 'toggle',
                 'label' => 'PLUGIN_ADMIN.PLUGIN_STATUS',
                 'highlight' => 1,
@@ -4626,10 +4631,10 @@ return [
                 'validate' => [
                     'type' => 'bool'
                 ],
-                'name' => 'plugins.flex-objects.enabled',
+                'name' => 'plugins.flex-objects.disabled.enabled',
                 'validation' => 'loose'
             ],
-            'plugins.flex-objects.built_in_css' => [
+            'plugins.flex-objects.disabled.built_in_css' => [
                 'type' => 'toggle',
                 'label' => 'PLUGIN_FLEX_OBJECTS.USE_BUILT_IN_CSS',
                 'highlight' => 1,
@@ -4641,19 +4646,19 @@ return [
                 'validate' => [
                     'type' => 'bool'
                 ],
-                'name' => 'plugins.flex-objects.built_in_css',
+                'name' => 'plugins.flex-objects.disabled.built_in_css',
                 'validation' => 'loose'
             ],
-            'plugins.flex-objects.extra_admin_twig_path' => [
+            'plugins.flex-objects.disabled.extra_admin_twig_path' => [
                 'type' => 'text',
                 'label' => 'PLUGIN_FLEX_OBJECTS.EXTRA_ADMIN_TWIG_PATH',
                 'validate' => [
                     'required' => true
                 ],
-                'name' => 'plugins.flex-objects.extra_admin_twig_path',
+                'name' => 'plugins.flex-objects.disabled.extra_admin_twig_path',
                 'validation' => 'loose'
             ],
-            'plugins.flex-objects.directories' => [
+            'plugins.flex-objects.disabled.directories' => [
                 'type' => 'flex-objects',
                 'label' => 'PLUGIN_FLEX_OBJECTS.DIRECTORIES',
                 'array' => true,
@@ -4661,7 +4666,7 @@ return [
                 'validate' => [
                     'type' => 'array'
                 ],
-                'name' => 'plugins.flex-objects.directories',
+                'name' => 'plugins.flex-objects.disabled.directories',
                 'validation' => 'loose'
             ],
             'plugins.login' => [
@@ -5906,10 +5911,12 @@ return [
                     'debug' => 'plugins.email.debug'
                 ],
                 'flex-objects' => [
-                    'enabled' => 'plugins.flex-objects.enabled',
-                    'built_in_css' => 'plugins.flex-objects.built_in_css',
-                    'extra_admin_twig_path' => 'plugins.flex-objects.extra_admin_twig_path',
-                    'directories' => 'plugins.flex-objects.directories'
+                    'disabled' => [
+                        'enabled' => 'plugins.flex-objects.disabled.enabled',
+                        'built_in_css' => 'plugins.flex-objects.disabled.built_in_css',
+                        'extra_admin_twig_path' => 'plugins.flex-objects.disabled.extra_admin_twig_path',
+                        'directories' => 'plugins.flex-objects.disabled.directories'
+                    ]
                 ],
                 'login' => [
                     'enabled' => 'plugins.login.enabled',

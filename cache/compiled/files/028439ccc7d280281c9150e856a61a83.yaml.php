@@ -2,10 +2,10 @@
 return [
     '@class' => 'Grav\\Common\\File\\CompiledYamlFile',
     'filename' => '/home/ivan/grav-admin/user/themes/quark/blueprints/pages/certificates.yaml',
-    'modified' => 1752709754,
-    'size' => 2309,
+    'modified' => 1752715405,
+    'size' => 2163,
     'data' => [
-        'title' => 'Сертификаты',
+        'title' => 'Certificates Page',
         '@extends' => [
             'type' => 'default',
             'context' => 'blueprints://pages'
@@ -34,7 +34,7 @@ return [
                                 'content' => [
                                     'type' => 'editor',
                                     'label' => 'PLUGIN_ADMIN.CONTENT',
-                                    'help' => 'Описание раздела сертификатов'
+                                    'help' => 'Описание страницы сертификатов'
                                 ]
                             ]
                         ],
@@ -46,7 +46,7 @@ return [
                                     'type' => 'list',
                                     'style' => 'vertical',
                                     'label' => 'Список сертификатов',
-                                    'help' => 'Добавьте сертификаты с изображениями и названиями',
+                                    'help' => 'Добавьте сертификаты с изображениями и описаниями',
                                     'collapsed' => false,
                                     'btnLabel' => 'Добавить сертификат',
                                     'fields' => [
@@ -58,18 +58,11 @@ return [
                                                 'required' => true
                                             ]
                                         ],
-                                        '.image' => [
-                                            'type' => 'file',
-                                            'label' => 'Изображение сертификата',
-                                            'destination' => 'user/pages/02.o-kompanii/04.sertifikaty',
-                                            'multiple' => false,
-                                            'random_name' => false,
-                                            'avoid_overwriting' => true,
-                                            'filesize' => 5,
-                                            'accept' => [
-                                                0 => 'image/*'
-                                            ],
-                                            'help' => 'Загрузите изображение сертификата (JPEG, PNG, WebP)',
+                                        '.image_name' => [
+                                            'type' => 'text',
+                                            'label' => 'Имя файла изображения',
+                                            'placeholder' => 'например, certificate1.jpg',
+                                            'help' => 'Сначала загрузите изображение через "Page Media" выше, затем введите имя файла здесь',
                                             'validate' => [
                                                 'required' => true
                                             ]

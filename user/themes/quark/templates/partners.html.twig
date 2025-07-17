@@ -2,146 +2,148 @@
 
 {% set grid_size = theme_var('grid-size') %}
 
+{% block titlebar %}
+    {% if grav.admin %}
+        <div class="button-bar">
+            <a class="button" href="{{ admin_route('/pages') }}"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|t }}</a>
+            <button class="button success" name="task" value="save" form="blueprints" type="submit" style="background: #77559D !important; color: white !important;"><i class="fa fa-check"></i> {{ "PLUGIN_ADMIN.SAVE"|t }}</button>
+        </div>
+        <h1><i class="fa fa-fw fa-file-text-o"></i> {{ page.title }}</h1>
+    {% endif %}
+{% endblock %}
+
 {% block content %}
-<div class="content-wrapper">
-    <div class="container {{ grid_size }}">
-        <!-- Page Content -->
-        <div class="page-content">
-            {{ page.content|raw }}
-        </div>
-        
-        {% if page.header.partners %}
-        <!-- Partners Section -->
-        <div class="partners-section">
-            
-            {% set featured_partners = [] %}
-            {% set regular_partners = [] %}
-            
-            {% for partner in page.header.partners %}
-                {% if partner.featured %}
-                    {% set featured_partners = featured_partners|merge([partner]) %}
-                {% else %}
-                    {% set regular_partners = regular_partners|merge([partner]) %}
-                {% endif %}
-            {% endfor %}
-            
-            {% if featured_partners|length > 0 %}
-            <!-- Featured Partners -->
-            <div class="featured-partners-section">
-                <h2 class="section-title">Ключевые партнёры</h2>
-                <div class="featured-partners-grid">
-                    {% for partner in featured_partners %}
-                    <div class="partner-item featured">
-                        <div class="partner-card">
-                            {% if partner.logo %}
-                            <div class="partner-logo">
-                                {% if partner.logo is iterable %}
-                                    {% set logo_path = partner.logo|keys|first %}
-                                    {% set logo_name = partner.logo[logo_path].name %}
-                                    {% set partner_logo = page.media[logo_name] %}
-                                {% else %}
-                                    {% set partner_logo = page.media[partner.logo] %}
-                                {% endif %}
-                                
-                                {% if partner_logo %}
-                                    {% if partner.website %}
-                                    <a href="{{ partner.website }}" target="_blank" rel="noopener">
-                                        <img src="{{ partner_logo.url }}" alt="{{ partner.name }}" loading="lazy" />
-                                    </a>
-                                    {% else %}
-                                    <img src="{{ partner_logo.url }}" alt="{{ partner.name }}" loading="lazy" />
+    {% if not grav.admin %}
+        <div class="content-wrapper">
+            <div class="container {{ grid_size }}">
+                <!-- Page Content -->
+                <div class="page-content">
+                    {{ page.content|raw }}
+                </div>
+
+                <!-- Featured Partners Section -->
+                {% if header.featured_partners %}
+                <section class="featured-partners">
+                    <div class="container {{ grid_size }}">
+                        <h2 class="featured-partners-title">Основные партнёры</h2>
+                        <div class="featured-partners-grid">
+                            {% for partner in header.featured_partners %}
+                            <div class="featured-partner-item">
+                                <div class="featured-partner-content">
+                                    {% if partner.logo %}
+                                    <div class="partner-logo">
+                                        {% if partner.logo is iterable %}
+                                            {% set logo_path = partner.logo|keys|first %}
+                                            {% set logo_name = partner.logo[logo_path].name %}
+                                            {% set partner_logo = page.media[logo_name] %}
+                                        {% else %}
+                                            {% set partner_logo = page.media[partner.logo] %}
+                                        {% endif %}
+                                        
+                                        {% if partner_logo %}
+                                            {% if partner.website %}
+                                                <a href="{{ partner.website }}" target="_blank" rel="noopener noreferrer">
+                                                    <img src="{{ partner_logo.url }}" 
+                                                         alt="{{ partner.name ?: 'Партнёр' }}"
+                                                         class="partner-logo-img"
+                                                         loading="lazy">
+                                                </a>
+                                            {% else %}
+                                                <img src="{{ partner_logo.url }}" 
+                                                     alt="{{ partner.name ?: 'Партнёр' }}"
+                                                     class="partner-logo-img"
+                                                     loading="lazy">
+                                            {% endif %}
+                                        {% endif %}
+                                    </div>
                                     {% endif %}
-                                {% endif %}
+                                    
+                                    <div class="partner-info">
+                                        {% if partner.name %}
+                                        <h3 class="partner-name">{{ partner.name }}</h3>
+                                        {% endif %}
+                                        
+                                        {% if partner.description %}
+                                        <p class="partner-description">{{ partner.description }}</p>
+                                        {% endif %}
+                                        
+                                        {% if partner.website %}
+                                        <a href="{{ partner.website }}" target="_blank" rel="noopener noreferrer" class="partner-website">
+                                            Посетить сайт
+                                        </a>
+                                        {% endif %}
+                                    </div>
+                                </div>
                             </div>
-                            {% endif %}
-                            
-                            <div class="partner-content">
-                                <h3 class="partner-name">
-                                    {% if partner.website %}
-                                    <a href="{{ partner.website }}" target="_blank" rel="noopener">{{ partner.name }}</a>
-                                    {% else %}
-                                    {{ partner.name }}
-                                    {% endif %}
-                                </h3>
-                                {% if partner.description %}
-                                <p class="partner-description">{{ partner.description }}</p>
-                                {% endif %}
-                                {% if partner.website %}
-                                <a href="{{ partner.website }}" target="_blank" rel="noopener" class="partner-link">
-                                    Посетить сайт <i class="fa fa-external-link"></i>
-                                </a>
-                                {% endif %}
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
-                    {% endfor %}
-                </div>
-            </div>
-            {% endif %}
-            
-            {% if regular_partners|length > 0 %}
-            <!-- Regular Partners -->
-            <div class="regular-partners-section">
-                {% if featured_partners|length > 0 %}
-                <h2 class="section-title">Наши партнёры</h2>
+                </section>
                 {% endif %}
-                <div class="partners-grid">
-                    {% for partner in regular_partners %}
-                    <div class="partner-item">
-                        <div class="partner-card">
-                            {% if partner.logo %}
-                            <div class="partner-logo">
-                                {% if partner.logo is iterable %}
-                                    {% set logo_path = partner.logo|keys|first %}
-                                    {% set logo_name = partner.logo[logo_path].name %}
-                                    {% set partner_logo = page.media[logo_name] %}
-                                {% else %}
-                                    {% set partner_logo = page.media[partner.logo] %}
-                                {% endif %}
-                                
-                                {% if partner_logo %}
-                                    {% if partner.website %}
-                                    <a href="{{ partner.website }}" target="_blank" rel="noopener">
-                                        <img src="{{ partner_logo.url }}" alt="{{ partner.name }}" loading="lazy" />
-                                    </a>
-                                    {% else %}
-                                    <img src="{{ partner_logo.url }}" alt="{{ partner.name }}" loading="lazy" />
+
+                <!-- Regular Partners Section -->
+                {% if header.partners %}
+                <section class="partners">
+                    <div class="container {{ grid_size }}">
+                        <h2 class="partners-title">Наши партнёры</h2>
+                        <div class="partners-grid">
+                            {% for partner in header.partners %}
+                            <div class="partner-item">
+                                <div class="partner-content">
+                                    {% if partner.logo %}
+                                    <div class="partner-logo">
+                                        {% if partner.logo is iterable %}
+                                            {% set logo_path = partner.logo|keys|first %}
+                                            {% set logo_name = partner.logo[logo_path].name %}
+                                            {% set partner_logo = page.media[logo_name] %}
+                                        {% else %}
+                                            {% set partner_logo = page.media[partner.logo] %}
+                                        {% endif %}
+                                        
+                                        {% if partner_logo %}
+                                            {% if partner.website %}
+                                                <a href="{{ partner.website }}" target="_blank" rel="noopener noreferrer">
+                                                    <img src="{{ partner_logo.url }}" 
+                                                         alt="{{ partner.name ?: 'Партнёр' }}"
+                                                         class="partner-logo-img"
+                                                         loading="lazy">
+                                                </a>
+                                            {% else %}
+                                                <img src="{{ partner_logo.url }}" 
+                                                     alt="{{ partner.name ?: 'Партнёр' }}"
+                                                     class="partner-logo-img"
+                                                     loading="lazy">
+                                            {% endif %}
+                                        {% endif %}
+                                    </div>
                                     {% endif %}
-                                {% endif %}
+                                    
+                                    <div class="partner-info">
+                                        {% if partner.name %}
+                                        <h3 class="partner-name">{{ partner.name }}</h3>
+                                        {% endif %}
+                                        
+                                        {% if partner.description %}
+                                        <p class="partner-description">{{ partner.description }}</p>
+                                        {% endif %}
+                                        
+                                        {% if partner.website %}
+                                        <a href="{{ partner.website }}" target="_blank" rel="noopener noreferrer" class="partner-website">
+                                            Посетить сайт
+                                        </a>
+                                        {% endif %}
+                                    </div>
+                                </div>
                             </div>
-                            {% endif %}
-                            
-                            <div class="partner-content">
-                                <h3 class="partner-name">
-                                    {% if partner.website %}
-                                    <a href="{{ partner.website }}" target="_blank" rel="noopener">{{ partner.name }}</a>
-                                    {% else %}
-                                    {{ partner.name }}
-                                    {% endif %}
-                                </h3>
-                                {% if partner.description %}
-                                <p class="partner-description">{{ partner.description }}</p>
-                                {% endif %}
-                                {% if partner.website %}
-                                <a href="{{ partner.website }}" target="_blank" rel="noopener" class="partner-link">
-                                    Посетить сайт <i class="fa fa-external-link"></i>
-                                </a>
-                                {% endif %}
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
-                    {% endfor %}
-                </div>
+                </section>
+                {% endif %}
             </div>
-            {% endif %}
         </div>
-        {% else %}
-        <div class="no-partners">
-            <p class="text-center text-muted">Информация о партнёрах будет добавлена в ближайшее время.</p>
-        </div>
-        {% endif %}
-    </div>
-</div>
+    {% endif %}
+{% endblock %}
 
 <style>
 /* Partners Section Styles */
