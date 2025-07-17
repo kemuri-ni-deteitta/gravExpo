@@ -170,7 +170,7 @@ class __TwigTemplate_5ef69ab639885b78bdf11f8d1f39ebfb08509e59a5d7928dc27b3baf483
                 </div>
                 ";
                     } elseif (($this->getAttribute(                    // line 54
-$context["certificate"], "image_name", []) || $this->getAttribute($context["certificate"], "image_upload", []))) {
+$context["certificate"], "image_upload", []) || $this->getAttribute($context["certificate"], "image_name", []))) {
                         // line 55
                         echo "                <div class=\"certificate-image\">
                     <div class=\"no-image\">
@@ -569,7 +569,7 @@ $context["certificate"], "image_name", []) || $this->getAttribute($context["cert
                          onclick=\"openCertificateModal('{{ cert_image.url }}', '{{ certificate.title|e('html_attr') }}')\"
                          loading=\"lazy\">
                 </div>
-                {% elseif certificate.image_name or certificate.image_upload %}
+                {% elseif certificate.image_upload or certificate.image_name %}
                 <div class=\"certificate-image\">
                     <div class=\"no-image\">
                         {% if certificate.image_upload %}

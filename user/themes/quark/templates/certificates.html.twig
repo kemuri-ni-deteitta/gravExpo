@@ -51,7 +51,7 @@
                          onclick="openCertificateModal('{{ cert_image.url }}', '{{ certificate.title|e('html_attr') }}')"
                          loading="lazy">
                 </div>
-                {% elseif certificate.image_name or certificate.image_upload %}
+                {% elseif certificate.image_upload or certificate.image_name %}
                 <div class="certificate-image">
                     <div class="no-image">
                         {% if certificate.image_upload %}
