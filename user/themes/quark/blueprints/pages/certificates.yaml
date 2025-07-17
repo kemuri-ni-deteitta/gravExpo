@@ -47,15 +47,50 @@ form:
                   placeholder: Введите название сертификата
                   validate:
                     required: true
+                .image_upload:
+                  type: file
+                  label: Загрузить новое изображение
+                  destination: 'user/pages/02.o-kompanii/04.sertifikaty'
+                  multiple: false
+                  random_name: false
+                  avoid_overwriting: false
+                  filesize: 2
+                  accept:
+                    - image/*
+                  help: Загрузите изображение сертификата (JPEG, PNG, WebP). Максимальный размер 2MB.
                 .image_name:
                   type: text
                   label: Имя файла изображения
                   placeholder: например, certificate1.jpg
-                  help: Сначала загрузите изображение через "Page Media" выше, затем введите имя файла здесь
-                  validate:
-                    required: true
+                  help: Автоматически заполняется при загрузке файла выше, или введите имя существующего файла.
                 .description:
                   type: textarea
                   label: Описание (необязательно)
                   placeholder: Краткое описание сертификата
-                  rows: 3 
+                  rows: 3
+            certificate_script:
+              type: spacer
+              title: ""
+              markdown: true
+              text: |
+                <script>
+                // Auto-fill image_name when file is uploaded
+                document.addEventListener('DOMContentLoaded', function() {
+                    setTimeout(function() {
+                        const fileInputs = document.querySelectorAll('input[type="file"][name*="image_upload"]');
+                        fileInputs.forEach(function(fileInput) {
+                            fileInput.addEventListener('change', function(e) {
+                                if (e.target.files && e.target.files[0]) {
+                                    const filename = e.target.files[0].name;
+                                    const container = e.target.closest('.form-field').parentNode;
+                                    const imageNameInput = container.querySelector('input[name*="image_name"]');
+                                    if (imageNameInput) {
+                                        imageNameInput.value = filename;
+                                        imageNameInput.dispatchEvent(new Event('input', { bubbles: true }));
+                                    }
+                                }
+                            });
+                        });
+                    }, 1000);
+                });
+                </script> 

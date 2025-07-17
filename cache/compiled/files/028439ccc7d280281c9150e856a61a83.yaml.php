@@ -2,8 +2,8 @@
 return [
     '@class' => 'Grav\\Common\\File\\CompiledYamlFile',
     'filename' => '/home/ivan/grav-admin/user/themes/quark/blueprints/pages/certificates.yaml',
-    'modified' => 1752715405,
-    'size' => 2163,
+    'modified' => 1752715956,
+    'size' => 4088,
     'data' => [
         'title' => 'Certificates Page',
         '@extends' => [
@@ -58,14 +58,24 @@ return [
                                                 'required' => true
                                             ]
                                         ],
+                                        '.image_upload' => [
+                                            'type' => 'file',
+                                            'label' => 'Загрузить новое изображение',
+                                            'destination' => 'user/pages/02.o-kompanii/04.sertifikaty',
+                                            'multiple' => false,
+                                            'random_name' => false,
+                                            'avoid_overwriting' => false,
+                                            'filesize' => 2,
+                                            'accept' => [
+                                                0 => 'image/*'
+                                            ],
+                                            'help' => 'Загрузите изображение сертификата (JPEG, PNG, WebP). Максимальный размер 2MB.'
+                                        ],
                                         '.image_name' => [
                                             'type' => 'text',
                                             'label' => 'Имя файла изображения',
                                             'placeholder' => 'например, certificate1.jpg',
-                                            'help' => 'Сначала загрузите изображение через "Page Media" выше, затем введите имя файла здесь',
-                                            'validate' => [
-                                                'required' => true
-                                            ]
+                                            'help' => 'Автоматически заполняется при загрузке файла выше, или введите имя существующего файла.'
                                         ],
                                         '.description' => [
                                             'type' => 'textarea',
@@ -74,6 +84,32 @@ return [
                                             'rows' => 3
                                         ]
                                     ]
+                                ],
+                                'certificate_script' => [
+                                    'type' => 'spacer',
+                                    'title' => '',
+                                    'markdown' => true,
+                                    'text' => '<script>
+// Auto-fill image_name when file is uploaded
+document.addEventListener(\'DOMContentLoaded\', function() {
+    setTimeout(function() {
+        const fileInputs = document.querySelectorAll(\'input[type="file"][name*="image_upload"]\');
+        fileInputs.forEach(function(fileInput) {
+            fileInput.addEventListener(\'change\', function(e) {
+                if (e.target.files && e.target.files[0]) {
+                    const filename = e.target.files[0].name;
+                    const container = e.target.closest(\'.form-field\').parentNode;
+                    const imageNameInput = container.querySelector(\'input[name*="image_name"]\');
+                    if (imageNameInput) {
+                        imageNameInput.value = filename;
+                        imageNameInput.dispatchEvent(new Event(\'input\', { bubbles: true }));
+                    }
+                }
+            });
+        });
+    }, 1000);
+});
+</script> '
                                 ]
                             ]
                         ]

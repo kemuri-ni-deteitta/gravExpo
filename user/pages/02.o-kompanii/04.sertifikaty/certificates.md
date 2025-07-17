@@ -7,16 +7,24 @@ template: certificates
 certificates:
     -
         title: 'Сертификат ISO 9001'
-        image_name: nagr2.jpg
         description: 'Система менеджмента качества соответствует международным стандартам'
-    -
-        title: 'Награда "Лучший стенд года"'
-        image_name: solver_logo.jpg
-        description: 'Получена на выставке "Экспо 2023" за инновационный дизайн'
+        image_upload:
+            user/pages/02.o-kompanii/04.sertifikaty/nagr2.jpg:
+                name: nagr2.jpg
+                full_path: nagr2.jpg
+                type: image/jpeg
+                size: 366793
+                path: user/pages/02.o-kompanii/04.sertifikaty/nagr2.jpg
     -
         title: '321312'
-        image_name: solver_logo.jpg
         description: '3231'
+        image_upload:
+            user/pages/02.o-kompanii/04.sertifikaty/solver_logo.jpg:
+                name: solver_logo.jpg
+                full_path: solver_logo.jpg
+                type: image/jpeg
+                size: 15591
+                path: user/pages/02.o-kompanii/04.sertifikaty/solver_logo.jpg
 page-toc:
     active: false
 ---

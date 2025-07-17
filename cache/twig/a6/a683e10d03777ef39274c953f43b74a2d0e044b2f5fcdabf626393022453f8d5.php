@@ -101,73 +101,134 @@ class __TwigTemplate_5ef69ab639885b78bdf11f8d1f39ebfb08509e59a5d7928dc27b3baf483
                     // line 29
                     echo "                        <div class=\"certificate-item\">
                             <div class=\"certificate-card\">
-                                                ";
+                                ";
                     // line 31
-                    if ($this->getAttribute($context["certificate"], "image_name", [])) {
-                        // line 32
-                        echo "                <div class=\"certificate-image\">
-                    ";
-                        // line 33
-                        $context["cert_image"] = $this->getAttribute($this->getAttribute(($context["page"] ?? null), "media", []), $this->getAttribute($context["certificate"], "image_name", []), [], "array");
-                        // line 34
-                        echo "                    
-                    ";
+                    $context["cert_image"] = null;
+                    // line 32
+                    echo "                
+                ";
+                    // line 34
+                    echo "                ";
+                    if ($this->getAttribute($context["certificate"], "image_upload", [])) {
                         // line 35
-                        if (($context["cert_image"] ?? null)) {
+                        echo "                    ";
+                        $context['_parent'] = $context;
+                        $context['_seq'] = twig_ensure_traversable($this->getAttribute($context["certificate"], "image_upload", []));
+                        foreach ($context['_seq'] as $context["filepath"] => $context["filedata"]) {
                             // line 36
-                            echo "                        <img src=\"";
-                            echo twig_escape_filter($this->env, $this->getAttribute(($context["cert_image"] ?? null), "url", []), "html", null, true);
-                            echo "\" 
-                             alt=\"";
-                            // line 37
-                            (($this->getAttribute($context["certificate"], "title", [])) ? (print (twig_escape_filter($this->env, $this->getAttribute($context["certificate"], "title", []), "html", null, true))) : (print ("Сертификат")));
-                            echo "\"
-                             onclick=\"openCertificateModal('";
-                            // line 38
-                            echo twig_escape_filter($this->env, $this->getAttribute(($context["cert_image"] ?? null), "url", []), "html", null, true);
-                            echo "', '";
-                            echo twig_escape_filter($this->env, $this->getAttribute($context["certificate"], "title", []), "html_attr");
-                            echo "')\"
-                             loading=\"lazy\">
-                    ";
+                            echo "                        ";
+                            if (( !($context["cert_image"] ?? null) && $this->getAttribute($context["filedata"], "name", []))) {
+                                // line 37
+                                echo "                            ";
+                                $context["cert_image"] = $this->getAttribute($this->getAttribute(($context["page"] ?? null), "media", []), $this->getAttribute($context["filedata"], "name", []), [], "array");
+                                // line 38
+                                echo "                        ";
+                            }
+                            // line 39
+                            echo "                    ";
+                        }
+                        $_parent = $context['_parent'];
+                        unset($context['_seq'], $context['_iterated'], $context['filepath'], $context['filedata'], $context['_parent'], $context['loop']);
+                        $context = array_intersect_key($context, $_parent) + $_parent;
+                        // line 40
+                        echo "                ";
+                    }
+                    // line 41
+                    echo "                
+                ";
+                    // line 43
+                    echo "                ";
+                    if (( !($context["cert_image"] ?? null) && $this->getAttribute($context["certificate"], "image_name", []))) {
+                        // line 44
+                        echo "                    ";
+                        $context["cert_image"] = $this->getAttribute($this->getAttribute(($context["page"] ?? null), "media", []), $this->getAttribute($context["certificate"], "image_name", []), [], "array");
+                        // line 45
+                        echo "                ";
+                    }
+                    // line 46
+                    echo "                
+                ";
+                    // line 47
+                    if (($context["cert_image"] ?? null)) {
+                        // line 48
+                        echo "                <div class=\"certificate-image\">
+                    <img src=\"";
+                        // line 49
+                        echo twig_escape_filter($this->env, $this->getAttribute(($context["cert_image"] ?? null), "url", []), "html", null, true);
+                        echo "\" 
+                         alt=\"";
+                        // line 50
+                        (($this->getAttribute($context["certificate"], "title", [])) ? (print (twig_escape_filter($this->env, $this->getAttribute($context["certificate"], "title", []), "html", null, true))) : (print ("Сертификат")));
+                        echo "\"
+                         onclick=\"openCertificateModal('";
+                        // line 51
+                        echo twig_escape_filter($this->env, $this->getAttribute(($context["cert_image"] ?? null), "url", []), "html", null, true);
+                        echo "', '";
+                        echo twig_escape_filter($this->env, $this->getAttribute($context["certificate"], "title", []), "html_attr");
+                        echo "')\"
+                         loading=\"lazy\">
+                </div>
+                ";
+                    } elseif (($this->getAttribute(                    // line 54
+$context["certificate"], "image_name", []) || $this->getAttribute($context["certificate"], "image_upload", []))) {
+                        // line 55
+                        echo "                <div class=\"certificate-image\">
+                    <div class=\"no-image\">
+                        ";
+                        // line 57
+                        if ($this->getAttribute($context["certificate"], "image_upload", [])) {
+                            // line 58
+                            echo "                            ";
+                            $context['_parent'] = $context;
+                            $context['_seq'] = twig_ensure_traversable($this->getAttribute($context["certificate"], "image_upload", []));
+                            foreach ($context['_seq'] as $context["filepath"] => $context["filedata"]) {
+                                // line 59
+                                echo "                                <p>Изображение не найдено: ";
+                                echo twig_escape_filter($this->env, (($this->getAttribute($context["filedata"], "name", [])) ? ($this->getAttribute($context["filedata"], "name", [])) : ($context["filepath"])), "html", null, true);
+                                echo "</p>
+                            ";
+                            }
+                            $_parent = $context['_parent'];
+                            unset($context['_seq'], $context['_iterated'], $context['filepath'], $context['filedata'], $context['_parent'], $context['loop']);
+                            $context = array_intersect_key($context, $_parent) + $_parent;
+                            // line 61
+                            echo "                        ";
                         } else {
-                            // line 41
-                            echo "                        <div class=\"no-image\">
-                            <p>Изображение не найдено: ";
-                            // line 42
+                            // line 62
+                            echo "                            <p>Изображение не найдено: ";
                             echo twig_escape_filter($this->env, $this->getAttribute($context["certificate"], "image_name", []), "html", null, true);
                             echo "</p>
-                        </div>
-                    ";
+                        ";
                         }
-                        // line 45
-                        echo "                </div>
+                        // line 64
+                        echo "                    </div>
+                </div>
                 ";
                     }
-                    // line 47
+                    // line 67
                     echo "                                
                                 <div class=\"certificate-content\">
                                     ";
-                    // line 49
+                    // line 69
                     if ($this->getAttribute($context["certificate"], "title", [])) {
-                        // line 50
+                        // line 70
                         echo "                                    <h3 class=\"certificate-title\">";
                         echo twig_escape_filter($this->env, $this->getAttribute($context["certificate"], "title", []), "html", null, true);
                         echo "</h3>
                                     ";
                     }
-                    // line 52
+                    // line 72
                     echo "                                    
                                     ";
-                    // line 53
+                    // line 73
                     if ($this->getAttribute($context["certificate"], "description", [])) {
-                        // line 54
+                        // line 74
                         echo "                                    <p class=\"certificate-description\">";
                         echo twig_escape_filter($this->env, $this->getAttribute($context["certificate"], "description", []), "html", null, true);
                         echo "</p>
                                     ";
                     }
-                    // line 56
+                    // line 76
                     echo "                                </div>
                             </div>
                         </div>
@@ -176,19 +237,19 @@ class __TwigTemplate_5ef69ab639885b78bdf11f8d1f39ebfb08509e59a5d7928dc27b3baf483
                 $_parent = $context['_parent'];
                 unset($context['_seq'], $context['_iterated'], $context['_key'], $context['certificate'], $context['_parent'], $context['loop']);
                 $context = array_intersect_key($context, $_parent) + $_parent;
-                // line 60
+                // line 80
                 echo "                    </div>
                     
                     ";
-                // line 62
+                // line 82
                 if ((twig_length_filter($this->env, $this->getAttribute(($context["header"] ?? null), "certificates", [])) == 0)) {
-                    // line 63
+                    // line 83
                     echo "                    <div class=\"no-certificates\">
                         <p>Сертификаты будут добавлены в ближайшее время.</p>
                     </div>
                     ";
                 }
-                // line 67
+                // line 87
                 echo "                </section>
                 
                 <!-- Certificate Modal -->
@@ -201,12 +262,12 @@ class __TwigTemplate_5ef69ab639885b78bdf11f8d1f39ebfb08509e59a5d7928dc27b3baf483
                 </div>
                 ";
             }
-            // line 78
+            // line 98
             echo "            </div>
         </div>
     ";
         }
-        // line 81
+        // line 101
         echo "
     <style>
     /* Certificates Grid Styles */
@@ -442,7 +503,7 @@ class __TwigTemplate_5ef69ab639885b78bdf11f8d1f39ebfb08509e59a5d7928dc27b3baf483
 
     public function getDebugInfo()
     {
-        return array (  210 => 81,  205 => 78,  192 => 67,  186 => 63,  184 => 62,  180 => 60,  171 => 56,  165 => 54,  163 => 53,  160 => 52,  154 => 50,  152 => 49,  148 => 47,  144 => 45,  138 => 42,  135 => 41,  127 => 38,  123 => 37,  118 => 36,  116 => 35,  113 => 34,  111 => 33,  108 => 32,  106 => 31,  102 => 29,  98 => 28,  94 => 26,  92 => 25,  85 => 21,  79 => 18,  76 => 17,  73 => 16,  70 => 15,  63 => 11,  58 => 9,  52 => 8,  49 => 7,  46 => 6,  43 => 5,  38 => 1,  36 => 3,  30 => 1,);
+        return array (  271 => 101,  266 => 98,  253 => 87,  247 => 83,  245 => 82,  241 => 80,  232 => 76,  226 => 74,  224 => 73,  221 => 72,  215 => 70,  213 => 69,  209 => 67,  204 => 64,  198 => 62,  195 => 61,  186 => 59,  181 => 58,  179 => 57,  175 => 55,  173 => 54,  165 => 51,  161 => 50,  157 => 49,  154 => 48,  152 => 47,  149 => 46,  146 => 45,  143 => 44,  140 => 43,  137 => 41,  134 => 40,  128 => 39,  125 => 38,  122 => 37,  119 => 36,  114 => 35,  111 => 34,  108 => 32,  106 => 31,  102 => 29,  98 => 28,  94 => 26,  92 => 25,  85 => 21,  79 => 18,  76 => 17,  73 => 16,  70 => 15,  63 => 11,  58 => 9,  52 => 8,  49 => 7,  46 => 6,  43 => 5,  38 => 1,  36 => 3,  30 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -485,20 +546,40 @@ class __TwigTemplate_5ef69ab639885b78bdf11f8d1f39ebfb08509e59a5d7928dc27b3baf483
                         {% for certificate in header.certificates %}
                         <div class=\"certificate-item\">
                             <div class=\"certificate-card\">
-                                                {% if certificate.image_name %}
-                <div class=\"certificate-image\">
+                                {% set cert_image = null %}
+                
+                {# Check for uploaded image first #}
+                {% if certificate.image_upload %}
+                    {% for filepath, filedata in certificate.image_upload %}
+                        {% if not cert_image and filedata.name %}
+                            {% set cert_image = page.media[filedata.name] %}
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                
+                {# If no uploaded image, check for image_name #}
+                {% if not cert_image and certificate.image_name %}
                     {% set cert_image = page.media[certificate.image_name] %}
-                    
-                    {% if cert_image %}
-                        <img src=\"{{ cert_image.url }}\" 
-                             alt=\"{{ certificate.title ?: 'Сертификат' }}\"
-                             onclick=\"openCertificateModal('{{ cert_image.url }}', '{{ certificate.title|e('html_attr') }}')\"
-                             loading=\"lazy\">
-                    {% else %}
-                        <div class=\"no-image\">
+                {% endif %}
+                
+                {% if cert_image %}
+                <div class=\"certificate-image\">
+                    <img src=\"{{ cert_image.url }}\" 
+                         alt=\"{{ certificate.title ?: 'Сертификат' }}\"
+                         onclick=\"openCertificateModal('{{ cert_image.url }}', '{{ certificate.title|e('html_attr') }}')\"
+                         loading=\"lazy\">
+                </div>
+                {% elseif certificate.image_name or certificate.image_upload %}
+                <div class=\"certificate-image\">
+                    <div class=\"no-image\">
+                        {% if certificate.image_upload %}
+                            {% for filepath, filedata in certificate.image_upload %}
+                                <p>Изображение не найдено: {{ filedata.name ?: filepath }}</p>
+                            {% endfor %}
+                        {% else %}
                             <p>Изображение не найдено: {{ certificate.image_name }}</p>
-                        </div>
-                    {% endif %}
+                        {% endif %}
+                    </div>
                 </div>
                 {% endif %}
                                 
