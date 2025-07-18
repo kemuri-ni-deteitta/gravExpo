@@ -1,0 +1,133 @@
+{% set grid_size = theme_var('grid-size') %}
+
+<section class="section modular-service-module {{ page.header.class}} bg-gray">
+    <section class="container {{ grid_size }}">
+        <div class="columns">
+            <div class="column col-12">
+                <div class="content">
+                    {{ content|raw }}
+                </div>
+                
+                {% if page.header.gallery %}
+                <div class="gallery-section">
+                    <h3>Примеры работ</h3>
+                    <div class="lightbox-gallery">
+                        <div class="lightbox-gallery__columns">
+                            {% set gallery_id = md5(page.url) %}
+                            {% for item in page.header.gallery %}
+                                <div class="lightbox-gallery__column">
+                                    {% set item_image = page.media[item.image] %}
+                                    {% if item_image %}
+                                        {% set title = item.title ? item.title : '' %}
+                                        {% set desc = item.desc ? item.desc : '' %}
+                                        {% set thumb_width = 400 %}
+                                        {% set thumb_height = 300 %}
+                                        
+                                        <div class="gallery-item">
+                                            <a href="{{ item_image.url }}" 
+                                               class="glightbox" 
+                                               data-gallery="gallery-{{ gallery_id }}"
+                                               data-title="{{ title }}"
+                                               data-description="{{ desc }}">
+                                                <img src="{{ item_image.cropZoom(thumb_width, thumb_height).url }}" 
+                                                     alt="{{ title }}" 
+                                                     title="{{ title }}"
+                                                     style="width: 100%; height: auto; border-radius: 5px;">
+                                            </a>
+                                            {% if title %}
+                                                <div class="gallery-item-title">{{ title }}</div>
+                                            {% endif %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+</section>
+
+{% set gallery_styles %}
+.lightbox-gallery {
+    margin: 20px 0;
+}
+
+.lightbox-gallery .lightbox-gallery__columns {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -10px;
+}
+
+.lightbox-gallery .lightbox-gallery__column {
+    width: 50%;
+    padding: 0 10px;
+    margin-bottom: 20px;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.gallery-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+.gallery-item img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05);
+}
+
+.gallery-item-title {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    padding: 10px;
+    font-size: 14px;
+    text-align: center;
+}
+
+@media only screen and (min-width: 600px) {
+    .lightbox-gallery .lightbox-gallery__column {
+        width: calc(100% / 3);
+    }
+}
+
+@media only screen and (min-width: 1000px) {
+    .lightbox-gallery .lightbox-gallery__column {
+        width: 25%;
+    }
+}
+{% endset %}
+
+{% do assets.addInlineCss(gallery_styles) %}
+{% do assets.addJs('https://cdn.jsdelivr.net/npm/glightbox@3.2.0/dist/js/glightbox.min.js') %}
+{% do assets.addCss('https://cdn.jsdelivr.net/npm/glightbox@3.2.0/dist/css/glightbox.min.css') %}
+
+{% set gallery_script %}
+document.addEventListener('DOMContentLoaded', function() {
+    const lightbox = GLightbox({
+        touchNavigation: true,
+        loop: true,
+        autoplayVideos: true
+    });
+});
+{% endset %}
+
+{% do assets.addInlineJs(gallery_script) %} 
