@@ -381,6 +381,49 @@ body.header-fixed #body-wrapper {
   }
 }
 
+/* Enhanced dropdown arrow styling */
+.dropdown-arrow {
+  display: inline-block !important;
+  transition: transform 0.3s ease !important;
+  font-size: 0.7rem !important;
+  margin-left: 5px !important;
+  color: inherit !important;
+  opacity: 0.7 !important;
+}
+
+/* Arrow rotation for different dropdown states */
+.dropdown-arrow.rotated {
+  transform: rotate(180deg) !important;
+}
+
+.dropdown-arrow.rotated-right {
+  transform: rotate(90deg) !important;
+}
+
+/* Visual feedback for clickable dropdown items */
+#custom-header nav ul li > a[onclick] {
+  cursor: pointer !important;
+}
+
+#custom-header nav ul li > a[onclick]:hover .dropdown-arrow {
+  opacity: 1 !important;
+  transform: scale(1.1) !important;
+}
+
+/* Better visual separation for dropdown items */
+.dropdown-menu li:not(:last-child),
+.child-dropdown-menu li:not(:last-child) {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Enhanced focus states for accessibility */
+#custom-header nav ul li > a:focus,
+.dropdown-menu li a:focus,
+.child-dropdown-menu li a:focus {
+  outline: 2px solid var(--primary-color) !important;
+  outline-offset: 2px !important;
+}
+
 /* Mobile dropdown fallback (if needed) */
 @media (max-width: 768px) {
   #custom-header nav ul li ul {
@@ -395,6 +438,10 @@ body.header-fixed #body-wrapper {
   #custom-header nav ul li ul li a {
     padding: 0.4rem 0.8rem !important;
     font-size: 0.8rem !important;
+  }
+  
+  .dropdown-arrow {
+    font-size: 0.6rem !important;
   }
 }
 

@@ -29,10 +29,11 @@ class __TwigTemplate_40c584bd8c9c2c3186d03f0178b1df6cfe4f8dab165e33114fa89f52b0a
     }
 
     // line 1
-    public function getnav_loop($__page__ = null, ...$__varargs__)
+    public function getnav_loop($__page__ = null, $__dropdown_enabled__ = true, ...$__varargs__)
     {
         $context = $this->env->mergeGlobals([
             "page" => $__page__,
+            "dropdown_enabled" => $__dropdown_enabled__,
             "varargs" => $__varargs__,
         ]);
 
@@ -52,31 +53,66 @@ class __TwigTemplate_40c584bd8c9c2c3186d03f0178b1df6cfe4f8dab165e33114fa89f52b0a
                 echo "    ";
                 $context["active_page"] = ((($this->getAttribute($context["p"], "active", []) || $this->getAttribute($context["p"], "activeChild", []))) ? ("active") : (""));
                 // line 5
-                echo "    <li>
-      <a href=\"";
+                echo "    ";
+                $context["has_children"] = ($this->getAttribute($this->getAttribute($this->getAttribute($context["p"], "children", []), "visible", []), "count", []) > 0);
                 // line 6
+                echo "    ";
+                $context["is_dropdown"] = (($context["dropdown_enabled"] ?? null) && ($context["has_children"] ?? null));
+                // line 7
+                echo "    
+    <li class=\"nav-item";
+                // line 8
+                if (($context["is_dropdown"] ?? null)) {
+                    echo " has-dropdown";
+                }
+                if (($context["active_page"] ?? null)) {
+                    echo " ";
+                    echo twig_escape_filter($this->env, ($context["active_page"] ?? null), "html", null, true);
+                }
+                echo "\">
+      <a href=\"";
+                // line 9
                 echo twig_escape_filter($this->env, $this->getAttribute($context["p"], "url", []), "html", null, true);
-                echo "\" class=\"";
-                echo twig_escape_filter($this->env, ($context["active_page"] ?? null), "html", null, true);
+                echo "\" class=\"nav-link";
+                if (($context["active_page"] ?? null)) {
+                    echo " ";
+                    echo twig_escape_filter($this->env, ($context["active_page"] ?? null), "html", null, true);
+                }
+                if (($context["is_dropdown"] ?? null)) {
+                    echo " dropdown-toggle";
+                }
                 echo "\">
         ";
-                // line 7
+                // line 10
                 echo twig_escape_filter($this->env, $this->getAttribute($context["p"], "menu", []), "html", null, true);
                 echo "
-      </a>
-      ";
-                // line 9
-                if (($this->getAttribute($this->getAttribute($this->getAttribute($context["p"], "children", []), "visible", []), "count", []) > 0)) {
-                    // line 10
-                    echo "      <ul>
         ";
-                    // line 11
-                    echo $context["macros"]->getnav_loop($context["p"]);
-                    echo "
-      </ul>
-      ";
+                // line 11
+                if (($context["is_dropdown"] ?? null)) {
+                    // line 12
+                    echo "          <span class=\"dropdown-arrow\">▼</span>
+        ";
                 }
                 // line 14
+                echo "      </a>
+      
+      ";
+                // line 16
+                if (($context["has_children"] ?? null)) {
+                    // line 17
+                    echo "        <ul class=\"dropdown-menu";
+                    if ( !($context["dropdown_enabled"] ?? null)) {
+                        echo " mobile-only";
+                    }
+                    echo "\">
+          ";
+                    // line 18
+                    echo $context["macros"]->getnav_loop($context["p"], ($context["dropdown_enabled"] ?? null));
+                    echo "
+        </ul>
+      ";
+                }
+                // line 21
                 echo "    </li>
   ";
             }
@@ -108,7 +144,7 @@ class __TwigTemplate_40c584bd8c9c2c3186d03f0178b1df6cfe4f8dab165e33114fa89f52b0a
 
     public function getDebugInfo()
     {
-        return array (  80 => 14,  74 => 11,  71 => 10,  69 => 9,  64 => 7,  58 => 6,  55 => 5,  52 => 4,  47 => 3,  44 => 2,  32 => 1,);
+        return array (  116 => 21,  110 => 18,  103 => 17,  101 => 16,  97 => 14,  93 => 12,  91 => 11,  87 => 10,  75 => 9,  65 => 8,  62 => 7,  59 => 6,  56 => 5,  53 => 4,  48 => 3,  45 => 2,  32 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -121,18 +157,25 @@ class __TwigTemplate_40c584bd8c9c2c3186d03f0178b1df6cfe4f8dab165e33114fa89f52b0a
 
     public function getSourceContext()
     {
-        return new Source("{% macro nav_loop(page) %}
+        return new Source("{% macro nav_loop(page, dropdown_enabled = true) %}
   {% import _self as macros %}
   {% for p in page.children.visible %}
     {% set active_page = (p.active or p.activeChild) ? 'active' : '' %}
-    <li>
-      <a href=\"{{ p.url }}\" class=\"{{ active_page }}\">
+    {% set has_children = p.children.visible.count > 0 %}
+    {% set is_dropdown = dropdown_enabled and has_children %}
+    
+    <li class=\"nav-item{% if is_dropdown %} has-dropdown{% endif %}{% if active_page %} {{ active_page }}{% endif %}\">
+      <a href=\"{{ p.url }}\" class=\"nav-link{% if active_page %} {{ active_page }}{% endif %}{% if is_dropdown %} dropdown-toggle{% endif %}\">
         {{ p.menu }}
+        {% if is_dropdown %}
+          <span class=\"dropdown-arrow\">▼</span>
+        {% endif %}
       </a>
-      {% if p.children.visible.count > 0 %}
-      <ul>
-        {{ macros.nav_loop(p) }}
-      </ul>
+      
+      {% if has_children %}
+        <ul class=\"dropdown-menu{% if not dropdown_enabled %} mobile-only{% endif %}\">
+          {{ macros.nav_loop(p, dropdown_enabled) }}
+        </ul>
       {% endif %}
     </li>
   {% endfor %}

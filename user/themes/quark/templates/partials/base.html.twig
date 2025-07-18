@@ -2,6 +2,7 @@
 {% set grid_size = theme_var('grid-size') %}
 {% set compress = theme_var('production-mode') ? '.min.css' : '.css' %}
 {% use 'blocks/base.html.twig' %}
+
 <!DOCTYPE html>
 <html lang="{{ grav.language.getActive ?: grav.config.site.default_lang }}">
 <head>
@@ -23,6 +24,7 @@
     {% if theme_var('spectre.icons') %}{% do assets.addCss('theme://css-compiled/spectre-icons'~compress) %}{% endif %}
     {% do assets.addCss('theme://css-compiled/theme'~compress) %}
     {% do assets.addCss('theme://css/custom.css') %}
+    {% do assets.addCss('theme://css/oxygen-nav.css') %}
     {% do assets.addCss('theme://css/line-awesome.min.css') %}
 {% endblock %}
 
@@ -30,76 +32,619 @@
     {% do assets.addJs('jquery', 101) %}
     {% do assets.addJs('theme://js/jquery.treemenu.js', {group:'bottom'}) %}
     {% do assets.addJs('theme://js/site.js', {group:'bottom'}) %}
+    {# Removed init.js since we're using inline JavaScript for dropdowns #}
+    
+    {# Load external libraries based on theme config #}
+    {% set theme_config = attribute(config.themes, config.system.pages.theme) %}
+    {% if theme_config.dropotron.enabled %}
+        {% do assets.addJs('https://cdn.jsdelivr.net/npm/dropotron@1.4.3/jquery.dropotron.min.js', {group: 'bottom'}) %}
+    {% endif %}
+    
+    {% if theme_config.skel.enabled %}
+        {% do assets.addJs('https://cdn.jsdelivr.net/npm/skel@3.0.1/src/skel.min.js', {group: 'bottom'}) %}
+    {% endif %}
 {% endblock %}
 
 {% block assets deferred %}
     {{ assets.css()|raw }}
     {{ assets.js()|raw }}
 {% endblock %}
+
+<script>
+// ===== NAVBAR TIMING CONFIGURATION =====
+// Adjust these values to change how long dropdowns stay open
+const PRIMARY_DROPDOWN_DELAY = 0;      // No delay - immediate hiding for main dropdowns
+const CHILD_DROPDOWN_DELAY = 0;        // No delay - immediate hiding for sub-dropdowns
+// ======================================
+
+// Enhanced dropdown navigation with click-to-expand and longer hover delays
+let dropdownTimeouts = new Map();
+let clickedDropdowns = new Set();
+let clickedChildDropdowns = new Set();
+
+// Handle dropdown click - only prevent navigation if clicking on arrow or dropdown is already open
+function handleDropdownClick(event, element) {
+    const dropdown = element.querySelector('.dropdown-menu');
+    if (!dropdown) return;
+    
+    const arrow = element.querySelector('.dropdown-arrow');
+    const isDropdownOpen = clickedDropdowns.has(element);
+    const clickedOnArrow = event.target === arrow || arrow.contains(event.target);
+    
+    // If dropdown is already open or clicking on arrow, toggle it
+    if (isDropdownOpen || clickedOnArrow) {
+        event.preventDefault();
+        event.stopPropagation();
+        
+        if (isDropdownOpen) {
+            // Close dropdown
+            clickedDropdowns.delete(element);
+            dropdown.style.display = 'none';
+            dropdown.style.opacity = '0';
+            dropdown.style.transform = 'translateY(-10px)';
+            dropdown.style.pointerEvents = 'none';
+            if (arrow) arrow.style.transform = 'rotate(0deg)';
+            // Remove visual indicator
+            dropdown.style.border = '';
+            dropdown.style.boxShadow = '';
+        } else {
+            // Open dropdown
+            clickedDropdowns.add(element);
+            element.lastClickTime = Date.now(); // Track when it was clicked
+            dropdown.style.display = 'block';
+            dropdown.style.opacity = '1';
+            dropdown.style.transform = 'translateY(0)';
+            dropdown.style.pointerEvents = 'auto';
+            if (arrow) arrow.style.transform = 'rotate(180deg)';
+            
+            // Add visual indicator that dropdown is click-opened
+            dropdown.style.border = '2px solid #ff6600';
+            dropdown.style.boxShadow = '0 4px 12px rgba(255, 102, 0, 0.3)';
+        }
+    } else {
+        // If dropdown is closed and not clicking on arrow, allow navigation
+        // Close any other open dropdowns before navigating
+        closeAllDropdowns();
+    }
+}
+
+// Handle child dropdown click - only prevent navigation if clicking on arrow or dropdown is already open
+function handleChildDropdownClick(event, element) {
+    const dropdown = element.querySelector('.child-dropdown-menu');
+    if (!dropdown) return;
+    
+    const arrow = element.querySelector('.dropdown-arrow');
+    const isDropdownOpen = clickedChildDropdowns.has(element);
+    const clickedOnArrow = event.target === arrow || arrow.contains(event.target);
+    
+    // If dropdown is already open or clicking on arrow, toggle it
+    if (isDropdownOpen || clickedOnArrow) {
+        event.preventDefault();
+        event.stopPropagation();
+        
+        if (isDropdownOpen) {
+            // Close dropdown
+            clickedChildDropdowns.delete(element);
+            dropdown.style.display = 'none';
+            dropdown.style.opacity = '0';
+            dropdown.style.transform = 'translateX(-10px)';
+            dropdown.style.pointerEvents = 'none';
+            if (arrow) arrow.style.transform = 'rotate(0deg)';
+        } else {
+            // Open dropdown
+            clickedChildDropdowns.add(element);
+            element.lastClickTime = Date.now(); // Track when it was clicked
+            dropdown.style.display = 'block';
+            dropdown.style.opacity = '1';
+            dropdown.style.transform = 'translateX(0)';
+            dropdown.style.pointerEvents = 'auto';
+            if (arrow) arrow.style.transform = 'rotate(90deg)';
+        }
+    } else {
+        // If dropdown is closed and not clicking on arrow, allow navigation
+        // Close any other open dropdowns before navigating
+        closeAllDropdowns();
+    }
+}
+
+// Close all open dropdowns
+function closeAllDropdowns() {
+    console.log('closeAllDropdowns called');
+    
+    // Close all clicked dropdowns
+    clickedDropdowns.forEach(function(element) {
+        const dropdown = element.querySelector('.dropdown-menu');
+        const arrow = element.querySelector('.dropdown-arrow');
+        if (dropdown) {
+            dropdown.style.setProperty('display', 'none', 'important');
+            dropdown.style.setProperty('opacity', '0', 'important');
+            dropdown.style.setProperty('transform', 'translateY(-10px)', 'important');
+            dropdown.style.setProperty('pointer-events', 'none', 'important');
+            // Remove visual indicator
+            dropdown.style.setProperty('border', '', 'important');
+            dropdown.style.setProperty('box-shadow', '', 'important');
+        }
+        if (arrow) arrow.style.transform = 'rotate(0deg)';
+    });
+    clickedDropdowns.clear();
+    console.log('Cleared clickedDropdowns, size:', clickedDropdowns.size);
+    
+    // Close all clicked child dropdowns
+    clickedChildDropdowns.forEach(function(element) {
+        const dropdown = element.querySelector('.child-dropdown-menu');
+        const arrow = element.querySelector('.dropdown-arrow');
+        if (dropdown) {
+            dropdown.style.setProperty('display', 'none', 'important');
+            dropdown.style.setProperty('opacity', '0', 'important');
+            dropdown.style.setProperty('transform', 'translateX(-10px)', 'important');
+            dropdown.style.setProperty('pointer-events', 'none', 'important');
+        }
+        if (arrow) arrow.style.transform = 'rotate(0deg)';
+    });
+    clickedChildDropdowns.clear();
+    console.log('Cleared clickedChildDropdowns, size:', clickedChildDropdowns.size);
+    
+    // Clear all timeouts
+    dropdownTimeouts.forEach(function(timeout) {
+        clearTimeout(timeout);
+    });
+    dropdownTimeouts.clear();
+    console.log('Cleared all timeouts, size:', dropdownTimeouts.size);
+    
+    // Force close all visible dropdowns
+    const allDropdowns = document.querySelectorAll('.dropdown-menu, .child-dropdown-menu');
+    allDropdowns.forEach(function(dropdown) {
+        dropdown.style.setProperty('display', 'none', 'important');
+        dropdown.style.setProperty('opacity', '0', 'important');
+        dropdown.style.setProperty('pointer-events', 'none', 'important');
+    });
+    console.log('Force closed all dropdowns, count:', allDropdowns.length);
+}
+
+// Legacy toggle functions for backward compatibility
+function toggleDropdown(event, element) {
+    handleDropdownClick(event, element);
+}
+
+function toggleChildDropdown(event, element) {
+    handleChildDropdownClick(event, element);
+}
+
+function showDropdown(element) {
+    const dropdown = element.querySelector('.dropdown-menu');
+    if (!dropdown) return;
+    
+    // Immediately close all other dropdowns when hovering over a new menu item
+    const allNavItems = document.querySelectorAll('#custom-header nav ul li');
+    allNavItems.forEach(function(otherItem) {
+        if (otherItem !== element) {
+            const otherDropdown = otherItem.querySelector('.dropdown-menu');
+            if (otherDropdown) {
+                // Immediately hide other dropdowns
+                otherDropdown.style.setProperty('display', 'none', 'important');
+                otherDropdown.style.setProperty('opacity', '0', 'important');
+                otherDropdown.style.setProperty('transform', 'translateY(-10px)', 'important');
+                otherDropdown.style.setProperty('pointer-events', 'none', 'important');
+                
+                // Reset arrow
+                const otherArrow = otherItem.querySelector('.dropdown-arrow');
+                if (otherArrow) otherArrow.style.transform = 'rotate(0deg)';
+                
+                // Clear any timeouts for other items
+                if (dropdownTimeouts.has(otherItem)) {
+                    clearTimeout(dropdownTimeouts.get(otherItem));
+                    dropdownTimeouts.delete(otherItem);
+                }
+            }
+        }
+    });
+    
+    // Also close all child dropdowns
+    const allChildDropdowns = document.querySelectorAll('.child-dropdown-menu');
+    allChildDropdowns.forEach(function(childDropdown) {
+        childDropdown.style.setProperty('display', 'none', 'important');
+        childDropdown.style.setProperty('opacity', '0', 'important');
+        childDropdown.style.setProperty('transform', 'translateX(-10px)', 'important');
+        childDropdown.style.setProperty('pointer-events', 'none', 'important');
+    });
+    
+    // Don't interfere with clicked dropdowns
+    if (clickedDropdowns.has(element)) return;
+    
+    // Clear any existing timeout for this element
+    if (dropdownTimeouts.has(element)) {
+        clearTimeout(dropdownTimeouts.get(element));
+        dropdownTimeouts.delete(element);
+    }
+    
+    // Show dropdown immediately with !important to override inline styles
+    dropdown.style.setProperty('display', 'block', 'important');
+    dropdown.style.setProperty('opacity', '1', 'important');
+    dropdown.style.setProperty('transform', 'translateY(0)', 'important');
+    dropdown.style.setProperty('pointer-events', 'auto', 'important');
+    
+    // Ensure proper positioning and visibility
+    dropdown.style.setProperty('visibility', 'visible', 'important');
+    dropdown.style.setProperty('position', 'absolute', 'important');
+    dropdown.style.setProperty('z-index', '100001', 'important');
+    dropdown.style.setProperty('top', '100%', 'important'); // Position directly below the parent li element
+    dropdown.style.setProperty('left', '0', 'important');
+    dropdown.style.setProperty('margin-top', '-8px', 'important'); // Remove the gap by overlapping much more aggressively
+    
+    // Remove any potential clipping
+    dropdown.style.setProperty('overflow', 'visible', 'important');
+    
+    // Remove debugging styles - restore original appearance
+    dropdown.style.setProperty('background', '#ffffff', 'important');
+    dropdown.style.setProperty('border', '1px solid rgba(0, 0, 0, 0.1)', 'important');
+    dropdown.style.setProperty('border-top', 'none', 'important'); // Remove top border to connect with navbar
+    dropdown.style.setProperty('border-top-left-radius', '0', 'important');
+    dropdown.style.setProperty('border-top-right-radius', '0', 'important');
+    
+    const arrow = element.querySelector('.dropdown-arrow');
+    if (arrow) arrow.style.transform = 'rotate(180deg)';
+    
+    // Create an invisible bridge between nav item and dropdown to prevent gaps
+    const bridge = document.createElement('div');
+    bridge.style.cssText = `
+        position: absolute !important;
+        top: 100% !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 10px !important;
+        background: transparent !important;
+        z-index: 100000 !important;
+        pointer-events: auto !important;
+    `;
+    element.appendChild(bridge);
+    
+    // Add hover listeners to the dropdown itself
+    dropdown.addEventListener('mouseenter', function() {
+        if (dropdownTimeouts.has(element)) {
+            clearTimeout(dropdownTimeouts.get(element));
+            dropdownTimeouts.delete(element);
+        }
+    });
+    
+    dropdown.addEventListener('mouseleave', function() {
+        hideDropdown(element);
+    });
+    
+    // Add hover listeners to the bridge
+    bridge.addEventListener('mouseenter', function() {
+        if (dropdownTimeouts.has(element)) {
+            clearTimeout(dropdownTimeouts.get(element));
+            dropdownTimeouts.delete(element);
+        }
+    });
+    
+    bridge.addEventListener('mouseleave', function() {
+        hideDropdown(element);
+    });
+}
+
+function hideDropdown(element) {
+    const dropdown = element.querySelector('.dropdown-menu');
+    if (!dropdown) return;
+    
+    console.log('hideDropdown called for:', element.textContent.trim());
+    
+    // Don't hide clicked dropdowns
+    if (clickedDropdowns.has(element)) {
+        console.log('Not hiding - dropdown is clicked');
+        return;
+    }
+    
+    // Clear any existing timeout
+    if (dropdownTimeouts.has(element)) {
+        clearTimeout(dropdownTimeouts.get(element));
+        dropdownTimeouts.delete(element);
+        console.log('Cleared existing timeout');
+    }
+    
+    // Hide immediately (no delay)
+    console.log('Hiding dropdown immediately for:', element.textContent.trim());
+    dropdown.style.setProperty('display', 'none', 'important');
+    dropdown.style.setProperty('opacity', '0', 'important');
+    dropdown.style.setProperty('transform', 'translateY(-10px)', 'important');
+    dropdown.style.setProperty('pointer-events', 'none', 'important');
+    const arrow = element.querySelector('.dropdown-arrow');
+    if (arrow) arrow.style.transform = 'rotate(0deg)';
+    
+    // Remove the bridge element
+    const bridge = element.querySelector('div[style*="position: absolute"]');
+    if (bridge) {
+        bridge.remove();
+    }
+}
+
+function showChildDropdown(element) {
+    const dropdown = element.querySelector('.child-dropdown-menu');
+    if (!dropdown) return;
+    
+    // Immediately close all other child dropdowns when hovering over a new child item
+    const allChildItems = document.querySelectorAll('#custom-header nav ul li li');
+    allChildItems.forEach(function(otherChildItem) {
+        if (otherChildItem !== element) {
+            const otherChildDropdown = otherChildItem.querySelector('.child-dropdown-menu');
+            if (otherChildDropdown) {
+                // Immediately hide other child dropdowns
+                otherChildDropdown.style.setProperty('display', 'none', 'important');
+                otherChildDropdown.style.setProperty('opacity', '0', 'important');
+                otherChildDropdown.style.setProperty('transform', 'translateX(-10px)', 'important');
+                otherChildDropdown.style.setProperty('pointer-events', 'none', 'important');
+                
+                // Reset arrow
+                const otherArrow = otherChildItem.querySelector('.dropdown-arrow');
+                if (otherArrow) otherArrow.style.transform = 'rotate(0deg)';
+                
+                // Clear any timeouts for other child items
+                if (dropdownTimeouts.has(otherChildItem)) {
+                    clearTimeout(dropdownTimeouts.get(otherChildItem));
+                    dropdownTimeouts.delete(otherChildItem);
+                }
+            }
+        }
+    });
+    
+    // Don't interfere with clicked dropdowns
+    if (clickedChildDropdowns.has(element)) return;
+    
+    // Clear any existing timeout for this element
+    if (dropdownTimeouts.has(element)) {
+        clearTimeout(dropdownTimeouts.get(element));
+        dropdownTimeouts.delete(element);
+    }
+    
+    // Show dropdown immediately with !important to override inline styles
+    dropdown.style.setProperty('display', 'block', 'important');
+    dropdown.style.setProperty('opacity', '1', 'important');
+    dropdown.style.setProperty('transform', 'translateX(0)', 'important');
+    dropdown.style.setProperty('pointer-events', 'auto', 'important');
+    dropdown.style.setProperty('visibility', 'visible', 'important');
+    dropdown.style.setProperty('position', 'absolute', 'important');
+    dropdown.style.setProperty('z-index', '100002', 'important');
+    dropdown.style.setProperty('left', '100%', 'important'); // Position directly to the right
+    dropdown.style.setProperty('top', '0', 'important'); // Align with parent item
+    dropdown.style.setProperty('margin-left', '-1px', 'important'); // Remove horizontal gap
+    
+    const arrow = element.querySelector('.dropdown-arrow');
+    if (arrow) arrow.style.transform = 'rotate(90deg)';
+    
+    // Remove debugging styles - restore original appearance
+    dropdown.style.setProperty('background', '#ffffff', 'important');
+    dropdown.style.setProperty('border', '1px solid rgba(0, 0, 0, 0.1)', 'important');
+    dropdown.style.setProperty('border-left', 'none', 'important'); // Remove left border to connect
+    dropdown.style.setProperty('border-top-left-radius', '0', 'important');
+    dropdown.style.setProperty('border-bottom-left-radius', '0', 'important');
+}
+
+function hideChildDropdown(element) {
+    const dropdown = element.querySelector('.child-dropdown-menu');
+    if (!dropdown) return;
+    
+    // Don't hide clicked dropdowns
+    if (clickedChildDropdowns.has(element)) return;
+    
+    // Clear any existing timeout
+    if (dropdownTimeouts.has(element)) {
+        clearTimeout(dropdownTimeouts.get(element));
+        dropdownTimeouts.delete(element);
+    }
+    
+    // Hide immediately (no delay)
+    dropdown.style.setProperty('display', 'none', 'important');
+    dropdown.style.setProperty('opacity', '0', 'important');
+    dropdown.style.setProperty('transform', 'translateX(-10px)', 'important');
+    dropdown.style.setProperty('pointer-events', 'none', 'important');
+    const arrow = element.querySelector('.dropdown-arrow');
+    if (arrow) arrow.style.transform = 'rotate(0deg)';
+}
+
+// Enhanced hover behavior for better UX
+document.addEventListener('DOMContentLoaded', function() {
+    // Ensure all dropdowns are closed on page load
+    closeAllDropdowns();
+    
+    // Target navigation elements in the custom header
+    const navItems = document.querySelectorAll('#custom-header nav ul li');
+    
+    navItems.forEach(function(item) {
+        const dropdown = item.querySelector('.dropdown-menu');
+        if (!dropdown) return;
+        
+        // Create an invisible hover area for better navigation
+        const hoverArea = document.createElement('div');
+        hoverArea.style.cssText = `
+            position: absolute !important;
+            top: -10px !important;
+            left: -10px !important;
+            right: -10px !important;
+            bottom: -10px !important;
+            z-index: 100000 !important;
+            pointer-events: none !important;
+        `;
+        item.style.position = 'relative';
+        item.appendChild(hoverArea);
+        
+        // Handle second-level dropdowns
+        const childItems = dropdown.querySelectorAll('li');
+        childItems.forEach(function(childItem) {
+            const childDropdown = childItem.querySelector('.child-dropdown-menu');
+            if (childDropdown) {
+                // Create hover area for child items
+                const childHoverArea = document.createElement('div');
+                childHoverArea.style.cssText = `
+                    position: absolute !important;
+                    top: -5px !important;
+                    left: -5px !important;
+                    right: -5px !important;
+                    bottom: -5px !important;
+                    z-index: 100001 !important;
+                    pointer-events: none !important;
+                `;
+                childItem.style.position = 'relative';
+                childItem.appendChild(childHoverArea);
+            }
+        });
+    });
+    
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(event) {
+        const nav = document.querySelector('#custom-header nav');
+        if (nav && !nav.contains(event.target)) {
+            closeAllDropdowns();
+        }
+    });
+    
+    // Close dropdowns when mouse leaves the entire navigation area
+    const nav = document.querySelector('#custom-header nav');
+    if (nav) {
+        nav.addEventListener('mouseleave', function(event) {
+            // Add a small delay to allow moving to dropdown items
+            setTimeout(function() {
+                // Only close if mouse is still outside the nav area
+                const rect = nav.getBoundingClientRect();
+                const mouseX = event.clientX;
+                const mouseY = event.clientY;
+                
+                if (mouseX < rect.left || mouseX > rect.right || mouseY < rect.top || mouseY > rect.bottom) {
+                    closeAllDropdowns();
+                }
+            }, 100);
+        });
+    }
+    
+    // Close dropdowns when scrolling
+    document.addEventListener('scroll', function() {
+        closeAllDropdowns();
+    });
+    
+    // Close dropdowns when window loses focus
+    window.addEventListener('blur', function() {
+        closeAllDropdowns();
+    });
+    
+    // Auto-close clicked dropdowns after a timeout (for better UX)
+    setInterval(function() {
+        const now = Date.now();
+        clickedDropdowns.forEach(function(element) {
+            // Auto-close dropdowns that have been open for more than 10 seconds
+            if (now - element.lastClickTime > 10000) {
+                const dropdown = element.querySelector('.dropdown-menu');
+                const arrow = element.querySelector('.dropdown-arrow');
+                if (dropdown) {
+                    dropdown.style.setProperty('display', 'none', 'important');
+                    dropdown.style.setProperty('opacity', '0', 'important');
+                    dropdown.style.setProperty('transform', 'translateY(-10px)', 'important');
+                    dropdown.style.setProperty('pointer-events', 'none', 'important');
+                }
+                if (arrow) arrow.style.transform = 'rotate(0deg)';
+                clickedDropdowns.delete(element);
+            }
+        });
+        
+        clickedChildDropdowns.forEach(function(element) {
+            // Auto-close child dropdowns that have been open for more than 8 seconds
+            if (now - element.lastClickTime > 8000) {
+                const dropdown = element.querySelector('.child-dropdown-menu');
+                const arrow = element.querySelector('.dropdown-arrow');
+                if (dropdown) {
+                    dropdown.style.setProperty('display', 'none', 'important');
+                    dropdown.style.setProperty('opacity', '0', 'important');
+                    dropdown.style.setProperty('transform', 'translateX(-10px)', 'important');
+                    dropdown.style.setProperty('pointer-events', 'none', 'important');
+                }
+                if (arrow) arrow.style.transform = 'rotate(0deg)';
+                clickedChildDropdowns.delete(element);
+            }
+        });
+    }, 1000);
+});
+
+// Keyboard navigation support
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeAllDropdowns();
+    }
+});
+
+// Manual close function for testing - call this from console: forceCloseDropdowns()
+window.forceCloseDropdowns = function() {
+    console.log('Manual force close called');
+    closeAllDropdowns();
+};
+</script>
 </head>
 <body id="top" class="{% block body_classes %}{{ body_classes }}{% endblock %}" style="margin: 0 !important; padding: 0 !important; padding-top: 60px !important;">
     
     <!-- CUSTOM NAVBAR - COMPLETELY BYPASSING THEME SYSTEM -->
     <div id="custom-header" style="position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; width: 100% !important; height: 60px !important; background: #ffffff !important; border-bottom: 1px solid #e0e0e0 !important; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important; z-index: 99999 !important; margin: 0 !important; padding: 0 !important;">
-                          <div style="height: 60px !important; padding: 0 1.5rem 0 0 !important; margin: 0 auto !important; max-width: 1200px !important; display: flex !important; align-items: center !important; justify-content: space-between !important;">
-             <!-- Logo Section - ABSOLUTE LEFT POSITIONING -->
-             <div style="position: absolute !important; left: 15px !important; top: 0 !important; display: flex !important; align-items: center !important; height: 60px !important; z-index: 100000 !important;">
-                 <a href="{{ home_url }}" style="display: flex !important; align-items: center !important; text-decoration: none !important;">
-                     <img src="{{ url('theme://images/logo/logo.gif') }}" alt="{{ site.title }}" style="height: 50px !important; width: auto !important; margin-right: 25px !important;" />
-                 </a>
-             </div>
-            
-            <!-- Navigation Menu with Dropdown Support -->
-            <div style="display: flex !important; align-items: center !important; height: 60px !important;">
-                <nav style="display: flex !important; align-items: center !important; height: 60px !important;">
-                    <ul style="display: flex !important; align-items: center !important; margin: 0 !important; padding: 0 !important; list-style: none !important; height: 60px !important; flex-wrap: nowrap !important; white-space: nowrap !important;">
-                        {% for p in pages.children.visible %}
-                            {% set active_page = (p.active or p.activeChild) ? 'active' : '' %}
-                            {% set has_children = p.children.visible.count > 0 %}
-                            {% set show_children = has_children and (p.active or p.activeChild) %}
-                            <li style="margin: 0 0.8rem !important; position: relative !important; display: flex !important; align-items: center !important; height: 60px !important; white-space: nowrap !important; flex-shrink: 0 !important;" 
-                                onmouseenter="showDropdown(this)" 
-                                onmouseleave="hideDropdown(this)">
-                                <a href="{{ p.url }}" style="display: flex !important; align-items: center !important; justify-content: center !important; padding: 0.3rem 0.6rem !important; text-decoration: none !important; color: #2c2c2c !important; font-weight: 500 !important; font-size: 0.9rem !important; transition: all 0.2s ease !important; border-radius: 2px !important; height: 28px !important; white-space: nowrap !important; min-width: fit-content !important; {% if active_page %}color: #ff6600 !important; background: rgba(255, 102, 0, 0.08) !important;{% endif %}" 
-                                   onmouseover="this.style.color='#ff6600'; this.style.background='rgba(255, 102, 0, 0.08)'" 
-                                   onmouseout="this.style.color='#2c2c2c'; this.style.background='transparent'; {% if active_page %}this.style.color='#ff6600'; this.style.background='rgba(255, 102, 0, 0.08)';{% endif %}">
-                                    {{ p.menu }}{% if has_children %} <span style="margin-left: 5px; font-size: 0.7rem;">▼</span>{% endif %}
-                                </a>
-                                {% if has_children %}
-                                <ul style="position: absolute !important; top: 100% !important; left: 0 !important; background: #ffffff !important; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important; border-radius: 6px !important; min-width: 200px !important; padding: 0.5rem 0 !important; {% if show_children %}display: block !important;{% else %}display: none !important;{% endif %} z-index: 100001 !important; border: 1px solid rgba(0, 0, 0, 0.1) !important; margin-top: 4px !important; flex-direction: column !important;">
-                                    {% for child in p.children.visible %}
-                                        {% set child_active = (child.active or child.activeChild) ? 'active' : '' %}
-                                        {% set child_has_children = child.children.visible.count > 0 %}
-                                        <li style="margin: 0 !important; display: block !important; height: auto !important; position: relative !important;">
-                                            <a href="{{ child.url }}" style="padding: 0.6rem 1rem !important; color: #2c2c2c !important; font-weight: 400 !important; font-size: 0.85rem !important; display: block !important; text-decoration: none !important; transition: all 0.2s ease !important; border-radius: 0 !important; height: auto !important; white-space: nowrap !important; {% if child_active %}color: #ff6600 !important; background: rgba(255, 102, 0, 0.08) !important;{% endif %}"
-                                               onmouseover="this.style.background='#f8f9fa'; this.style.color='#ff6600'" 
-                                               onmouseout="this.style.background='transparent'; this.style.color='#2c2c2c'; {% if child_active %}this.style.color='#ff6600'; this.style.background='rgba(255, 102, 0, 0.08)';{% endif %}">
-                                                {{ child.menu }}{% if child_has_children %} <span style="margin-left: 5px; font-size: 0.6rem;">▶</span>{% endif %}
-                                            </a>
-                                            {% if child_has_children %}
-                                            <ul style="position: absolute !important; left: 100% !important; top: 0 !important; background: #ffffff !important; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important; border-radius: 6px !important; min-width: 200px !important; padding: 0.5rem 0 !important; display: none !important; z-index: 100002 !important; border: 1px solid rgba(0, 0, 0, 0.1) !important; margin-left: 4px !important; flex-direction: column !important;">
-                                                {% for grandchild in child.children.visible %}
-                                                    {% set grandchild_active = (grandchild.active or grandchild.activeChild) ? 'active' : '' %}
-                                                    <li style="margin: 0 !important; display: block !important; height: auto !important;">
-                                                        <a href="{{ grandchild.url }}" style="padding: 0.6rem 1rem !important; color: #2c2c2c !important; font-weight: 400 !important; font-size: 0.8rem !important; display: block !important; text-decoration: none !important; transition: all 0.2s ease !important; border-radius: 0 !important; height: auto !important; white-space: nowrap !important; {% if grandchild_active %}color: #ff6600 !important; background: rgba(255, 102, 0, 0.08) !important;{% endif %}"
-                                                           onmouseover="this.style.background='#f8f9fa'; this.style.color='#ff6600'" 
-                                                           onmouseout="this.style.background='transparent'; this.style.color='#2c2c2c'; {% if grandchild_active %}this.style.color='#ff6600'; this.style.background='rgba(255, 102, 0, 0.08)';{% endif %}">
-                                                            {{ grandchild.menu }}
-                                                        </a>
-                                                    </li>
-                                                {% endfor %}
-                                            </ul>
-                                            {% endif %}
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                                {% endif %}
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </nav>
-            </div>
-        </div>
+                  <div style="height: 60px !important; padding: 0 1.5rem 0 0 !important; margin: 0 auto !important; max-width: 1200px !important; display: flex !important; align-items: center !important; justify-content: space-between !important;">
+     <!-- Logo Section - ABSOLUTE LEFT POSITIONING -->
+     <div style="position: absolute !important; left: 15px !important; top: 0 !important; display: flex !important; align-items: center !important; height: 60px !important; z-index: 100000 !important;">
+         <a href="{{ home_url }}" style="display: flex !important; align-items: center !important; text-decoration: none !important;">
+             <img src="{{ url('theme://images/logo/logo.gif') }}" alt="{{ site.title }}" style="height: 50px !important; width: auto !important; margin-right: 25px !important;" />
+         </a>
+     </div>
+    
+    <!-- Navigation Menu with Dropdown Support -->
+    <div style="display: flex !important; align-items: center !important; height: 60px !important;">
+        <nav style="display: flex !important; align-items: center !important; height: 60px !important;">
+            <ul style="display: flex !important; align-items: center !important; margin: 0 !important; padding: 0 !important; list-style: none !important; height: 60px !important; flex-wrap: nowrap !important; white-space: nowrap !important;">
+                {% for p in pages.children.visible %}
+                    {% set active_page = (p.active or p.activeChild) ? 'active' : '' %}
+                    {% set has_children = p.children.visible.count > 0 %}
+                    {% set show_children = has_children and (p.active or p.activeChild) %}
+                    <li style="margin: 0 0.8rem !important; position: relative !important; display: flex !important; align-items: center !important; height: 60px !important; white-space: nowrap !important; flex-shrink: 0 !important;" 
+                        onmouseenter="showDropdown(this)" 
+                        onmouseleave="hideDropdown(this)"
+                        data-has-children="{{ has_children ? 'true' : 'false' }}">
+                        <a href="{{ p.url }}" style="display: flex !important; align-items: center !important; justify-content: center !important; padding: 0.3rem 0.6rem !important; text-decoration: none !important; color: #2c2c2c !important; font-weight: 500 !important; font-size: 0.9rem !important; transition: all 0.2s ease !important; border-radius: 2px !important; height: 28px !important; white-space: nowrap !important; min-width: fit-content !important; {% if active_page %}color: #ff6600 !important; background: rgba(255, 102, 0, 0.08) !important;{% endif %}" 
+                           onmouseover="this.style.color='#ff6600'; this.style.background='rgba(255, 102, 0, 0.08)'" 
+                           onmouseout="this.style.color='#2c2c2c'; this.style.background='transparent'; {% if active_page %}this.style.color='#ff6600'; this.style.background='rgba(255, 102, 0, 0.08)';{% endif %}"
+                           {% if has_children %}onclick="handleDropdownClick(event, this.parentElement)"{% endif %}>
+                            {{ p.menu }}{% if has_children %} <span class="dropdown-arrow" style="margin-left: 5px; font-size: 0.7rem; transition: transform 0.2s ease; {% if active_page %}opacity: 1 !important;{% endif %}">▼</span>{% endif %}
+                        </a>
+                        {% if has_children %}
+                        <ul class="dropdown-menu" style="position: absolute !important; top: 100% !important; left: 0 !important; background: #ffffff !important; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important; border-radius: 6px !important; min-width: 200px !important; padding: 0.5rem 0 !important; {% if show_children %}display: block !important;{% else %}display: none !important;{% endif %} z-index: 100001 !important; border: 1px solid rgba(0, 0, 0, 0.1) !important; margin-top: -8px !important; flex-direction: column !important; opacity: 0; transform: translateY(-10px); transition: opacity 0.2s ease, transform 0.2s ease; border-top-left-radius: 0 !important; border-top-right-radius: 0 !important;">
+                            {% for child in p.children.visible %}
+                                {% set child_active = (child.active or child.activeChild) ? 'active' : '' %}
+                                {% set child_has_children = child.children.visible.count > 0 %}
+                                <li style="margin: 0 !important; display: block !important; height: auto !important; position: relative !important;" 
+                                    onmouseenter="showChildDropdown(this)" 
+                                    onmouseleave="hideChildDropdown(this)"
+                                    data-has-children="{{ child_has_children ? 'true' : 'false' }}">
+                                    <a href="{{ child.url }}" style="padding: 0.6rem 1rem !important; color: #2c2c2c !important; font-weight: 400 !important; font-size: 0.85rem !important; display: block !important; text-decoration: none !important; transition: all 0.2s ease !important; border-radius: 0 !important; height: auto !important; white-space: nowrap !important; {% if child_active %}color: #ff6600 !important; background: rgba(255, 102, 0, 0.08) !important;{% endif %}"
+                                       onmouseover="this.style.background='#f8f9fa'; this.style.color='#ff6600'" 
+                                       onmouseout="this.style.background='transparent'; this.style.color='#2c2c2c'; {% if child_active %}this.style.color='#ff6600'; this.style.background='rgba(255, 102, 0, 0.08)';{% endif %}"
+                                       {% if child_has_children %}onclick="handleChildDropdownClick(event, this.parentElement)"{% endif %}>
+                                        {{ child.menu }}{% if child_has_children %} <span class="dropdown-arrow" style="margin-left: 5px; font-size: 0.6rem; transition: transform 0.2s ease; {% if child_active %}opacity: 1 !important;{% endif %}">▶</span>{% endif %}
+                                    </a>
+                                    {% if child_has_children %}
+                                    <ul class="child-dropdown-menu" style="position: absolute !important; left: 100% !important; top: 0 !important; background: #ffffff !important; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important; border-radius: 6px !important; min-width: 200px !important; padding: 0.5rem 0 !important; display: none !important; z-index: 100002 !important; border: 1px solid rgba(0, 0, 0, 0.1) !important; margin-left: 4px !important; flex-direction: column !important; opacity: 0; transform: translateX(-10px); transition: opacity 0.2s ease, transform 0.2s ease;">
+                                        {% for grandchild in child.children.visible %}
+                                            {% set grandchild_active = (grandchild.active or grandchild.activeChild) ? 'active' : '' %}
+                                            <li style="margin: 0 !important; display: block !important; height: auto !important;">
+                                                <a href="{{ grandchild.url }}" style="padding: 0.6rem 1rem !important; color: #2c2c2c !important; font-weight: 400 !important; font-size: 0.8rem !important; display: block !important; text-decoration: none !important; transition: all 0.2s ease !important; border-radius: 0 !important; height: auto !important; white-space: nowrap !important; {% if grandchild_active %}color: #ff6600 !important; background: rgba(255, 102, 0, 0.08) !important;{% endif %}"
+                                                   onmouseover="this.style.background='#f8f9fa'; this.style.color='#ff6600'" 
+                                                   onmouseout="this.style.background='transparent'; this.style.color='#2c2c2c'; {% if grandchild_active %}this.style.color='#ff6600'; this.style.background='rgba(255, 102, 0, 0.08)';{% endif %}">
+                                                    {{ grandchild.menu }}
+                                                </a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </nav>
+    </div>
+    </div>
     </div>
     
     <div id="page-wrapper" style="margin: 0 !important; padding: 0 !important;">
@@ -146,170 +691,6 @@
 {% block bottom %}
     {{ assets.js('bottom')|raw }}
 {% endblock %}
-
-<script>
-// Enhanced dropdown navigation with delays and better UX
-let dropdownTimeouts = new Map();
-
-function showDropdown(element) {
-    const dropdown = element.querySelector('ul');
-    if (!dropdown) return;
-    
-    // Clear any existing timeout for this element
-    if (dropdownTimeouts.has(element)) {
-        clearTimeout(dropdownTimeouts.get(element));
-        dropdownTimeouts.delete(element);
-    }
-    
-    // Show dropdown immediately
-    dropdown.style.display = 'block';
-    dropdown.style.opacity = '1';
-    dropdown.style.transform = 'translateY(0)';
-    dropdown.style.pointerEvents = 'auto';
-    
-    // Also add hover listeners to the dropdown itself
-    dropdown.addEventListener('mouseenter', function() {
-        if (dropdownTimeouts.has(element)) {
-            clearTimeout(dropdownTimeouts.get(element));
-            dropdownTimeouts.delete(element);
-        }
-    });
-    
-    dropdown.addEventListener('mouseleave', function() {
-        hideDropdown(element);
-    });
-    
-    // Handle second-level dropdowns
-    const childItems = dropdown.querySelectorAll('li');
-    childItems.forEach(function(childItem) {
-        const childDropdown = childItem.querySelector('ul');
-        if (childDropdown) {
-            childItem.addEventListener('mouseenter', function() {
-                // Clear any existing timeout for this child element
-                if (dropdownTimeouts.has(childItem)) {
-                    clearTimeout(dropdownTimeouts.get(childItem));
-                    dropdownTimeouts.delete(childItem);
-                }
-                
-                // Show child dropdown
-                childDropdown.style.display = 'block';
-                childDropdown.style.opacity = '1';
-                childDropdown.style.transform = 'translateX(0)';
-                childDropdown.style.pointerEvents = 'auto';
-            });
-            
-            childItem.addEventListener('mouseleave', function() {
-                // Set a delay before hiding child dropdown
-                const timeout = setTimeout(function() {
-                    childDropdown.style.display = 'none';
-                    childDropdown.style.opacity = '0';
-                    childDropdown.style.transform = 'translateX(-10px)';
-                    childDropdown.style.pointerEvents = 'none';
-                    dropdownTimeouts.delete(childItem);
-                }, 200);
-                
-                dropdownTimeouts.set(childItem, timeout);
-            });
-        }
-    });
-}
-
-function hideDropdown(element) {
-    const dropdown = element.querySelector('ul');
-    if (!dropdown) return;
-    
-    // Clear any existing timeout
-    if (dropdownTimeouts.has(element)) {
-        clearTimeout(dropdownTimeouts.get(element));
-    }
-    
-    // Set a delay before hiding (300ms for comfortable navigation)
-    const timeout = setTimeout(function() {
-        dropdown.style.display = 'none';
-        dropdown.style.opacity = '0';
-        dropdown.style.transform = 'translateY(-10px)';
-        dropdown.style.pointerEvents = 'none';
-        dropdownTimeouts.delete(element);
-    }, 300);
-    
-    dropdownTimeouts.set(element, timeout);
-}
-
-// Enhanced hover behavior for better UX
-document.addEventListener('DOMContentLoaded', function() {
-    const navItems = document.querySelectorAll('#custom-header nav ul li');
-    
-    navItems.forEach(function(item) {
-        const dropdown = item.querySelector('ul');
-        if (!dropdown) return;
-        
-        // Create an invisible hover area for better navigation
-        const hoverArea = document.createElement('div');
-        hoverArea.style.cssText = `
-            position: absolute !important;
-            top: -10px !important;
-            left: -10px !important;
-            right: -10px !important;
-            bottom: -10px !important;
-            z-index: 100000 !important;
-            pointer-events: none !important;
-        `;
-        item.style.position = 'relative';
-        item.appendChild(hoverArea);
-        
-        // Improve dropdown positioning and styling
-        dropdown.style.cssText += `
-            transition: opacity 0.2s ease, transform 0.2s ease !important;
-        `;
-        
-        // Handle second-level dropdowns
-        const childItems = dropdown.querySelectorAll('li');
-        childItems.forEach(function(childItem) {
-            const childDropdown = childItem.querySelector('ul');
-            if (childDropdown) {
-                // Improve child dropdown positioning and styling
-                childDropdown.style.cssText += `
-                    transition: opacity 0.2s ease, transform 0.2s ease !important;
-                    opacity: 0 !important;
-                    transform: translateX(-10px) !important;
-                `;
-                
-                // Create hover area for child items
-                const childHoverArea = document.createElement('div');
-                childHoverArea.style.cssText = `
-                    position: absolute !important;
-                    top: -5px !important;
-                    left: -5px !important;
-                    right: -5px !important;
-                    bottom: -5px !important;
-                    z-index: 100001 !important;
-                    pointer-events: none !important;
-                `;
-                childItem.style.position = 'relative';
-                childItem.appendChild(childHoverArea);
-            }
-        });
-    });
-});
-
-// Keyboard navigation support
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        // Close all dropdowns on Escape key
-        dropdownTimeouts.forEach(function(timeout, element) {
-            clearTimeout(timeout);
-            const dropdown = element.querySelector('ul');
-            if (dropdown) {
-                dropdown.style.display = 'none';
-                dropdown.style.opacity = '0';
-                dropdown.style.transform = 'translateY(-10px)';
-                dropdown.style.pointerEvents = 'none';
-            }
-        });
-        dropdownTimeouts.clear();
-    }
-});
-</script>
 
 </body>
 </html>
