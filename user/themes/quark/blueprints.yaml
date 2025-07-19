@@ -66,7 +66,7 @@ form:
                         0: PLUGIN_ADMIN.DISABLED
                       validate:
                         type: bool
-                    
+
                     animation:
                       type: select
                       label: Dropdown Animation
@@ -120,7 +120,7 @@ form:
                         0: PLUGIN_ADMIN.DISABLED
                       validate:
                         type: bool
-                    
+
                     breakpoint:
                       type: range
                       label: Mobile Breakpoint
@@ -156,7 +156,7 @@ form:
                         0: PLUGIN_ADMIN.DISABLED
                       validate:
                         type: bool
-                    
+
                     dropotron:
                       type: toggle
                       label: Load Dropotron
@@ -168,7 +168,7 @@ form:
                         0: PLUGIN_ADMIN.DISABLED
                       validate:
                         type: bool
-                    
+
                     skel:
                       type: toggle
                       label: Load Skel.js
@@ -180,7 +180,7 @@ form:
                         0: PLUGIN_ADMIN.DISABLED
                       validate:
                         type: bool
-                
+
                 # Original Quark navigation settings
                 mainmenu:
                   type: section
@@ -307,59 +307,60 @@ form:
                             0: PLUGIN_ADMIN.DISABLED
                           validate:
                             type: bool
-                        blog-page:
-                          type: text
-                          size: medium
-                          label: PLUGIN_ADMIN.BLOG_PAGE
-                          help: PLUGIN_ADMIN.BLOG_PAGE_HELP
-                        custom_logo_scaled:
-                          type: file
-                          label: PLUGIN_ADMIN.CUSTOM_LOGO_SCALED
-                          destination: 'theme://images'
-                          multiple: false
-                          accept: 'image/*'
-                        hide_git_sync_repo_link:
-                          type: toggle
-                          label: PLUGIN_ADMIN.HIDE_GIT_SYNC_REPO_LINK
-                          help: PLUGIN_ADMIN.HIDE_GIT_SYNC_REPO_LINK_HELP
-                          highlight: 0
-                          options:
-                            1: PLUGIN_ADMIN.ENABLED
-                            0: PLUGIN_ADMIN.DISABLED
-                          validate:
-                            type: bool
-                        sidebar_include:
-                          type: text
-                          size: medium
-                          label: PLUGIN_ADMIN.SIDEBAR_INCLUDE
-                          help: PLUGIN_ADMIN.SIDEBAR_INCLUDE_HELP
-                        sidebar_exclude:
-                          type: text
-                          size: medium
-                          label: PLUGIN_ADMIN.SIDEBAR_EXCLUDE
-                          help: PLUGIN_ADMIN.SIDEBAR_EXCLUDE_HELP
-                        sidebar_post_include:
-                          type: text
-                          size: medium
-                          label: PLUGIN_ADMIN.SIDEBAR_POST_INCLUDE
-                          help: PLUGIN_ADMIN.SIDEBAR_POST_INCLUDE_HELP
-                        sidebar_post_exclude:
-                          type: text
-                          size: medium
-                          label: PLUGIN_ADMIN.SIDEBAR_POST_EXCLUDE
-                          help: PLUGIN_ADMIN.SIDEBAR_POST_EXCLUDE_HELP
-        advanced:
-          type: tab
-          title: PLUGIN_ADMIN.ADVANCED
-          fields:
-            @section.advanced:
-              type: section
-              title: PLUGIN_ADMIN.ADVANCED
-              fields:
-                advanced:
-                  type: tab
-                  title: PLUGIN_ADMIN.ADVANCED
-                  fields:
+    blog-page:
+      type: text
+      size: medium
+      label: PLUGIN_ADMIN.BLOG_PAGE
+      help: PLUGIN_ADMIN.BLOG_PAGE_HELP
+      custom_logo_scaled:
+        type: file
+        label: PLUGIN_ADMIN.CUSTOM_LOGO_SCALED
+        destination: 'theme://images'
+        multiple: false
+        accept: 'image/*'
+      hide_git_sync_repo_link:
+        type: toggle
+        label: PLUGIN_ADMIN.HIDE_GIT_SYNC_REPO_LINK
+        help: PLUGIN_ADMIN.HIDE_GIT_SYNC_REPO_LINK_HELP
+        highlight: 0
+        options:
+          1: PLUGIN_ADMIN.ENABLED
+          0: PLUGIN_ADMIN.DISABLED
+        validate:
+          type: bool
+      sidebar_include:
+        type: text
+        size: medium
+        label: PLUGIN_ADMIN.SIDEBAR_INCLUDE
+        help: PLUGIN_ADMIN.SIDEBAR_INCLUDE_HELP
+      sidebar_exclude:
+        type: text
+        size: medium
+        label: PLUGIN_ADMIN.SIDEBAR_EXCLUDE
+        help: PLUGIN_ADMIN.SIDEBAR_EXCLUDE_HELP
+      sidebar_post_include:
+        type: text
+        size: medium
+        label: PLUGIN_ADMIN.SIDEBAR_POST_INCLUDE
+        help: PLUGIN_ADMIN.SIDEBAR_POST_INCLUDE_HELP
+      sidebar_post_exclude:
+        type: text
+        size: medium
+        label: PLUGIN_ADMIN.SIDEBAR_POST_EXCLUDE
+        help: PLUGIN_ADMIN.SIDEBAR_POST_EXCLUDE_HELP
+      
+      advanced:
+        type: tab
+        title: PLUGIN_ADMIN.ADVANCED
+        fields:
+          @section.advanced:
+            type: section
+            title: PLUGIN_ADMIN.ADVANCED
+            fields:
+              advanced:
+                type: tab
+                title: PLUGIN_ADMIN.ADVANCED
+                fields:
                     css_cdn:
                       type: text
                       size: large

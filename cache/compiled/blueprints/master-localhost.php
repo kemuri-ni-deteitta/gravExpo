@@ -1,8 +1,8 @@
 <?php
 return [
     '@class' => 'Grav\\Common\\Config\\CompiledBlueprints',
-    'timestamp' => 1752882321,
-    'checksum' => '0e0aeedaecafb785d28bce63e723767d',
+    'timestamp' => 1752884289,
+    'checksum' => '69e4a683c0483de5d4be6586627f239a',
     'files' => [
         'user/plugins/admin/blueprints/config' => [
             'media' => [
@@ -77,7 +77,7 @@ return [
         'user/themes' => [
             'themes/quark' => [
                 'file' => 'user/themes/quark/blueprints.yaml',
-                'modified' => 1752876867
+                'modified' => 1752884229
             ]
         ]
     ],
@@ -5487,423 +5487,428 @@ return [
                 'type' => 'text',
                 'size' => 'medium',
                 'label' => 'PLUGIN_ADMIN.BLOG_PAGE',
-                'validation' => 'loose',
-                'name' => 'themes.quark.blog-page'
-            ],
-            'themes.quark.custom_logo_scaled' => [
-                'array' => true,
-                'media_field' => true,
-                'validate' => [
-                    'type' => 'ignore'
+                'custom_logo_scaled' => [
+                    'type' => 'file',
+                    'label' => 'PLUGIN_ADMIN.CUSTOM_LOGO_SCALED',
+                    'destination' => 'theme://images',
+                    'multiple' => false,
+                    'accept' => 'image/*'
                 ],
-                'type' => 'file',
-                'label' => 'PLUGIN_ADMIN.CUSTOM_LOGO_SCALED',
-                'destination' => 'theme://images',
-                'multiple' => false,
-                'accept' => 'image/*',
-                'validation' => 'loose',
-                'name' => 'themes.quark.custom_logo_scaled'
-            ],
-            'themes.quark.hide_git_sync_repo_link' => [
-                'type' => 'toggle',
-                'label' => 'PLUGIN_ADMIN.HIDE_GIT_SYNC_REPO_LINK',
-                'highlight' => 0,
-                'options' => [
-                    1 => 'PLUGIN_ADMIN.ENABLED',
-                    0 => 'PLUGIN_ADMIN.DISABLED'
+                'hide_git_sync_repo_link' => [
+                    'type' => 'toggle',
+                    'label' => 'PLUGIN_ADMIN.HIDE_GIT_SYNC_REPO_LINK',
+                    'help' => 'PLUGIN_ADMIN.HIDE_GIT_SYNC_REPO_LINK_HELP',
+                    'highlight' => 0,
+                    'options' => [
+                        1 => 'PLUGIN_ADMIN.ENABLED',
+                        0 => 'PLUGIN_ADMIN.DISABLED'
+                    ],
+                    'validate' => [
+                        'type' => 'bool'
+                    ]
                 ],
-                'validate' => [
-                    'type' => 'bool'
+                'sidebar_include' => [
+                    'type' => 'text',
+                    'size' => 'medium',
+                    'label' => 'PLUGIN_ADMIN.SIDEBAR_INCLUDE',
+                    'help' => 'PLUGIN_ADMIN.SIDEBAR_INCLUDE_HELP'
                 ],
-                'validation' => 'loose',
-                'name' => 'themes.quark.hide_git_sync_repo_link'
-            ],
-            'themes.quark.sidebar_include' => [
-                'type' => 'text',
-                'size' => 'medium',
-                'label' => 'PLUGIN_ADMIN.SIDEBAR_INCLUDE',
-                'validation' => 'loose',
-                'name' => 'themes.quark.sidebar_include'
-            ],
-            'themes.quark.sidebar_exclude' => [
-                'type' => 'text',
-                'size' => 'medium',
-                'label' => 'PLUGIN_ADMIN.SIDEBAR_EXCLUDE',
-                'validation' => 'loose',
-                'name' => 'themes.quark.sidebar_exclude'
-            ],
-            'themes.quark.sidebar_post_include' => [
-                'type' => 'text',
-                'size' => 'medium',
-                'label' => 'PLUGIN_ADMIN.SIDEBAR_POST_INCLUDE',
-                'validation' => 'loose',
-                'name' => 'themes.quark.sidebar_post_include'
-            ],
-            'themes.quark.sidebar_post_exclude' => [
-                'type' => 'text',
-                'size' => 'medium',
-                'label' => 'PLUGIN_ADMIN.SIDEBAR_POST_EXCLUDE',
-                'validation' => 'loose',
-                'name' => 'themes.quark.sidebar_post_exclude'
-            ],
-            'themes.quark.css_cdn' => [
-                'type' => 'text',
-                'size' => 'large',
-                'label' => 'PLUGIN_ADMIN.CSS_CDN',
-                'validation' => 'loose',
-                'name' => 'themes.quark.css_cdn'
-            ],
-            'themes.quark.js_cdn' => [
-                'type' => 'text',
-                'size' => 'large',
-                'label' => 'PLUGIN_ADMIN.JS_CDN',
-                'validation' => 'loose',
-                'name' => 'themes.quark.js_cdn'
-            ],
-            'themes.quark.css_local' => [
-                'type' => 'text',
-                'size' => 'large',
-                'label' => 'PLUGIN_ADMIN.CSS_LOCAL',
-                'validation' => 'loose',
-                'name' => 'themes.quark.css_local'
-            ],
-            'themes.quark.js_local' => [
-                'type' => 'text',
-                'size' => 'large',
-                'label' => 'PLUGIN_ADMIN.JS_LOCAL',
-                'validation' => 'loose',
-                'name' => 'themes.quark.js_local'
-            ],
-            'themes.quark.google_fonts' => [
-                'type' => 'text',
-                'size' => 'large',
-                'label' => 'PLUGIN_ADMIN.GOOGLE_FONTS',
-                'validation' => 'loose',
-                'name' => 'themes.quark.google_fonts'
-            ],
-            'themes.quark.fontawesome' => [
-                'type' => 'text',
-                'size' => 'large',
-                'label' => 'PLUGIN_ADMIN.FONTAWESOME',
-                'validation' => 'loose',
-                'name' => 'themes.quark.fontawesome'
-            ],
-            'themes.quark.google_analytics' => [
-                'type' => 'text',
-                'size' => 'large',
-                'label' => 'PLUGIN_ADMIN.GOOGLE_ANALYTICS',
-                'validation' => 'loose',
-                'name' => 'themes.quark.google_analytics'
-            ],
-            'themes.quark.google_tag_manager' => [
-                'type' => 'text',
-                'size' => 'large',
-                'label' => 'PLUGIN_ADMIN.GOOGLE_TAG_MANAGER',
-                'validation' => 'loose',
-                'name' => 'themes.quark.google_tag_manager'
-            ],
-            'themes.quark.piwik' => [
-                'type' => 'text',
-                'size' => 'large',
-                'label' => 'PLUGIN_ADMIN.PIWIK',
-                'validation' => 'loose',
-                'name' => 'themes.quark.piwik'
-            ],
-            'themes.quark.piwik_site_id' => [
-                'type' => 'text',
-                'size' => 'small',
-                'label' => 'PLUGIN_ADMIN.PIWIK_SITE_ID',
-                'validation' => 'loose',
-                'name' => 'themes.quark.piwik_site_id'
-            ],
-            'themes.quark.piwik_img' => [
-                'type' => 'toggle',
-                'label' => 'PLUGIN_ADMIN.PIWIK_IMG',
-                'highlight' => 0,
-                'options' => [
-                    1 => 'PLUGIN_ADMIN.ENABLED',
-                    0 => 'PLUGIN_ADMIN.DISABLED'
+                'sidebar_exclude' => [
+                    'type' => 'text',
+                    'size' => 'medium',
+                    'label' => 'PLUGIN_ADMIN.SIDEBAR_EXCLUDE',
+                    'help' => 'PLUGIN_ADMIN.SIDEBAR_EXCLUDE_HELP'
                 ],
-                'validate' => [
-                    'type' => 'bool'
+                'sidebar_post_include' => [
+                    'type' => 'text',
+                    'size' => 'medium',
+                    'label' => 'PLUGIN_ADMIN.SIDEBAR_POST_INCLUDE',
+                    'help' => 'PLUGIN_ADMIN.SIDEBAR_POST_INCLUDE_HELP'
                 ],
-                'validation' => 'loose',
-                'name' => 'themes.quark.piwik_img'
-            ],
-            'themes.quark.twitter' => [
-                'type' => 'text',
-                'size' => 'large',
-                'label' => 'PLUGIN_ADMIN.TWITTER',
-                'validation' => 'loose',
-                'name' => 'themes.quark.twitter'
-            ],
-            'themes.quark.facebook' => [
-                'type' => 'text',
-                'size' => 'large',
-                'label' => 'PLUGIN_ADMIN.FACEBOOK',
-                'validation' => 'loose',
-                'name' => 'themes.quark.facebook'
-            ],
-            'themes.quark.facebook_app_id' => [
-                'type' => 'text',
-                'size' => 'large',
-                'label' => 'PLUGIN_ADMIN.FACEBOOK_APP_ID',
-                'validation' => 'loose',
-                'name' => 'themes.quark.facebook_app_id'
-            ],
-            'themes.quark.css_pipeline' => [
-                'type' => 'toggle',
-                'label' => 'PLUGIN_ADMIN.CSS_PIPELINE',
-                'highlight' => 0,
-                'options' => [
-                    1 => 'PLUGIN_ADMIN.ENABLED',
-                    0 => 'PLUGIN_ADMIN.DISABLED'
+                'sidebar_post_exclude' => [
+                    'type' => 'text',
+                    'size' => 'medium',
+                    'label' => 'PLUGIN_ADMIN.SIDEBAR_POST_EXCLUDE',
+                    'help' => 'PLUGIN_ADMIN.SIDEBAR_POST_EXCLUDE_HELP'
                 ],
-                'validate' => [
-                    'type' => 'bool'
+                'advanced' => [
+                    'type' => 'tab',
+                    'title' => 'PLUGIN_ADMIN.ADVANCED',
+                    'fields' => [
+                        '@section.advanced' => [
+                            'type' => 'section',
+                            'title' => 'PLUGIN_ADMIN.ADVANCED',
+                            'fields' => [
+                                'advanced' => [
+                                    'type' => 'tab',
+                                    'title' => 'PLUGIN_ADMIN.ADVANCED',
+                                    'fields' => [
+                                        'css_cdn' => [
+                                            'type' => 'text',
+                                            'size' => 'large',
+                                            'label' => 'PLUGIN_ADMIN.CSS_CDN',
+                                            'help' => 'PLUGIN_ADMIN.CSS_CDN_HELP'
+                                        ],
+                                        'js_cdn' => [
+                                            'type' => 'text',
+                                            'size' => 'large',
+                                            'label' => 'PLUGIN_ADMIN.JS_CDN',
+                                            'help' => 'PLUGIN_ADMIN.JS_CDN_HELP'
+                                        ],
+                                        'css_local' => [
+                                            'type' => 'text',
+                                            'size' => 'large',
+                                            'label' => 'PLUGIN_ADMIN.CSS_LOCAL',
+                                            'help' => 'PLUGIN_ADMIN.CSS_LOCAL_HELP'
+                                        ],
+                                        'js_local' => [
+                                            'type' => 'text',
+                                            'size' => 'large',
+                                            'label' => 'PLUGIN_ADMIN.JS_LOCAL',
+                                            'help' => 'PLUGIN_ADMIN.JS_LOCAL_HELP'
+                                        ],
+                                        'google_fonts' => [
+                                            'type' => 'text',
+                                            'size' => 'large',
+                                            'label' => 'PLUGIN_ADMIN.GOOGLE_FONTS',
+                                            'help' => 'PLUGIN_ADMIN.GOOGLE_FONTS_HELP'
+                                        ],
+                                        'fontawesome' => [
+                                            'type' => 'text',
+                                            'size' => 'large',
+                                            'label' => 'PLUGIN_ADMIN.FONTAWESOME',
+                                            'help' => 'PLUGIN_ADMIN.FONTAWESOME_HELP'
+                                        ],
+                                        'google_analytics' => [
+                                            'type' => 'text',
+                                            'size' => 'large',
+                                            'label' => 'PLUGIN_ADMIN.GOOGLE_ANALYTICS',
+                                            'help' => 'PLUGIN_ADMIN.GOOGLE_ANALYTICS_HELP'
+                                        ],
+                                        'google_tag_manager' => [
+                                            'type' => 'text',
+                                            'size' => 'large',
+                                            'label' => 'PLUGIN_ADMIN.GOOGLE_TAG_MANAGER',
+                                            'help' => 'PLUGIN_ADMIN.GOOGLE_TAG_MANAGER_HELP'
+                                        ],
+                                        'piwik' => [
+                                            'type' => 'text',
+                                            'size' => 'large',
+                                            'label' => 'PLUGIN_ADMIN.PIWIK',
+                                            'help' => 'PLUGIN_ADMIN.PIWIK_HELP'
+                                        ],
+                                        'piwik_site_id' => [
+                                            'type' => 'text',
+                                            'size' => 'small',
+                                            'label' => 'PLUGIN_ADMIN.PIWIK_SITE_ID',
+                                            'help' => 'PLUGIN_ADMIN.PIWIK_SITE_ID_HELP'
+                                        ],
+                                        'piwik_img' => [
+                                            'type' => 'toggle',
+                                            'label' => 'PLUGIN_ADMIN.PIWIK_IMG',
+                                            'help' => 'PLUGIN_ADMIN.PIWIK_IMG_HELP',
+                                            'highlight' => 0,
+                                            'options' => [
+                                                1 => 'PLUGIN_ADMIN.ENABLED',
+                                                0 => 'PLUGIN_ADMIN.DISABLED'
+                                            ],
+                                            'validate' => [
+                                                'type' => 'bool'
+                                            ]
+                                        ],
+                                        'twitter' => [
+                                            'type' => 'text',
+                                            'size' => 'large',
+                                            'label' => 'PLUGIN_ADMIN.TWITTER',
+                                            'help' => 'PLUGIN_ADMIN.TWITTER_HELP'
+                                        ],
+                                        'facebook' => [
+                                            'type' => 'text',
+                                            'size' => 'large',
+                                            'label' => 'PLUGIN_ADMIN.FACEBOOK',
+                                            'help' => 'PLUGIN_ADMIN.FACEBOOK_HELP'
+                                        ],
+                                        'facebook_app_id' => [
+                                            'type' => 'text',
+                                            'size' => 'large',
+                                            'label' => 'PLUGIN_ADMIN.FACEBOOK_APP_ID',
+                                            'help' => 'PLUGIN_ADMIN.FACEBOOK_APP_ID_HELP'
+                                        ],
+                                        'css_pipeline' => [
+                                            'type' => 'toggle',
+                                            'label' => 'PLUGIN_ADMIN.CSS_PIPELINE',
+                                            'help' => 'PLUGIN_ADMIN.CSS_PIPELINE_HELP',
+                                            'highlight' => 0,
+                                            'options' => [
+                                                1 => 'PLUGIN_ADMIN.ENABLED',
+                                                0 => 'PLUGIN_ADMIN.DISABLED'
+                                            ],
+                                            'validate' => [
+                                                'type' => 'bool'
+                                            ]
+                                        ],
+                                        'js_pipeline' => [
+                                            'type' => 'toggle',
+                                            'label' => 'PLUGIN_ADMIN.JS_PIPELINE',
+                                            'help' => 'PLUGIN_ADMIN.JS_PIPELINE_HELP',
+                                            'highlight' => 0,
+                                            'options' => [
+                                                1 => 'PLUGIN_ADMIN.ENABLED',
+                                                0 => 'PLUGIN_ADMIN.DISABLED'
+                                            ],
+                                            'validate' => [
+                                                'type' => 'bool'
+                                            ]
+                                        ],
+                                        'css_minify' => [
+                                            'type' => 'toggle',
+                                            'label' => 'PLUGIN_ADMIN.CSS_MINIFY',
+                                            'help' => 'PLUGIN_ADMIN.CSS_MINIFY_HELP',
+                                            'highlight' => 1,
+                                            'options' => [
+                                                1 => 'PLUGIN_ADMIN.ENABLED',
+                                                0 => 'PLUGIN_ADMIN.DISABLED'
+                                            ],
+                                            'validate' => [
+                                                'type' => 'bool'
+                                            ]
+                                        ],
+                                        'js_minify' => [
+                                            'type' => 'toggle',
+                                            'label' => 'PLUGIN_ADMIN.JS_MINIFY',
+                                            'help' => 'PLUGIN_ADMIN.JS_MINIFY_HELP',
+                                            'highlight' => 1,
+                                            'options' => [
+                                                1 => 'PLUGIN_ADMIN.ENABLED',
+                                                0 => 'PLUGIN_ADMIN.DISABLED'
+                                            ],
+                                            'validate' => [
+                                                'type' => 'bool'
+                                            ]
+                                        ],
+                                        'enable_asset_timestamp' => [
+                                            'type' => 'toggle',
+                                            'label' => 'PLUGIN_ADMIN.ENABLE_ASSET_TIMESTAMP',
+                                            'help' => 'PLUGIN_ADMIN.ENABLE_ASSET_TIMESTAMP_HELP',
+                                            'highlight' => 0,
+                                            'options' => [
+                                                1 => 'PLUGIN_ADMIN.ENABLED',
+                                                0 => 'PLUGIN_ADMIN.DISABLED'
+                                            ],
+                                            'validate' => [
+                                                'type' => 'bool'
+                                            ]
+                                        ],
+                                        'collections' => [
+                                            'type' => 'ignore'
+                                        ],
+                                        'assets' => [
+                                            'type' => 'ignore'
+                                        ],
+                                        'errors' => [
+                                            'type' => 'ignore'
+                                        ],
+                                        'debug' => [
+                                            'type' => 'ignore'
+                                        ],
+                                        'images' => [
+                                            'type' => 'section',
+                                            'title' => 'PLUGIN_ADMIN.IMAGES',
+                                            'fields' => [
+                                                'image_quality' => [
+                                                    'type' => 'range',
+                                                    'label' => 'PLUGIN_ADMIN.IMAGE_QUALITY',
+                                                    'help' => 'PLUGIN_ADMIN.IMAGE_QUALITY_HELP',
+                                                    'default' => 85,
+                                                    'min' => 1,
+                                                    'max' => 100,
+                                                    'step' => 1
+                                                ],
+                                                'cache_all' => [
+                                                    'type' => 'toggle',
+                                                    'label' => 'PLUGIN_ADMIN.CACHE_ALL',
+                                                    'help' => 'PLUGIN_ADMIN.CACHE_ALL_HELP',
+                                                    'highlight' => 0,
+                                                    'options' => [
+                                                        1 => 'PLUGIN_ADMIN.ENABLED',
+                                                        0 => 'PLUGIN_ADMIN.DISABLED'
+                                                    ],
+                                                    'validate' => [
+                                                        'type' => 'bool'
+                                                    ]
+                                                ],
+                                                'cache_perms' => [
+                                                    'type' => 'text',
+                                                    'size' => 'small',
+                                                    'label' => 'PLUGIN_ADMIN.CACHE_PERMS',
+                                                    'help' => 'PLUGIN_ADMIN.CACHE_PERMS_HELP',
+                                                    'default' => '0755'
+                                                ],
+                                                'debug' => [
+                                                    'type' => 'toggle',
+                                                    'label' => 'PLUGIN_ADMIN.IMAGES_DEBUG',
+                                                    'help' => 'PLUGIN_ADMIN.IMAGES_DEBUG_HELP',
+                                                    'highlight' => 0,
+                                                    'options' => [
+                                                        1 => 'PLUGIN_ADMIN.ENABLED',
+                                                        0 => 'PLUGIN_ADMIN.DISABLED'
+                                                    ],
+                                                    'validate' => [
+                                                        'type' => 'bool'
+                                                    ]
+                                                ],
+                                                'auto_fix_orientation' => [
+                                                    'type' => 'toggle',
+                                                    'label' => 'PLUGIN_ADMIN.IMAGES_AUTO_FIX_ORIENTATION',
+                                                    'help' => 'PLUGIN_ADMIN.IMAGES_AUTO_FIX_ORIENTATION_HELP',
+                                                    'highlight' => 0,
+                                                    'options' => [
+                                                        1 => 'PLUGIN_ADMIN.ENABLED',
+                                                        0 => 'PLUGIN_ADMIN.DISABLED'
+                                                    ],
+                                                    'validate' => [
+                                                        'type' => 'bool'
+                                                    ]
+                                                ],
+                                                'default_image_quality' => [
+                                                    'type' => 'range',
+                                                    'label' => 'PLUGIN_ADMIN.IMAGES_DEFAULT_IMAGE_QUALITY',
+                                                    'help' => 'PLUGIN_ADMIN.IMAGES_DEFAULT_IMAGE_QUALITY_HELP',
+                                                    'default' => 85,
+                                                    'min' => 1,
+                                                    'max' => 100,
+                                                    'step' => 1
+                                                ],
+                                                'cache' => [
+                                                    'type' => 'toggle',
+                                                    'label' => 'PLUGIN_ADMIN.IMAGES_CACHE',
+                                                    'help' => 'PLUGIN_ADMIN.IMAGES_CACHE_HELP',
+                                                    'highlight' => 1,
+                                                    'options' => [
+                                                        1 => 'PLUGIN_ADMIN.ENABLED',
+                                                        0 => 'PLUGIN_ADMIN.DISABLED'
+                                                    ],
+                                                    'validate' => [
+                                                        'type' => 'bool'
+                                                    ]
+                                                ],
+                                                'cached_adapters' => [
+                                                    'type' => 'array',
+                                                    'label' => 'PLUGIN_ADMIN.IMAGES_CACHED_ADAPTERS',
+                                                    'help' => 'PLUGIN_ADMIN.IMAGES_CACHED_ADAPTERS_HELP',
+                                                    'value_only' => true
+                                                ],
+                                                'cli_compatibility' => [
+                                                    'type' => 'toggle',
+                                                    'label' => 'PLUGIN_ADMIN.IMAGES_CLI_COMPATIBILITY',
+                                                    'help' => 'PLUGIN_ADMIN.IMAGES_CLI_COMPATIBILITY_HELP',
+                                                    'highlight' => 0,
+                                                    'options' => [
+                                                        1 => 'PLUGIN_ADMIN.ENABLED',
+                                                        0 => 'PLUGIN_ADMIN.DISABLED'
+                                                    ],
+                                                    'validate' => [
+                                                        'type' => 'bool'
+                                                    ]
+                                                ],
+                                                'default' => [
+                                                    'type' => 'section',
+                                                    'title' => 'PLUGIN_ADMIN.IMAGES_DEFAULT',
+                                                    'fields' => [
+                                                        'IMAGE_QUALITY' => [
+                                                            'type' => 'range',
+                                                            'label' => 'PLUGIN_ADMIN.IMAGES_IMAGE_QUALITY',
+                                                            'help' => 'PLUGIN_ADMIN.IMAGES_IMAGE_QUALITY_HELP',
+                                                            'default' => 85,
+                                                            'min' => 1,
+                                                            'max' => 100,
+                                                            'step' => 1
+                                                        ]
+                                                    ]
+                                                ],
+                                                'presets' => [
+                                                    'type' => 'ignore'
+                                                ],
+                                                'seofriendly' => [
+                                                    'type' => 'toggle',
+                                                    'label' => 'PLUGIN_ADMIN.IMAGES_SEOFRIENDLY',
+                                                    'help' => 'PLUGIN_ADMIN.IMAGES_SEOFRIENDLY_HELP',
+                                                    'highlight' => 0,
+                                                    'options' => [
+                                                        1 => 'PLUGIN_ADMIN.ENABLED',
+                                                        0 => 'PLUGIN_ADMIN.DISABLED'
+                                                    ],
+                                                    'validate' => [
+                                                        'type' => 'bool'
+                                                    ]
+                                                ],
+                                                'cls' => [
+                                                    'type' => 'section',
+                                                    'title' => 'PLUGIN_ADMIN.IMAGES_CLS',
+                                                    'fields' => [
+                                                        'auto_sizes' => [
+                                                            'type' => 'toggle',
+                                                            'label' => 'PLUGIN_ADMIN.IMAGES_CLS_AUTO_SIZES',
+                                                            'help' => 'PLUGIN_ADMIN.IMAGES_CLS_AUTO_SIZES_HELP',
+                                                            'highlight' => 0,
+                                                            'options' => [
+                                                                1 => 'PLUGIN_ADMIN.ENABLED',
+                                                                0 => 'PLUGIN_ADMIN.DISABLED'
+                                                            ],
+                                                            'validate' => [
+                                                                'type' => 'bool'
+                                                            ]
+                                                        ],
+                                                        'aspect_ratio' => [
+                                                            'type' => 'toggle',
+                                                            'label' => 'PLUGIN_ADMIN.IMAGES_CLS_ASPECT_RATIO',
+                                                            'help' => 'PLUGIN_ADMIN.IMAGES_CLS_ASPECT_RATIO_HELP',
+                                                            'highlight' => 0,
+                                                            'options' => [
+                                                                1 => 'PLUGIN_ADMIN.ENABLED',
+                                                                0 => 'PLUGIN_ADMIN.DISABLED'
+                                                            ],
+                                                            'validate' => [
+                                                                'type' => 'bool'
+                                                            ]
+                                                        ],
+                                                        'retina_scale' => [
+                                                            'type' => 'select',
+                                                            'label' => 'PLUGIN_ADMIN.IMAGES_CLS_RETINA_SCALE',
+                                                            'help' => 'PLUGIN_ADMIN.IMAGES_CLS_RETINA_SCALE_HELP',
+                                                            'default' => 1,
+                                                            'options' => [
+                                                                1 => '1x',
+                                                                2 => '2x',
+                                                                3 => '3x',
+                                                                4 => '4x'
+                                                            ]
+                                                        ],
+                                                        'setup' => [
+                                                            'type' => 'array',
+                                                            'label' => 'PLUGIN_ADMIN.IMAGES_CLS_SETUP',
+                                                            'help' => 'PLUGIN_ADMIN.IMAGES_CLS_SETUP_HELP',
+                                                            'value_only' => true
+                                                        ],
+                                                        'block' => [
+                                                            'type' => 'array',
+                                                            'label' => 'PLUGIN_ADMIN.IMAGES_CLS_BLOCK',
+                                                            'help' => 'PLUGIN_ADMIN.IMAGES_CLS_BLOCK_HELP',
+                                                            'value_only' => true
+                                                        ]
+                                                    ]
+                                                ]
+                                            ]
+                                        ]
+                                    ]
+                                ]
+                            ],
+                            'name' => '@section.advanced'
+                        ]
+                    ]
                 ],
-                'validation' => 'loose',
-                'name' => 'themes.quark.css_pipeline'
-            ],
-            'themes.quark.js_pipeline' => [
-                'type' => 'toggle',
-                'label' => 'PLUGIN_ADMIN.JS_PIPELINE',
-                'highlight' => 0,
-                'options' => [
-                    1 => 'PLUGIN_ADMIN.ENABLED',
-                    0 => 'PLUGIN_ADMIN.DISABLED'
-                ],
-                'validate' => [
-                    'type' => 'bool'
-                ],
-                'validation' => 'loose',
-                'name' => 'themes.quark.js_pipeline'
-            ],
-            'themes.quark.css_minify' => [
-                'type' => 'toggle',
-                'label' => 'PLUGIN_ADMIN.CSS_MINIFY',
-                'highlight' => 1,
-                'options' => [
-                    1 => 'PLUGIN_ADMIN.ENABLED',
-                    0 => 'PLUGIN_ADMIN.DISABLED'
-                ],
-                'validate' => [
-                    'type' => 'bool'
-                ],
-                'validation' => 'loose',
-                'name' => 'themes.quark.css_minify'
-            ],
-            'themes.quark.js_minify' => [
-                'type' => 'toggle',
-                'label' => 'PLUGIN_ADMIN.JS_MINIFY',
-                'highlight' => 1,
-                'options' => [
-                    1 => 'PLUGIN_ADMIN.ENABLED',
-                    0 => 'PLUGIN_ADMIN.DISABLED'
-                ],
-                'validate' => [
-                    'type' => 'bool'
-                ],
-                'validation' => 'loose',
-                'name' => 'themes.quark.js_minify'
-            ],
-            'themes.quark.enable_asset_timestamp' => [
-                'type' => 'toggle',
-                'label' => 'PLUGIN_ADMIN.ENABLE_ASSET_TIMESTAMP',
-                'highlight' => 0,
-                'options' => [
-                    1 => 'PLUGIN_ADMIN.ENABLED',
-                    0 => 'PLUGIN_ADMIN.DISABLED'
-                ],
-                'validate' => [
-                    'type' => 'bool'
-                ],
-                'validation' => 'loose',
-                'name' => 'themes.quark.enable_asset_timestamp'
-            ],
-            'themes.quark.image_quality' => [
-                'type' => 'range',
-                'label' => 'PLUGIN_ADMIN.IMAGE_QUALITY',
-                'default' => 85,
-                'min' => 1,
-                'max' => 100,
-                'step' => 1,
-                'validation' => 'loose',
-                'name' => 'themes.quark.image_quality'
-            ],
-            'themes.quark.cache_all' => [
-                'type' => 'toggle',
-                'label' => 'PLUGIN_ADMIN.CACHE_ALL',
-                'highlight' => 0,
-                'options' => [
-                    1 => 'PLUGIN_ADMIN.ENABLED',
-                    0 => 'PLUGIN_ADMIN.DISABLED'
-                ],
-                'validate' => [
-                    'type' => 'bool'
-                ],
-                'validation' => 'loose',
-                'name' => 'themes.quark.cache_all'
-            ],
-            'themes.quark.cache_perms' => [
-                'type' => 'text',
-                'size' => 'small',
-                'label' => 'PLUGIN_ADMIN.CACHE_PERMS',
-                'default' => '0755',
-                'validation' => 'loose',
-                'name' => 'themes.quark.cache_perms'
-            ],
-            'themes.quark.debug' => [
-                'type' => 'toggle',
-                'label' => 'PLUGIN_ADMIN.IMAGES_DEBUG',
-                'highlight' => 0,
-                'options' => [
-                    1 => 'PLUGIN_ADMIN.ENABLED',
-                    0 => 'PLUGIN_ADMIN.DISABLED'
-                ],
-                'validate' => [
-                    'type' => 'bool'
-                ],
-                'validation' => 'loose',
-                'name' => 'themes.quark.debug'
-            ],
-            'themes.quark.auto_fix_orientation' => [
-                'type' => 'toggle',
-                'label' => 'PLUGIN_ADMIN.IMAGES_AUTO_FIX_ORIENTATION',
-                'highlight' => 0,
-                'options' => [
-                    1 => 'PLUGIN_ADMIN.ENABLED',
-                    0 => 'PLUGIN_ADMIN.DISABLED'
-                ],
-                'validate' => [
-                    'type' => 'bool'
-                ],
-                'validation' => 'loose',
-                'name' => 'themes.quark.auto_fix_orientation'
-            ],
-            'themes.quark.default_image_quality' => [
-                'type' => 'range',
-                'label' => 'PLUGIN_ADMIN.IMAGES_DEFAULT_IMAGE_QUALITY',
-                'default' => 85,
-                'min' => 1,
-                'max' => 100,
-                'step' => 1,
-                'validation' => 'loose',
-                'name' => 'themes.quark.default_image_quality'
-            ],
-            'themes.quark.cache' => [
-                'type' => 'toggle',
-                'label' => 'PLUGIN_ADMIN.IMAGES_CACHE',
-                'highlight' => 1,
-                'options' => [
-                    1 => 'PLUGIN_ADMIN.ENABLED',
-                    0 => 'PLUGIN_ADMIN.DISABLED'
-                ],
-                'validate' => [
-                    'type' => 'bool'
-                ],
-                'validation' => 'loose',
-                'name' => 'themes.quark.cache'
-            ],
-            'themes.quark.cached_adapters' => [
-                'type' => 'array',
-                'label' => 'PLUGIN_ADMIN.IMAGES_CACHED_ADAPTERS',
-                'value_only' => true,
-                'validation' => 'loose',
-                'name' => 'themes.quark.cached_adapters'
-            ],
-            'themes.quark.cli_compatibility' => [
-                'type' => 'toggle',
-                'label' => 'PLUGIN_ADMIN.IMAGES_CLI_COMPATIBILITY',
-                'highlight' => 0,
-                'options' => [
-                    1 => 'PLUGIN_ADMIN.ENABLED',
-                    0 => 'PLUGIN_ADMIN.DISABLED'
-                ],
-                'validate' => [
-                    'type' => 'bool'
-                ],
-                'validation' => 'loose',
-                'name' => 'themes.quark.cli_compatibility'
-            ],
-            'themes.quark.IMAGE_QUALITY' => [
-                'type' => 'range',
-                'label' => 'PLUGIN_ADMIN.IMAGES_IMAGE_QUALITY',
-                'default' => 85,
-                'min' => 1,
-                'max' => 100,
-                'step' => 1,
-                'validation' => 'loose',
-                'name' => 'themes.quark.IMAGE_QUALITY'
-            ],
-            'themes.quark.seofriendly' => [
-                'type' => 'toggle',
-                'label' => 'PLUGIN_ADMIN.IMAGES_SEOFRIENDLY',
-                'highlight' => 0,
-                'options' => [
-                    1 => 'PLUGIN_ADMIN.ENABLED',
-                    0 => 'PLUGIN_ADMIN.DISABLED'
-                ],
-                'validate' => [
-                    'type' => 'bool'
-                ],
-                'validation' => 'loose',
-                'name' => 'themes.quark.seofriendly'
-            ],
-            'themes.quark.auto_sizes' => [
-                'type' => 'toggle',
-                'label' => 'PLUGIN_ADMIN.IMAGES_CLS_AUTO_SIZES',
-                'highlight' => 0,
-                'options' => [
-                    1 => 'PLUGIN_ADMIN.ENABLED',
-                    0 => 'PLUGIN_ADMIN.DISABLED'
-                ],
-                'validate' => [
-                    'type' => 'bool'
-                ],
-                'validation' => 'loose',
-                'name' => 'themes.quark.auto_sizes'
-            ],
-            'themes.quark.aspect_ratio' => [
-                'type' => 'toggle',
-                'label' => 'PLUGIN_ADMIN.IMAGES_CLS_ASPECT_RATIO',
-                'highlight' => 0,
-                'options' => [
-                    1 => 'PLUGIN_ADMIN.ENABLED',
-                    0 => 'PLUGIN_ADMIN.DISABLED'
-                ],
-                'validate' => [
-                    'type' => 'bool'
-                ],
-                'validation' => 'loose',
-                'name' => 'themes.quark.aspect_ratio'
-            ],
-            'themes.quark.retina_scale' => [
-                'type' => 'select',
-                'label' => 'PLUGIN_ADMIN.IMAGES_CLS_RETINA_SCALE',
-                'default' => 1,
-                'options' => [
-                    1 => '1x',
-                    2 => '2x',
-                    3 => '3x',
-                    4 => '4x'
-                ],
-                'validation' => 'loose',
-                'name' => 'themes.quark.retina_scale'
-            ],
-            'themes.quark.setup' => [
-                'type' => 'array',
-                'label' => 'PLUGIN_ADMIN.IMAGES_CLS_SETUP',
-                'value_only' => true,
-                'validation' => 'loose',
-                'name' => 'themes.quark.setup'
-            ],
-            'themes.quark.block' => [
-                'type' => 'array',
-                'label' => 'PLUGIN_ADMIN.IMAGES_CLS_BLOCK',
-                'value_only' => true,
-                'validation' => 'loose',
-                'name' => 'themes.quark.block'
+                'name' => 'themes.quark.blog-page',
+                'validation' => 'loose'
             ]
         ],
         'rules' => [
@@ -6511,48 +6516,7 @@ return [
                     'header-dark' => 'themes.quark.header-dark',
                     'header-transparent' => 'themes.quark.header-transparent',
                     'sticky_footer' => 'themes.quark.sticky_footer',
-                    'blog-page' => 'themes.quark.blog-page',
-                    'custom_logo_scaled' => 'themes.quark.custom_logo_scaled',
-                    'hide_git_sync_repo_link' => 'themes.quark.hide_git_sync_repo_link',
-                    'sidebar_include' => 'themes.quark.sidebar_include',
-                    'sidebar_exclude' => 'themes.quark.sidebar_exclude',
-                    'sidebar_post_include' => 'themes.quark.sidebar_post_include',
-                    'sidebar_post_exclude' => 'themes.quark.sidebar_post_exclude',
-                    'css_cdn' => 'themes.quark.css_cdn',
-                    'js_cdn' => 'themes.quark.js_cdn',
-                    'css_local' => 'themes.quark.css_local',
-                    'js_local' => 'themes.quark.js_local',
-                    'google_fonts' => 'themes.quark.google_fonts',
-                    'fontawesome' => 'themes.quark.fontawesome',
-                    'google_analytics' => 'themes.quark.google_analytics',
-                    'google_tag_manager' => 'themes.quark.google_tag_manager',
-                    'piwik' => 'themes.quark.piwik',
-                    'piwik_site_id' => 'themes.quark.piwik_site_id',
-                    'piwik_img' => 'themes.quark.piwik_img',
-                    'twitter' => 'themes.quark.twitter',
-                    'facebook' => 'themes.quark.facebook',
-                    'facebook_app_id' => 'themes.quark.facebook_app_id',
-                    'css_pipeline' => 'themes.quark.css_pipeline',
-                    'js_pipeline' => 'themes.quark.js_pipeline',
-                    'css_minify' => 'themes.quark.css_minify',
-                    'js_minify' => 'themes.quark.js_minify',
-                    'enable_asset_timestamp' => 'themes.quark.enable_asset_timestamp',
-                    'image_quality' => 'themes.quark.image_quality',
-                    'cache_all' => 'themes.quark.cache_all',
-                    'cache_perms' => 'themes.quark.cache_perms',
-                    'debug' => 'themes.quark.debug',
-                    'auto_fix_orientation' => 'themes.quark.auto_fix_orientation',
-                    'default_image_quality' => 'themes.quark.default_image_quality',
-                    'cache' => 'themes.quark.cache',
-                    'cached_adapters' => 'themes.quark.cached_adapters',
-                    'cli_compatibility' => 'themes.quark.cli_compatibility',
-                    'IMAGE_QUALITY' => 'themes.quark.IMAGE_QUALITY',
-                    'seofriendly' => 'themes.quark.seofriendly',
-                    'auto_sizes' => 'themes.quark.auto_sizes',
-                    'aspect_ratio' => 'themes.quark.aspect_ratio',
-                    'retina_scale' => 'themes.quark.retina_scale',
-                    'setup' => 'themes.quark.setup',
-                    'block' => 'themes.quark.block'
+                    'blog-page' => 'themes.quark.blog-page'
                 ]
             ]
         ],

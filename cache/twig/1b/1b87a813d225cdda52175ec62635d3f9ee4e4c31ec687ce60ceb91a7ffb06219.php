@@ -109,7 +109,7 @@ class __TwigTemplate_40c584bd8c9c2c3186d03f0178b1df6cfe4f8dab165e33114fa89f52b0a
                     // line 18
                     echo $context["macros"]->getnav_loop($context["p"], ($context["dropdown_enabled"] ?? null));
                     echo "
-        </ul>
+      </ul>
       ";
                 }
                 // line 21
@@ -175,7 +175,7 @@ class __TwigTemplate_40c584bd8c9c2c3186d03f0178b1df6cfe4f8dab165e33114fa89f52b0a
       {% if has_children %}
         <ul class=\"dropdown-menu{% if not dropdown_enabled %} mobile-only{% endif %}\">
           {{ macros.nav_loop(p, dropdown_enabled) }}
-        </ul>
+      </ul>
       {% endif %}
     </li>
   {% endfor %}

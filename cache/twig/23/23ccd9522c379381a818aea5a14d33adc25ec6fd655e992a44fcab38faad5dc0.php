@@ -225,7 +225,7 @@ class __TwigTemplate_fa9c158f13fa436beeca64a73e12d07a0d8f2f7738a4c83cf8c26ac24e0
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['p'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
         // line 60
-        echo "    </ul>
+        echo "</ul>
 </nav>
 
 ";
@@ -315,7 +315,7 @@ class __TwigTemplate_fa9c158f13fa436beeca64a73e12d07a0d8f2f7738a4c83cf8c26ac24e0
                 {% endif %}
             </li>
         {% endfor %}
-    </ul>
+</ul>
 </nav>
 
 ", "partials/navigation.html.twig", "/home/ivan/grav-admin/user/themes/quark/templates/partials/navigation.html.twig");
