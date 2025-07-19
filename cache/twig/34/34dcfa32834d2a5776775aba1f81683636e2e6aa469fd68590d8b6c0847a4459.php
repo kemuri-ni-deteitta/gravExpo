@@ -282,15 +282,6 @@ function showDropdown(element) {
         }
     });
     
-    // Also close all child dropdowns
-    const allChildDropdowns = document.querySelectorAll('.child-dropdown-menu');
-    allChildDropdowns.forEach(function(childDropdown) {
-        childDropdown.style.setProperty('display', 'none', 'important');
-        childDropdown.style.setProperty('opacity', '0', 'important');
-        childDropdown.style.setProperty('transform', 'translateX(-10px)', 'important');
-        childDropdown.style.setProperty('pointer-events', 'none', 'important');
-    });
-    
     // Don't interfere with clicked dropdowns
     if (clickedDropdowns.has(element)) return;
     
@@ -328,7 +319,8 @@ function showDropdown(element) {
     const arrow = element.querySelector('.dropdown-arrow');
     if (arrow) arrow.style.transform = 'rotate(180deg)';
     
-    // Add hover listeners to the dropdown itself
+    // Add hover listeners to the dropdown itself - but don't hide when leaving dropdown
+    // This ensures the dropdown stays open when moving between parent and dropdown
     dropdown.addEventListener('mouseenter', function() {
         console.log('Mouse entered dropdown, keeping it open');
         if (dropdownTimeouts.has(element)) {
@@ -337,8 +329,21 @@ function showDropdown(element) {
         }
     });
     
-    dropdown.addEventListener('mouseleave', function() {
-        console.log('Mouse left dropdown, starting hide timeout');
+    // Only hide when leaving the entire dropdown area (parent + dropdown)
+    dropdown.addEventListener('mouseleave', function(e) {
+        console.log('Mouse left dropdown, checking if we should hide');
+        // Check if mouse is moving to the parent item
+        const rect = element.getBoundingClientRect();
+        const mouseX = e.clientX;
+        const mouseY = e.clientY;
+        
+        // If mouse is moving to the parent item area, don't hide
+        if (mouseX >= rect.left && mouseX <= rect.right && mouseY >= rect.top && mouseY <= rect.bottom) {
+            console.log('Mouse moving to parent item, keeping dropdown open');
+            return;
+        }
+        
+        // Otherwise, start hide timeout
         const hideTimeout = setTimeout(() => {
             hideDropdown(element);
         }, 150);
@@ -382,6 +387,8 @@ function hideDropdown(element) {
 function showChildDropdown(element) {
     const dropdown = element.querySelector('.child-dropdown-menu');
     if (!dropdown) return;
+    
+    console.log('showChildDropdown called for:', element.textContent.trim());
     
     // Immediately close all other child dropdowns when hovering over a new child item
     const allChildItems = document.querySelectorAll('#custom-header nav ul li li');
@@ -441,19 +448,33 @@ function showChildDropdown(element) {
     
     // Add hover listeners to the child dropdown itself
     dropdown.addEventListener('mouseenter', function() {
-        console.log('Mouse entered child dropdown, canceling hide timeout');
+        console.log('Mouse entered child dropdown, keeping it open');
         if (dropdownTimeouts.has(element)) {
             clearTimeout(dropdownTimeouts.get(element));
             dropdownTimeouts.delete(element);
         }
     });
     
-    dropdown.addEventListener('mouseleave', function() {
-        console.log('Mouse left child dropdown, starting hide timeout');
-        hideChildDropdown(element);
+    // Only hide when leaving the entire child dropdown area
+    dropdown.addEventListener('mouseleave', function(e) {
+        console.log('Mouse left child dropdown, checking if we should hide');
+        // Check if mouse is moving to the parent child item
+        const rect = element.getBoundingClientRect();
+        const mouseX = e.clientX;
+        const mouseY = e.clientY;
+        
+        // If mouse is moving to the parent child item area, don't hide
+        if (mouseX >= rect.left && mouseX <= rect.right && mouseY >= rect.top && mouseY <= rect.bottom) {
+            console.log('Mouse moving to parent child item, keeping child dropdown open');
+            return;
+        }
+        
+        // Otherwise, start hide timeout
+        const hideTimeout = setTimeout(() => {
+            hideChildDropdown(element);
+        }, 150);
+        dropdownTimeouts.set(element, hideTimeout);
     });
-    
-
 }
 
 function hideChildDropdown(element) {
@@ -483,7 +504,7 @@ function hideChildDropdown(element) {
         dropdown.style.setProperty('pointer-events', 'none', 'important');
         const arrow = element.querySelector('.dropdown-arrow');
         if (arrow) arrow.style.transform = 'rotate(0deg)';
-    }, 300); // 300ms delay to allow time to reach child dropdown items
+    }, 200); // Reduced delay for child dropdowns
     
     dropdownTimeouts.set(element, hideTimeoutId);
 }
@@ -512,8 +533,25 @@ document.addEventListener('DOMContentLoaded', function() {
         showDropdown(item);
     });
     
-    item.addEventListener('mouseleave', function() {
+    item.addEventListener('mouseleave', function(e) {
         console.log('Mouse left nav item:', item.textContent.trim());
+        
+        // Check if mouse is moving to the dropdown area
+        const dropdown = item.querySelector('.dropdown-menu');
+        if (dropdown) {
+            const dropdownRect = dropdown.getBoundingClientRect();
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+            
+            // If mouse is moving to the dropdown area, don't hide
+            if (mouseX >= dropdownRect.left && mouseX <= dropdownRect.right && 
+                mouseY >= dropdownRect.top && mouseY <= dropdownRect.bottom) {
+                console.log('Mouse moving to dropdown area, keeping dropdown open');
+                return;
+            }
+        }
+        
+        // Otherwise, start hide timeout
         hoverTimeout = setTimeout(() => {
             hideDropdown(item);
         }, 100);
@@ -629,7 +667,7 @@ window.forceCloseDropdowns = function() {
 </script>
 </head>
 <body id=\"top\" class=\"";
-        // line 596
+        // line 634
         $this->displayBlock('body_classes', $context, $blocks);
         echo "\" style=\"margin: 0 !important; padding: 0 !important; padding-top: 80px !important;\">
     
@@ -639,11 +677,11 @@ window.forceCloseDropdowns = function() {
      <!-- Logo Section - ABSOLUTE LEFT POSITIONING -->
      <div style=\"position: absolute !important; left: 15px !important; top: 0 !important; display: flex !important; align-items: center !important; height: 80px !important; z-index: 100000 !important;\">
          <a href=\"";
-        // line 603
+        // line 641
         echo twig_escape_filter($this->env, ($context["home_url"] ?? null), "html", null, true);
         echo "\" style=\"display: flex !important; align-items: center !important; text-decoration: none !important;\">
              <img src=\"";
-        // line 604
+        // line 642
         echo twig_escape_filter($this->env, $this->env->getExtension('Grav\Common\Twig\Extension\GravExtension')->urlFunc("theme://images/logo/logo.gif"), "html", null, true);
         echo "\" alt=\"";
         echo twig_escape_filter($this->env, $this->getAttribute(($context["site"] ?? null), "title", []), "html", null, true);
@@ -656,27 +694,27 @@ window.forceCloseDropdowns = function() {
         <nav style=\"display: flex !important; align-items: center !important; height: 80px !important;\">
             <ul style=\"display: flex !important; align-items: center !important; margin: 0 !important; padding: 0 !important; list-style: none !important; height: 80px !important; flex-wrap: nowrap !important; white-space: nowrap !important;\">
                 ";
-        // line 612
+        // line 650
         $context['_parent'] = $context;
         $context['_seq'] = twig_ensure_traversable($this->getAttribute($this->getAttribute(($context["pages"] ?? null), "children", []), "visible", []));
         foreach ($context['_seq'] as $context["_key"] => $context["p"]) {
-            // line 613
+            // line 651
             echo "                    ";
             $context["active_page"] = ((($this->getAttribute($context["p"], "active", []) || $this->getAttribute($context["p"], "activeChild", []))) ? ("active") : (""));
-            // line 614
+            // line 652
             echo "                    ";
             $context["has_children"] = ($this->getAttribute($this->getAttribute($this->getAttribute($context["p"], "children", []), "visible", []), "count", []) > 0);
-            // line 615
+            // line 653
             echo "                    ";
             $context["show_children"] = (($context["has_children"] ?? null) && ($this->getAttribute($context["p"], "active", []) || $this->getAttribute($context["p"], "activeChild", [])));
-            // line 616
+            // line 654
             echo "                    <li style=\"margin: 0 0.8rem !important; position: relative !important; display: flex !important; align-items: center !important; height: 80px !important; white-space: nowrap !important; flex-shrink: 0 !important; padding: 0.5rem 0 !important; cursor: pointer !important;\" 
                         data-has-children=\"";
-            // line 617
+            // line 655
             echo ((($context["has_children"] ?? null)) ? ("true") : ("false"));
             echo "\">
                         <a href=\"";
-            // line 618
+            // line 656
             echo twig_escape_filter($this->env, $this->getAttribute($context["p"], "url", []), "html", null, true);
             echo "\" style=\"display: flex !important; align-items: center !important; justify-content: center !important; padding: 0.5rem 1rem !important; text-decoration: none !important; color: #2c2c2c !important; font-weight: 500 !important; font-size: 1.1rem !important; transition: all 0.2s ease !important; border-radius: 4px !important; height: 40px !important; white-space: nowrap !important; min-width: fit-content !important; ";
             if (($context["active_page"] ?? null)) {
@@ -685,19 +723,19 @@ window.forceCloseDropdowns = function() {
             echo "\" 
                            onmouseover=\"this.style.color='#ff6600'; this.style.background='rgba(255, 102, 0, 0.15)'\" 
                            onmouseout=\"this.style.color='#2c2c2c'; this.style.background='transparent'; ";
-            // line 620
+            // line 658
             if (($context["active_page"] ?? null)) {
                 echo "this.style.color='#ff6600'; this.style.background='rgba(255, 102, 0, 0.15)';";
             }
             echo "\"
                            ";
-            // line 621
+            // line 659
             if (($context["has_children"] ?? null)) {
                 echo "onclick=\"handleDropdownClick(event, this.parentElement)\"";
             }
             echo ">
                             ";
-            // line 622
+            // line 660
             echo twig_escape_filter($this->env, $this->getAttribute($context["p"], "menu", []), "html", null, true);
             if (($context["has_children"] ?? null)) {
                 echo " <span class=\"dropdown-arrow\" style=\"margin-left: 5px; font-size: 0.7rem; transition: transform 0.2s ease; ";
@@ -706,12 +744,12 @@ window.forceCloseDropdowns = function() {
                 }
                 echo "; pointer-events: none !important; user-select: none !important;\">▼</span>";
             }
-            // line 623
+            // line 661
             echo "                        </a>
                         ";
-            // line 624
+            // line 662
             if (($context["has_children"] ?? null)) {
-                // line 625
+                // line 663
                 echo "                        <ul class=\"dropdown-menu\" style=\"position: absolute !important; top: 100% !important; left: 0 !important; background: #ffffff !important; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important; border-radius: 6px !important; min-width: 200px !important; padding: 0.5rem 0 !important; ";
                 if (($context["show_children"] ?? null)) {
                     echo "display: block !important;";
@@ -720,26 +758,26 @@ window.forceCloseDropdowns = function() {
                 }
                 echo " z-index: 100001 !important; border: 1px solid rgba(0, 0, 0, 0.1) !important; margin-top: -8px !important; flex-direction: column !important; opacity: 0; transform: translateY(-10px); transition: opacity 0.2s ease, transform 0.2s ease; border-top-left-radius: 0 !important; border-top-right-radius: 0 !important;\">
                             ";
-                // line 626
+                // line 664
                 $context['_parent'] = $context;
                 $context['_seq'] = twig_ensure_traversable($this->getAttribute($this->getAttribute($context["p"], "children", []), "visible", []));
                 foreach ($context['_seq'] as $context["_key"] => $context["child"]) {
-                    // line 627
+                    // line 665
                     echo "                                ";
                     $context["child_active"] = ((($this->getAttribute($context["child"], "active", []) || $this->getAttribute($context["child"], "activeChild", []))) ? ("active") : (""));
-                    // line 628
+                    // line 666
                     echo "                                ";
                     $context["child_has_children"] = ($this->getAttribute($this->getAttribute($this->getAttribute($context["child"], "children", []), "visible", []), "count", []) > 0);
-                    // line 629
+                    // line 667
                     echo "                                <li style=\"margin: 0 !important; display: block !important; height: auto !important; position: relative !important;\" 
                                     onmouseenter=\"showChildDropdown(this)\" 
                                     onmouseleave=\"hideChildDropdown(this)\"
                                     data-has-children=\"";
-                    // line 632
+                    // line 670
                     echo ((($context["child_has_children"] ?? null)) ? ("true") : ("false"));
                     echo "\">
                                     <a href=\"";
-                    // line 633
+                    // line 671
                     echo twig_escape_filter($this->env, $this->getAttribute($context["child"], "url", []), "html", null, true);
                     echo "\" style=\"padding: 0.6rem 1rem !important; color: #2c2c2c !important; font-weight: 400 !important; font-size: 1rem !important; display: block !important; text-decoration: none !important; transition: all 0.2s ease !important; border-radius: 0 !important; height: auto !important; white-space: nowrap !important; ";
                     if (($context["child_active"] ?? null)) {
@@ -748,19 +786,19 @@ window.forceCloseDropdowns = function() {
                     echo "\"
                                        onmouseover=\"this.style.background='#f8f9fa'; this.style.color='#ff6600'\" 
                                        onmouseout=\"this.style.background='transparent'; this.style.color='#2c2c2c'; ";
-                    // line 635
+                    // line 673
                     if (($context["child_active"] ?? null)) {
                         echo "this.style.color='#ff6600'; this.style.background='rgba(255, 102, 0, 0.08)';";
                     }
                     echo "\"
                                        ";
-                    // line 636
+                    // line 674
                     if (($context["child_has_children"] ?? null)) {
                         echo "onclick=\"handleChildDropdownClick(event, this.parentElement)\"";
                     }
                     echo ">
                                         ";
-                    // line 637
+                    // line 675
                     echo twig_escape_filter($this->env, $this->getAttribute($context["child"], "menu", []), "html", null, true);
                     if (($context["child_has_children"] ?? null)) {
                         echo " <span class=\"dropdown-arrow\" style=\"margin-left: 5px; font-size: 0.6rem; transition: transform 0.2s ease; ";
@@ -769,25 +807,25 @@ window.forceCloseDropdowns = function() {
                         }
                         echo "; pointer-events: none !important; user-select: none !important;\">▶</span>";
                     }
-                    // line 638
+                    // line 676
                     echo "                                    </a>
                                     ";
-                    // line 639
+                    // line 677
                     if (($context["child_has_children"] ?? null)) {
-                        // line 640
+                        // line 678
                         echo "                                    <ul class=\"child-dropdown-menu\" style=\"position: absolute !important; left: 100% !important; top: 0 !important; background: #ffffff !important; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important; border-radius: 6px !important; min-width: 200px !important; padding: 0.5rem 0 !important; display: none !important; z-index: 100002 !important; border: 1px solid rgba(0, 0, 0, 0.1) !important; margin-left: 4px !important; flex-direction: column !important; opacity: 0; transform: translateX(-10px); transition: opacity 0.2s ease, transform 0.2s ease;\">
                                         ";
-                        // line 641
+                        // line 679
                         $context['_parent'] = $context;
                         $context['_seq'] = twig_ensure_traversable($this->getAttribute($this->getAttribute($context["child"], "children", []), "visible", []));
                         foreach ($context['_seq'] as $context["_key"] => $context["grandchild"]) {
-                            // line 642
+                            // line 680
                             echo "                                            ";
                             $context["grandchild_active"] = ((($this->getAttribute($context["grandchild"], "active", []) || $this->getAttribute($context["grandchild"], "activeChild", []))) ? ("active") : (""));
-                            // line 643
+                            // line 681
                             echo "                                            <li style=\"margin: 0 !important; display: block !important; height: auto !important;\">
                                                 <a href=\"";
-                            // line 644
+                            // line 682
                             echo twig_escape_filter($this->env, $this->getAttribute($context["grandchild"], "url", []), "html", null, true);
                             echo "\" style=\"padding: 0.6rem 1rem !important; color: #2c2c2c !important; font-weight: 400 !important; font-size: 0.9rem !important; display: block !important; text-decoration: none !important; transition: all 0.2s ease !important; border-radius: 0 !important; height: auto !important; white-space: nowrap !important; ";
                             if (($context["grandchild_active"] ?? null)) {
@@ -796,13 +834,13 @@ window.forceCloseDropdowns = function() {
                             echo "\"
                                                    onmouseover=\"this.style.background='#f8f9fa'; this.style.color='#ff6600'\" 
                                                    onmouseout=\"this.style.background='transparent'; this.style.color='#2c2c2c'; ";
-                            // line 646
+                            // line 684
                             if (($context["grandchild_active"] ?? null)) {
                                 echo "this.style.color='#ff6600'; this.style.background='rgba(255, 102, 0, 0.08)';";
                             }
                             echo "\">
                                                     ";
-                            // line 647
+                            // line 685
                             echo twig_escape_filter($this->env, $this->getAttribute($context["grandchild"], "menu", []), "html", null, true);
                             echo "
                                                 </a>
@@ -812,29 +850,29 @@ window.forceCloseDropdowns = function() {
                         $_parent = $context['_parent'];
                         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['grandchild'], $context['_parent'], $context['loop']);
                         $context = array_intersect_key($context, $_parent) + $_parent;
-                        // line 651
+                        // line 689
                         echo "                                    </ul>
                                     ";
                     }
-                    // line 653
+                    // line 691
                     echo "                                </li>
                             ";
                 }
                 $_parent = $context['_parent'];
                 unset($context['_seq'], $context['_iterated'], $context['_key'], $context['child'], $context['_parent'], $context['loop']);
                 $context = array_intersect_key($context, $_parent) + $_parent;
-                // line 655
+                // line 693
                 echo "                        </ul>
                         ";
             }
-            // line 657
+            // line 695
             echo "                    </li>
                 ";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['p'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 659
+        // line 697
         echo "            </ul>
         </nav>
     </div>
@@ -843,38 +881,38 @@ window.forceCloseDropdowns = function() {
     
     <div id=\"page-wrapper\" style=\"margin: 0 !important; padding: 0 !important;\">
     ";
-        // line 666
+        // line 704
         $this->displayBlock('header', $context, $blocks);
-        // line 671
+        // line 709
         echo "
     ";
-        // line 672
+        // line 710
         $this->displayBlock('hero', $context, $blocks);
-        // line 673
+        // line 711
         echo "
         <section id=\"start\">
         ";
-        // line 675
+        // line 713
         $this->displayBlock('body', $context, $blocks);
-        // line 685
+        // line 723
         echo "        </section>
 
     </div>
 
     ";
-        // line 689
+        // line 727
         $this->displayBlock('footer', $context, $blocks);
-        // line 692
+        // line 730
         echo "
     ";
-        // line 693
+        // line 731
         $this->displayBlock('mobile', $context, $blocks);
-        // line 705
+        // line 743
         echo "
 ";
-        // line 706
+        // line 744
         $this->displayBlock('bottom', $context, $blocks);
-        // line 709
+        // line 747
         echo "
 </body>
 </html>
@@ -1012,40 +1050,40 @@ window.forceCloseDropdowns = function() {
         $this->deferred->resolve($this, $context, $blocks);
     }
 
-    // line 596
+    // line 634
     public function block_body_classes($context, array $blocks = [])
     {
         echo twig_escape_filter($this->env, ($context["body_classes"] ?? null), "html", null, true);
     }
 
-    // line 666
+    // line 704
     public function block_header($context, array $blocks = [])
     {
-        // line 667
+        // line 705
         echo "        <!-- HIDE ORIGINAL HEADER -->
         <section id=\"header\" class=\"section\" style=\"display: none !important;\">
         </section>
     ";
     }
 
-    // line 672
+    // line 710
     public function block_hero($context, array $blocks = [])
     {
     }
 
-    // line 675
+    // line 713
     public function block_body($context, array $blocks = [])
     {
-        // line 676
+        // line 714
         echo "            <section id=\"body-wrapper\" class=\"section\">
                 <section class=\"container ";
-        // line 677
+        // line 715
         echo twig_escape_filter($this->env, ($context["grid_size"] ?? null), "html", null, true);
         echo "\">
                     ";
-        // line 678
+        // line 716
         $this->displayBlock('messages', $context, $blocks);
-        // line 681
+        // line 719
         echo "                    ";
         $this->displayBlock("content_surround", $context, $blocks);
         echo "
@@ -1054,61 +1092,61 @@ window.forceCloseDropdowns = function() {
         ";
     }
 
-    // line 678
+    // line 716
     public function block_messages($context, array $blocks = [])
     {
-        // line 679
+        // line 717
         echo "                        ";
         $__internal_f607aeef2c31a95a7bf963452dff024ffaeb6aafbe4603f9ca3bec57be8633f4 = null;
         try {
-            $__internal_f607aeef2c31a95a7bf963452dff024ffaeb6aafbe4603f9ca3bec57be8633f4 =             $this->loadTemplate("partials/messages.html.twig", "partials/base.html.twig", 679);
+            $__internal_f607aeef2c31a95a7bf963452dff024ffaeb6aafbe4603f9ca3bec57be8633f4 =             $this->loadTemplate("partials/messages.html.twig", "partials/base.html.twig", 717);
         } catch (LoaderError $e) {
             // ignore missing template
         }
         if ($__internal_f607aeef2c31a95a7bf963452dff024ffaeb6aafbe4603f9ca3bec57be8633f4) {
             $__internal_f607aeef2c31a95a7bf963452dff024ffaeb6aafbe4603f9ca3bec57be8633f4->display($context);
         }
-        // line 680
+        // line 718
         echo "                    ";
     }
 
-    // line 689
+    // line 727
     public function block_footer($context, array $blocks = [])
     {
-        // line 690
+        // line 728
         echo "        ";
-        $this->loadTemplate("partials/footer.html.twig", "partials/base.html.twig", 690)->display($context);
-        // line 691
+        $this->loadTemplate("partials/footer.html.twig", "partials/base.html.twig", 728)->display($context);
+        // line 729
         echo "    ";
     }
 
-    // line 693
+    // line 731
     public function block_mobile($context, array $blocks = [])
     {
-        // line 694
+        // line 732
         echo "    <div class=\"mobile-container\">
         <div class=\"overlay\" id=\"overlay\">
             <div class=\"mobile-logo\">
                 ";
-        // line 697
-        $this->loadTemplate("partials/logo.html.twig", "partials/base.html.twig", 697)->display(twig_array_merge($context, ["mobile" => true]));
-        // line 698
+        // line 735
+        $this->loadTemplate("partials/logo.html.twig", "partials/base.html.twig", 735)->display(twig_array_merge($context, ["mobile" => true]));
+        // line 736
         echo "            </div>
             <nav class=\"overlay-menu\">
                 ";
-        // line 700
-        $this->loadTemplate("partials/navigation.html.twig", "partials/base.html.twig", 700)->display(twig_array_merge($context, ["tree" => true]));
-        // line 701
+        // line 738
+        $this->loadTemplate("partials/navigation.html.twig", "partials/base.html.twig", 738)->display(twig_array_merge($context, ["tree" => true]));
+        // line 739
         echo "            </nav>
         </div>
     </div>
     ";
     }
 
-    // line 706
+    // line 744
     public function block_bottom($context, array $blocks = [])
     {
-        // line 707
+        // line 745
         echo "    ";
         echo $this->getAttribute(($context["assets"] ?? null), "js", [0 => "bottom"], "method");
         echo "
@@ -1127,7 +1165,7 @@ window.forceCloseDropdowns = function() {
 
     public function getDebugInfo()
     {
-        return array (  1112 => 707,  1109 => 706,  1102 => 701,  1100 => 700,  1096 => 698,  1094 => 697,  1089 => 694,  1086 => 693,  1082 => 691,  1079 => 690,  1076 => 689,  1072 => 680,  1061 => 679,  1058 => 678,  1049 => 681,  1047 => 678,  1043 => 677,  1040 => 676,  1037 => 675,  1032 => 672,  1025 => 667,  1022 => 666,  1016 => 596,  1009 => 50,  1004 => 49,  1001 => 48,  991 => 45,  988 => 44,  986 => 43,  983 => 42,  980 => 41,  977 => 40,  974 => 39,  971 => 38,  968 => 36,  966 => 35,  963 => 34,  960 => 33,  957 => 32,  954 => 31,  949 => 28,  946 => 27,  943 => 26,  940 => 25,  935 => 24,  930 => 23,  927 => 22,  924 => 21,  917 => 18,  913 => 17,  910 => 16,  908 => 15,  897 => 11,  894 => 10,  891 => 9,  878 => 709,  876 => 706,  873 => 705,  871 => 693,  868 => 692,  866 => 689,  860 => 685,  858 => 675,  854 => 673,  852 => 672,  849 => 671,  847 => 666,  838 => 659,  831 => 657,  827 => 655,  820 => 653,  816 => 651,  806 => 647,  800 => 646,  791 => 644,  788 => 643,  785 => 642,  781 => 641,  778 => 640,  776 => 639,  773 => 638,  764 => 637,  758 => 636,  752 => 635,  743 => 633,  739 => 632,  734 => 629,  731 => 628,  728 => 627,  724 => 626,  715 => 625,  713 => 624,  710 => 623,  701 => 622,  695 => 621,  689 => 620,  680 => 618,  676 => 617,  673 => 616,  670 => 615,  667 => 614,  664 => 613,  660 => 612,  647 => 604,  643 => 603,  633 => 596,  87 => 52,  85 => 48,  82 => 47,  80 => 31,  77 => 30,  75 => 21,  72 => 20,  70 => 9,  65 => 7,  61 => 5,  59 => 3,  57 => 2,  55 => 1,  25 => 4,);
+        return array (  1150 => 745,  1147 => 744,  1140 => 739,  1138 => 738,  1134 => 736,  1132 => 735,  1127 => 732,  1124 => 731,  1120 => 729,  1117 => 728,  1114 => 727,  1110 => 718,  1099 => 717,  1096 => 716,  1087 => 719,  1085 => 716,  1081 => 715,  1078 => 714,  1075 => 713,  1070 => 710,  1063 => 705,  1060 => 704,  1054 => 634,  1047 => 50,  1042 => 49,  1039 => 48,  1029 => 45,  1026 => 44,  1024 => 43,  1021 => 42,  1018 => 41,  1015 => 40,  1012 => 39,  1009 => 38,  1006 => 36,  1004 => 35,  1001 => 34,  998 => 33,  995 => 32,  992 => 31,  987 => 28,  984 => 27,  981 => 26,  978 => 25,  973 => 24,  968 => 23,  965 => 22,  962 => 21,  955 => 18,  951 => 17,  948 => 16,  946 => 15,  935 => 11,  932 => 10,  929 => 9,  916 => 747,  914 => 744,  911 => 743,  909 => 731,  906 => 730,  904 => 727,  898 => 723,  896 => 713,  892 => 711,  890 => 710,  887 => 709,  885 => 704,  876 => 697,  869 => 695,  865 => 693,  858 => 691,  854 => 689,  844 => 685,  838 => 684,  829 => 682,  826 => 681,  823 => 680,  819 => 679,  816 => 678,  814 => 677,  811 => 676,  802 => 675,  796 => 674,  790 => 673,  781 => 671,  777 => 670,  772 => 667,  769 => 666,  766 => 665,  762 => 664,  753 => 663,  751 => 662,  748 => 661,  739 => 660,  733 => 659,  727 => 658,  718 => 656,  714 => 655,  711 => 654,  708 => 653,  705 => 652,  702 => 651,  698 => 650,  685 => 642,  681 => 641,  671 => 634,  87 => 52,  85 => 48,  82 => 47,  80 => 31,  77 => 30,  75 => 21,  72 => 20,  70 => 9,  65 => 7,  61 => 5,  59 => 3,  57 => 2,  55 => 1,  25 => 4,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -1389,15 +1427,6 @@ function showDropdown(element) {
         }
     });
     
-    // Also close all child dropdowns
-    const allChildDropdowns = document.querySelectorAll('.child-dropdown-menu');
-    allChildDropdowns.forEach(function(childDropdown) {
-        childDropdown.style.setProperty('display', 'none', 'important');
-        childDropdown.style.setProperty('opacity', '0', 'important');
-        childDropdown.style.setProperty('transform', 'translateX(-10px)', 'important');
-        childDropdown.style.setProperty('pointer-events', 'none', 'important');
-    });
-    
     // Don't interfere with clicked dropdowns
     if (clickedDropdowns.has(element)) return;
     
@@ -1435,7 +1464,8 @@ function showDropdown(element) {
     const arrow = element.querySelector('.dropdown-arrow');
     if (arrow) arrow.style.transform = 'rotate(180deg)';
     
-    // Add hover listeners to the dropdown itself
+    // Add hover listeners to the dropdown itself - but don't hide when leaving dropdown
+    // This ensures the dropdown stays open when moving between parent and dropdown
     dropdown.addEventListener('mouseenter', function() {
         console.log('Mouse entered dropdown, keeping it open');
         if (dropdownTimeouts.has(element)) {
@@ -1444,8 +1474,21 @@ function showDropdown(element) {
         }
     });
     
-    dropdown.addEventListener('mouseleave', function() {
-        console.log('Mouse left dropdown, starting hide timeout');
+    // Only hide when leaving the entire dropdown area (parent + dropdown)
+    dropdown.addEventListener('mouseleave', function(e) {
+        console.log('Mouse left dropdown, checking if we should hide');
+        // Check if mouse is moving to the parent item
+        const rect = element.getBoundingClientRect();
+        const mouseX = e.clientX;
+        const mouseY = e.clientY;
+        
+        // If mouse is moving to the parent item area, don't hide
+        if (mouseX >= rect.left && mouseX <= rect.right && mouseY >= rect.top && mouseY <= rect.bottom) {
+            console.log('Mouse moving to parent item, keeping dropdown open');
+            return;
+        }
+        
+        // Otherwise, start hide timeout
         const hideTimeout = setTimeout(() => {
             hideDropdown(element);
         }, 150);
@@ -1489,6 +1532,8 @@ function hideDropdown(element) {
 function showChildDropdown(element) {
     const dropdown = element.querySelector('.child-dropdown-menu');
     if (!dropdown) return;
+    
+    console.log('showChildDropdown called for:', element.textContent.trim());
     
     // Immediately close all other child dropdowns when hovering over a new child item
     const allChildItems = document.querySelectorAll('#custom-header nav ul li li');
@@ -1548,19 +1593,33 @@ function showChildDropdown(element) {
     
     // Add hover listeners to the child dropdown itself
     dropdown.addEventListener('mouseenter', function() {
-        console.log('Mouse entered child dropdown, canceling hide timeout');
+        console.log('Mouse entered child dropdown, keeping it open');
         if (dropdownTimeouts.has(element)) {
             clearTimeout(dropdownTimeouts.get(element));
             dropdownTimeouts.delete(element);
         }
     });
     
-    dropdown.addEventListener('mouseleave', function() {
-        console.log('Mouse left child dropdown, starting hide timeout');
-        hideChildDropdown(element);
+    // Only hide when leaving the entire child dropdown area
+    dropdown.addEventListener('mouseleave', function(e) {
+        console.log('Mouse left child dropdown, checking if we should hide');
+        // Check if mouse is moving to the parent child item
+        const rect = element.getBoundingClientRect();
+        const mouseX = e.clientX;
+        const mouseY = e.clientY;
+        
+        // If mouse is moving to the parent child item area, don't hide
+        if (mouseX >= rect.left && mouseX <= rect.right && mouseY >= rect.top && mouseY <= rect.bottom) {
+            console.log('Mouse moving to parent child item, keeping child dropdown open');
+            return;
+        }
+        
+        // Otherwise, start hide timeout
+        const hideTimeout = setTimeout(() => {
+            hideChildDropdown(element);
+        }, 150);
+        dropdownTimeouts.set(element, hideTimeout);
     });
-    
-
 }
 
 function hideChildDropdown(element) {
@@ -1590,7 +1649,7 @@ function hideChildDropdown(element) {
         dropdown.style.setProperty('pointer-events', 'none', 'important');
         const arrow = element.querySelector('.dropdown-arrow');
         if (arrow) arrow.style.transform = 'rotate(0deg)';
-    }, 300); // 300ms delay to allow time to reach child dropdown items
+    }, 200); // Reduced delay for child dropdowns
     
     dropdownTimeouts.set(element, hideTimeoutId);
 }
@@ -1619,8 +1678,25 @@ document.addEventListener('DOMContentLoaded', function() {
         showDropdown(item);
     });
     
-    item.addEventListener('mouseleave', function() {
+    item.addEventListener('mouseleave', function(e) {
         console.log('Mouse left nav item:', item.textContent.trim());
+        
+        // Check if mouse is moving to the dropdown area
+        const dropdown = item.querySelector('.dropdown-menu');
+        if (dropdown) {
+            const dropdownRect = dropdown.getBoundingClientRect();
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+            
+            // If mouse is moving to the dropdown area, don't hide
+            if (mouseX >= dropdownRect.left && mouseX <= dropdownRect.right && 
+                mouseY >= dropdownRect.top && mouseY <= dropdownRect.bottom) {
+                console.log('Mouse moving to dropdown area, keeping dropdown open');
+                return;
+            }
+        }
+        
+        // Otherwise, start hide timeout
         hoverTimeout = setTimeout(() => {
             hideDropdown(item);
         }, 100);

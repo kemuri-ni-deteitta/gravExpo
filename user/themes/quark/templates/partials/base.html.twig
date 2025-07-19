@@ -247,15 +247,6 @@ function showDropdown(element) {
         }
     });
     
-    // Also close all child dropdowns
-    const allChildDropdowns = document.querySelectorAll('.child-dropdown-menu');
-    allChildDropdowns.forEach(function(childDropdown) {
-        childDropdown.style.setProperty('display', 'none', 'important');
-        childDropdown.style.setProperty('opacity', '0', 'important');
-        childDropdown.style.setProperty('transform', 'translateX(-10px)', 'important');
-        childDropdown.style.setProperty('pointer-events', 'none', 'important');
-    });
-    
     // Don't interfere with clicked dropdowns
     if (clickedDropdowns.has(element)) return;
     
@@ -293,7 +284,8 @@ function showDropdown(element) {
     const arrow = element.querySelector('.dropdown-arrow');
     if (arrow) arrow.style.transform = 'rotate(180deg)';
     
-    // Add hover listeners to the dropdown itself
+    // Add hover listeners to the dropdown itself - but don't hide when leaving dropdown
+    // This ensures the dropdown stays open when moving between parent and dropdown
     dropdown.addEventListener('mouseenter', function() {
         console.log('Mouse entered dropdown, keeping it open');
         if (dropdownTimeouts.has(element)) {
@@ -302,8 +294,21 @@ function showDropdown(element) {
         }
     });
     
-    dropdown.addEventListener('mouseleave', function() {
-        console.log('Mouse left dropdown, starting hide timeout');
+    // Only hide when leaving the entire dropdown area (parent + dropdown)
+    dropdown.addEventListener('mouseleave', function(e) {
+        console.log('Mouse left dropdown, checking if we should hide');
+        // Check if mouse is moving to the parent item
+        const rect = element.getBoundingClientRect();
+        const mouseX = e.clientX;
+        const mouseY = e.clientY;
+        
+        // If mouse is moving to the parent item area, don't hide
+        if (mouseX >= rect.left && mouseX <= rect.right && mouseY >= rect.top && mouseY <= rect.bottom) {
+            console.log('Mouse moving to parent item, keeping dropdown open');
+            return;
+        }
+        
+        // Otherwise, start hide timeout
         const hideTimeout = setTimeout(() => {
             hideDropdown(element);
         }, 150);
@@ -347,6 +352,8 @@ function hideDropdown(element) {
 function showChildDropdown(element) {
     const dropdown = element.querySelector('.child-dropdown-menu');
     if (!dropdown) return;
+    
+    console.log('showChildDropdown called for:', element.textContent.trim());
     
     // Immediately close all other child dropdowns when hovering over a new child item
     const allChildItems = document.querySelectorAll('#custom-header nav ul li li');
@@ -406,19 +413,33 @@ function showChildDropdown(element) {
     
     // Add hover listeners to the child dropdown itself
     dropdown.addEventListener('mouseenter', function() {
-        console.log('Mouse entered child dropdown, canceling hide timeout');
+        console.log('Mouse entered child dropdown, keeping it open');
         if (dropdownTimeouts.has(element)) {
             clearTimeout(dropdownTimeouts.get(element));
             dropdownTimeouts.delete(element);
         }
     });
     
-    dropdown.addEventListener('mouseleave', function() {
-        console.log('Mouse left child dropdown, starting hide timeout');
-        hideChildDropdown(element);
+    // Only hide when leaving the entire child dropdown area
+    dropdown.addEventListener('mouseleave', function(e) {
+        console.log('Mouse left child dropdown, checking if we should hide');
+        // Check if mouse is moving to the parent child item
+        const rect = element.getBoundingClientRect();
+        const mouseX = e.clientX;
+        const mouseY = e.clientY;
+        
+        // If mouse is moving to the parent child item area, don't hide
+        if (mouseX >= rect.left && mouseX <= rect.right && mouseY >= rect.top && mouseY <= rect.bottom) {
+            console.log('Mouse moving to parent child item, keeping child dropdown open');
+            return;
+        }
+        
+        // Otherwise, start hide timeout
+        const hideTimeout = setTimeout(() => {
+            hideChildDropdown(element);
+        }, 150);
+        dropdownTimeouts.set(element, hideTimeout);
     });
-    
-
 }
 
 function hideChildDropdown(element) {
@@ -448,7 +469,7 @@ function hideChildDropdown(element) {
         dropdown.style.setProperty('pointer-events', 'none', 'important');
         const arrow = element.querySelector('.dropdown-arrow');
         if (arrow) arrow.style.transform = 'rotate(0deg)';
-    }, 300); // 300ms delay to allow time to reach child dropdown items
+    }, 200); // Reduced delay for child dropdowns
     
     dropdownTimeouts.set(element, hideTimeoutId);
 }
@@ -477,8 +498,25 @@ document.addEventListener('DOMContentLoaded', function() {
         showDropdown(item);
     });
     
-    item.addEventListener('mouseleave', function() {
+    item.addEventListener('mouseleave', function(e) {
         console.log('Mouse left nav item:', item.textContent.trim());
+        
+        // Check if mouse is moving to the dropdown area
+        const dropdown = item.querySelector('.dropdown-menu');
+        if (dropdown) {
+            const dropdownRect = dropdown.getBoundingClientRect();
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+            
+            // If mouse is moving to the dropdown area, don't hide
+            if (mouseX >= dropdownRect.left && mouseX <= dropdownRect.right && 
+                mouseY >= dropdownRect.top && mouseY <= dropdownRect.bottom) {
+                console.log('Mouse moving to dropdown area, keeping dropdown open');
+                return;
+            }
+        }
+        
+        // Otherwise, start hide timeout
         hoverTimeout = setTimeout(() => {
             hideDropdown(item);
         }, 100);
