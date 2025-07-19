@@ -3,7 +3,38 @@ title: 'Эксклюзивные стенды'
 media_order: nagr2.jpg
 menu: 'Эксклюзивные стенды'
 visible: true
-template: default
+template: stand-page
+gallery:
+    -
+        title: 'Эксклюзивный стенд с 3D-проекцией'
+        desc: 'Премиальный эксклюзивный стенд с голографической 3D-проекцией'
+        image_upload:
+            user/pages/03.uslugi/01.razrabotka-stendov/03.ekskluziv/20250719041443-nagr2.jpg:
+                name: 20250719041443-nagr2.jpg
+                full_path: nagr2.jpg
+                type: image/jpeg
+                size: 366793
+                path: user/pages/03.uslugi/01.razrabotka-stendov/03.ekskluziv/20250719041443-nagr2.jpg
+    -
+        title: 'Двухэтажный эксклюзивный стенд'
+        desc: 'Многоуровневый эксклюзивный стенд с премиальными материалами'
+        image_upload:
+            user/pages/03.uslugi/01.razrabotka-stendov/03.ekskluziv/20250719041446-solver_logo.jpg:
+                name: 20250719041446-solver_logo.jpg
+                full_path: solver_logo.jpg
+                type: image/jpeg
+                size: 15591
+                path: user/pages/03.uslugi/01.razrabotka-stendov/03.ekskluziv/20250719041446-solver_logo.jpg
+    -
+        title: '43423'
+        desc: '312312'
+        image_upload:
+            user/pages/03.uslugi/01.razrabotka-stendov/03.ekskluziv/20250719041514-nagr2.jpg:
+                name: 20250719041514-nagr2.jpg
+                full_path: nagr2.jpg
+                type: image/jpeg
+                size: 366793
+                path: user/pages/03.uslugi/01.razrabotka-stendov/03.ekskluziv/20250719041514-nagr2.jpg
 ---
 
 # Эксклюзивные стенды

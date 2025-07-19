@@ -1,8 +1,29 @@
 ---
-title: Типовые стенды
-menu: Типовые стенды
-template: default
+title: 'Типовые стенды'
+media_order: 'nagr2.jpg,solver_logo.jpg'
+menu: 'Типовые стенды'
 visible: true
+template: stand-page
+gallery:
+    -
+        title: stand1
+        desc: stand1stand1stand1stand1
+        image_upload:
+            user/pages/03/uslugi/01.razrabotka-stendov/nagr2.jpg:
+                name: nagr2.jpg
+                full_path: nagr2.jpg
+                type: image/jpeg
+                size: 366793
+                path: user/pages/03/uslugi/01.razrabotka-stendov/nagr2.jpg
+    -
+        title: stand1222
+        image_upload:
+            user/pages/03/uslugi/01.razrabotka-stendov/solver_logo.jpg:
+                name: solver_logo.jpg
+                full_path: solver_logo.jpg
+                type: image/jpeg
+                size: 15591
+                path: user/pages/03/uslugi/01.razrabotka-stendov/solver_logo.jpg
 ---
 
 # Типовые стенды

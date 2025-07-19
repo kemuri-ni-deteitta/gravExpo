@@ -19,7 +19,27 @@
                             {% set gallery_id = md5(page.url) %}
                             {% for item in page.header.gallery %}
                                 <div class="lightbox-gallery__column">
-                                    {% set item_image = page.media[item.image] %}
+                                    {% set item_image = null %}
+                                    
+                                    {# Check for uploaded image first #}
+                                    {% if item.image_upload %}
+                                        {% for filepath, filedata in item.image_upload %}
+                                            {% if not item_image and filedata.name %}
+                                                {% set item_image = page.media[filedata.name] %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                    
+                                    {# If no uploaded image, check for image_name #}
+                                    {% if not item_image and item.image_name %}
+                                        {% set item_image = page.media[item.image_name] %}
+                                    {% endif %}
+                                    
+                                    {# Fallback to old image field #}
+                                    {% if not item_image and item.image %}
+                                        {% set item_image = page.media[item.image] %}
+                                    {% endif %}
+                                    
                                     {% if item_image %}
                                         {% set title = item.title ? item.title : '' %}
                                         {% set desc = item.desc ? item.desc : '' %}
@@ -40,6 +60,20 @@
                                             {% if title %}
                                                 <div class="gallery-item-title">{{ title }}</div>
                                             {% endif %}
+                                        </div>
+                                    {% elseif item.image_upload or item.image_name or item.image %}
+                                        <div class="gallery-item">
+                                            <div class="no-image">
+                                                {% if item.image_upload %}
+                                                    {% for filepath, filedata in item.image_upload %}
+                                                        <p>Изображение не найдено: {{ filedata.name ?: filepath }}</p>
+                                                    {% endfor %}
+                                                {% elseif item.image_name %}
+                                                    <p>Изображение не найдено: {{ item.image_name }}</p>
+                                                {% elseif item.image %}
+                                                    <p>Изображение не найдено: {{ item.image }}</p>
+                                                {% endif %}
+                                            </div>
                                         </div>
                                     {% endif %}
                                 </div>
@@ -107,6 +141,20 @@
     padding: 10px;
     font-size: 14px;
     text-align: center;
+}
+
+.no-image {
+    background: #f8f9fa;
+    border: 2px dashed #dee2e6;
+    padding: 40px 20px;
+    text-align: center;
+    color: #6c757d;
+    border-radius: 5px;
+}
+
+.no-image p {
+    margin: 0;
+    font-size: 14px;
 }
 
 @media only screen and (min-width: 600px) {

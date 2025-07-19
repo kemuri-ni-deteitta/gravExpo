@@ -1,8 +1,19 @@
 ---
-title: Нестандартные стенды
-menu: Нестандартные стенды
-template: default
+title: 'Нестандартные стенды'
+menu: 'Нестандартные стенды'
 visible: true
+template: stand-page
+gallery:
+    -
+        title: '3231'
+        desc: '32131'
+        image_upload:
+            user/pages/03.uslugi/01.razrabotka-stendov/02.nestandart/nagr2.jpg:
+                name: nagr2.jpg
+                full_path: nagr2.jpg
+                type: image/jpeg
+                size: 366793
+                path: user/pages/03.uslugi/01.razrabotka-stendov/02.nestandart/nagr2.jpg
 ---
 
 # Нестандартные стенды
