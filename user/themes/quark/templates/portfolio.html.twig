@@ -82,7 +82,7 @@
                 {% endif %}
                 
                 {% if all_portfolio_items|length > 0 %}
-                <div class="portfolio-section">
+                <div class="portfolio-section" id="portfolio-content">
                     {# Filter Controls #}
                     <div class="portfolio-filters">
                         <h3>Фильтр по типу стенда:</h3>
@@ -92,6 +92,7 @@
                             <button class="filter-btn" data-filter="nestandart">Нестандартные стенды</button>
                             <button class="filter-btn" data-filter="ekskluziv">Эксклюзивные стенды</button>
                         </div>
+                        <div class="filter-status" id="filter-status"></div>
                     </div>
                     
                     <div class="portfolio-gallery">
@@ -324,6 +325,14 @@
     color: white;
 }
 
+.filter-status {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #666;
+    font-style: italic;
+    min-height: 20px;
+}
+
 .portfolio-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -340,6 +349,14 @@
     opacity: 0;
     transform: scale(0.8);
     pointer-events: none;
+    display: none !important;
+}
+
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
 }
 
 .portfolio-card {
@@ -499,23 +516,65 @@ document.addEventListener('DOMContentLoaded', function() {
     filterBtns.forEach(btn => {
         btn.addEventListener('click', function() {
             const filterValue = this.dataset.filter;
+            const filterStatus = document.getElementById('filter-status');
             
             // Update active button
             filterBtns.forEach(b => b.classList.remove('active'));
             this.classList.add('active');
             
             // Filter items
+            let visibleCount = 0;
             portfolioItems.forEach(item => {
                 const itemType = item.dataset.type;
                 
                 if (filterValue === 'all' || itemType === filterValue) {
                     item.classList.remove('filtered-out');
+                    visibleCount++;
                 } else {
                     item.classList.add('filtered-out');
                 }
             });
+            
+            // Update filter status
+            if (filterValue === 'all') {
+                filterStatus.textContent = `Показано ${visibleCount} проектов`;
+            } else {
+                const filterLabels = {
+                    'typovye': 'Типовые стенды',
+                    'nestandart': 'Нестандартные стенды',
+                    'ekskluziv': 'Эксклюзивные стенды'
+                };
+                filterStatus.textContent = `Показано ${visibleCount} проектов типа "${filterLabels[filterValue]}"`;
+            }
+            
+            // Scroll to top of portfolio section with smooth animation
+            // Add a small delay to let the filtering animation complete
+            setTimeout(() => {
+                // Force scroll to the very top of the page
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+                
+                // Then scroll to the portfolio content
+                setTimeout(() => {
+                    const portfolioContent = document.getElementById('portfolio-content');
+                    if (portfolioContent) {
+                        portfolioContent.scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'start' 
+                        });
+                    }
+                }, 200);
+            }, 100);
         });
     });
+    
+    // Initialize filter status on page load
+    const initialFilterBtn = document.querySelector('.filter-btn.active');
+    if (initialFilterBtn) {
+        initialFilterBtn.click();
+    }
 });
 {% endset %}
 
