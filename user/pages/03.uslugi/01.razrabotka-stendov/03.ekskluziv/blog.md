@@ -35,6 +35,15 @@ gallery:
                 type: image/jpeg
                 size: 366793
                 path: user/pages/03.uslugi/01.razrabotka-stendov/03.ekskluziv/20250719041514-nagr2.jpg
+    -
+        title: 'NEW STANDD'
+        image_upload:
+            user/pages/03.uslugi/01.razrabotka-stendov/03.ekskluziv/1660052115BP_-_GOFROTEHNOLOGII_2022.jpg:
+                name: 1660052115BP_-_GOFROTEHNOLOGII_2022.jpg
+                full_path: 1660052115BP_-_GOFROTEHNOLOGII_2022.jpg
+                type: image/jpeg
+                size: 18484
+                path: user/pages/03.uslugi/01.razrabotka-stendov/03.ekskluziv/1660052115BP_-_GOFROTEHNOLOGII_2022.jpg
 ---
 
 # Эксклюзивные стенды

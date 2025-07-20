@@ -1,0 +1,413 @@
+{% extends 'partials/base.html.twig' %}
+
+{% block content %}
+{% set grid_size = theme_var('grid-size') %}
+
+<section class="section portfolio">
+    <section class="container {{ grid_size }}">
+        <div class="columns">
+            <div class="column col-12">
+                <div class="content">
+                    {{ content|raw }}
+                </div>
+                
+                {# Collect all portfolio items from multiple sources #}
+                {% set all_portfolio_items = [] %}
+                
+                {# Get items from Portfolio section #}
+                {% for child in page.children.visible %}
+                    {% if child.template == 'portfolio-item' and child.header.gallery %}
+                        {% for gallery_item in child.header.gallery %}
+                            {% set item_data = {
+                                'page': child,
+                                'gallery_item': gallery_item,
+                                'stand_type': child.header.stand_type,
+                                'construction_area': child.header.construction_area,
+                                'exhibition_name': child.header.exhibition_name,
+                                'company_name': child.header.company_name,
+                                'project_year': child.header.project_year,
+                                'source': 'portfolio'
+                            } %}
+                            {% set all_portfolio_items = all_portfolio_items|merge([item_data]) %}
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+                
+                {# Get items from Services section #}
+                {% set services_page = pages.find('/uslugi/razrabotka-stendov') %}
+                {% if services_page %}
+                    {% for service_child in services_page.children.visible %}
+                        {% if service_child.template == 'stand-page' and service_child.header.gallery %}
+                            {% set stand_type = null %}
+                            {% if service_child.slug == 'typovye' %}
+                                {% set stand_type = 'typovye' %}
+                            {% elseif service_child.slug == 'nestandart' %}
+                                {% set stand_type = 'nestandart' %}
+                            {% elseif service_child.slug == 'ekskluziv' %}
+                                {% set stand_type = 'ekskluziv' %}
+                            {% endif %}
+                            
+                            {% for gallery_item in service_child.header.gallery %}
+                                {% set item_data = {
+                                    'page': service_child,
+                                    'gallery_item': gallery_item,
+                                    'stand_type': stand_type,
+                                    'construction_area': gallery_item.construction_area,
+                                    'exhibition_name': gallery_item.exhibition_name,
+                                    'company_name': gallery_item.company_name,
+                                    'project_year': gallery_item.project_year,
+                                    'source': 'services'
+                                } %}
+                                {% set all_portfolio_items = all_portfolio_items|merge([item_data]) %}
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                
+                {% if all_portfolio_items|length > 0 %}
+                <div class="portfolio-section">
+                    {# Filter Controls #}
+                    <div class="portfolio-filters">
+                        <h3>Фильтр по типу стенда:</h3>
+                        <div class="filter-buttons">
+                            <button class="filter-btn active" data-filter="all">Все проекты</button>
+                            <button class="filter-btn" data-filter="typovye">Типовые стенды</button>
+                            <button class="filter-btn" data-filter="nestandart">Нестандартные стенды</button>
+                            <button class="filter-btn" data-filter="ekskluziv">Эксклюзивные стенды</button>
+                        </div>
+                    </div>
+                    
+                    <div class="portfolio-gallery">
+                        <div class="portfolio-grid">
+                            {% set gallery_id = 'portfolio-main' %}
+                            {% for item in all_portfolio_items %}
+                                {% set gallery_item = item.gallery_item %}
+                                {% set page_obj = item.page %}
+                                
+                                <div class="portfolio-item" data-type="{{ item.stand_type ?: 'unknown' }}">
+                                    {% set item_image = null %}
+                                    
+                                    {# Check for uploaded image first #}
+                                    {% if gallery_item.image_upload %}
+                                        {% for filepath, filedata in gallery_item.image_upload %}
+                                            {% if not item_image and filedata.name %}
+                                                {% set item_image = page_obj.media[filedata.name] %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                    
+                                    {# If no uploaded image, check for image_name #}
+                                    {% if not item_image and gallery_item.image_name %}
+                                        {% set item_image = page_obj.media[gallery_item.image_name] %}
+                                    {% endif %}
+                                    
+                                    {# Fallback to old image field #}
+                                    {% if not item_image and gallery_item.image %}
+                                        {% set item_image = page_obj.media[gallery_item.image] %}
+                                    {% endif %}
+                                    
+                                    {% if item_image %}
+                                        {% set title = gallery_item.title ?: 'Проект' %}
+                                        {% set desc = gallery_item.desc ?: '' %}
+                                        {% set thumb_width = 400 %}
+                                        {% set thumb_height = 300 %}
+                                        
+                                        <div class="portfolio-card">
+                                            <div class="portfolio-image">
+                                                <a href="{{ item_image.url }}" 
+                                                   class="glightbox" 
+                                                   data-gallery="gallery-{{ gallery_id }}"
+                                                   data-title="{{ title }}"
+                                                   data-description="{{ desc }}">
+                                                    <img src="{{ item_image.cropZoom(thumb_width, thumb_height).url }}" 
+                                                         alt="{{ title }}" 
+                                                         title="{{ title }}">
+                                                </a>
+                                            </div>
+                                            
+                                            <div class="portfolio-info">
+                                                <h4 class="portfolio-title">{{ title }}</h4>
+                                                
+                                                <div class="portfolio-metadata">
+                                                    {% if item.stand_type %}
+                                                        <div class="metadata-item">
+                                                            <span class="label">Тип стенда:</span>
+                                                            <span class="value stand-type-{{ item.stand_type }}">
+                                                                {% if item.stand_type == 'typovye' %}Типовой
+                                                                {% elseif item.stand_type == 'nestandart' %}Нестандартный
+                                                                {% elseif item.stand_type == 'ekskluziv' %}Эксклюзивный
+                                                                {% else %}{{ item.stand_type }}
+                                                                {% endif %}
+                                                            </span>
+                                                        </div>
+                                                    {% endif %}
+                                                    
+                                                    {% if item.construction_area %}
+                                                        <div class="metadata-item">
+                                                            <span class="label">Площадь:</span>
+                                                            <span class="value">{{ item.construction_area }}</span>
+                                                        </div>
+                                                    {% endif %}
+                                                    
+                                                    {% if item.exhibition_name %}
+                                                        <div class="metadata-item">
+                                                            <span class="label">Выставка:</span>
+                                                            <span class="value">{{ item.exhibition_name }}</span>
+                                                        </div>
+                                                    {% endif %}
+                                                    
+                                                    {% if item.company_name %}
+                                                        <div class="metadata-item">
+                                                            <span class="label">Клиент:</span>
+                                                            <span class="value">{{ item.company_name }}</span>
+                                                        </div>
+                                                    {% endif %}
+                                                    
+                                                    {% if item.project_year %}
+                                                        <div class="metadata-item">
+                                                            <span class="label">Год:</span>
+                                                            <span class="value">{{ item.project_year }}</span>
+                                                        </div>
+                                                    {% endif %}
+                                                </div>
+                                                
+                                                {% if desc %}
+                                                    <div class="portfolio-description">{{ desc }}</div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="portfolio-empty">
+                    <p>Пока нет добавленных проектов в портфолио.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+</section>
+{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+{% set portfolio_styles %}
+.portfolio-section {
+    margin: 30px 0;
+}
+
+.portfolio-filters {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.portfolio-filters h3 {
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: #333;
+}
+
+.filter-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.filter-btn {
+    background: #f8f9fa;
+    border: 2px solid #dee2e6;
+    color: #495057;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background: #007bff;
+    border-color: #007bff;
+    color: white;
+}
+
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.portfolio-item {
+    opacity: 1;
+    transition: all 0.3s ease;
+}
+
+.portfolio-item.filtered-out {
+    opacity: 0;
+    transform: scale(0.8);
+    pointer-events: none;
+}
+
+.portfolio-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.portfolio-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+.portfolio-image {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+}
+
+.portfolio-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.portfolio-image:hover img {
+    transform: scale(1.05);
+}
+
+.portfolio-info {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.portfolio-title {
+    margin: 0 0 15px 0;
+    font-size: 18px;
+    color: #333;
+    font-weight: 600;
+}
+
+.portfolio-metadata {
+    margin-bottom: 15px;
+}
+
+.metadata-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.metadata-item .label {
+    color: #666;
+    font-weight: 500;
+}
+
+.metadata-item .value {
+    color: #333;
+    font-weight: 600;
+}
+
+.stand-type-typovye {
+    color: #28a745;
+}
+
+.stand-type-nestandart {
+    color: #ffc107;
+}
+
+.stand-type-ekskluziv {
+    color: #dc3545;
+}
+
+.portfolio-description {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.4;
+    margin-top: auto;
+}
+
+.portfolio-empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: #666;
+}
+
+@media (max-width: 768px) {
+    .portfolio-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .filter-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .filter-btn {
+        width: 200px;
+    }
+}
+{% endset %}
+
+{% do assets.addInlineCss(portfolio_styles) %}
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+{% do assets.addJs('https://cdn.jsdelivr.net/npm/glightbox@3.2.0/dist/js/glightbox.min.js') %}
+{% do assets.addCss('https://cdn.jsdelivr.net/npm/glightbox@3.2.0/dist/css/glightbox.min.css') %}
+
+{% set portfolio_script %}
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize lightbox
+    const lightbox = GLightbox({
+        touchNavigation: true,
+        loop: true,
+        autoplayVideos: true
+    });
+    
+    // Portfolio filtering
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const portfolioItems = document.querySelectorAll('.portfolio-item');
+    
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const filterValue = this.dataset.filter;
+            
+            // Update active button
+            filterBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Filter items
+            portfolioItems.forEach(item => {
+                const itemType = item.dataset.type;
+                
+                if (filterValue === 'all' || itemType === filterValue) {
+                    item.classList.remove('filtered-out');
+                } else {
+                    item.classList.add('filtered-out');
+                }
+            });
+        });
+    });
+});
+{% endset %}
+
+{% do assets.addInlineJs(portfolio_script) %}
+{% endblock %} 

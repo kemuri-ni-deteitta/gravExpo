@@ -2,8 +2,8 @@
 return [
     '@class' => 'Grav\\Common\\File\\CompiledYamlFile',
     'filename' => '/home/ivan/grav-admin/user/themes/quark/blueprints/pages/stand-page.yaml',
-    'modified' => 1752887622,
-    'size' => 4346,
+    'modified' => 1753025042,
+    'size' => 5507,
     'data' => [
         'title' => 'Stand Page',
         '@extends' => [
@@ -81,6 +81,31 @@ return [
                                             'label' => 'Описание (необязательно)',
                                             'placeholder' => 'Краткое описание работы',
                                             'rows' => 3
+                                        ],
+                                        '.construction_area' => [
+                                            'type' => 'text',
+                                            'label' => 'Площадь застройки',
+                                            'help' => 'Укажите площадь в квадратных метрах',
+                                            'placeholder' => '36 м²'
+                                        ],
+                                        '.exhibition_name' => [
+                                            'type' => 'text',
+                                            'label' => 'Название выставки',
+                                            'help' => 'Укажите название выставки или мероприятия',
+                                            'placeholder' => 'Например: WorldFood Moscow 2024'
+                                        ],
+                                        '.company_name' => [
+                                            'type' => 'text',
+                                            'label' => 'Название компании',
+                                            'help' => 'Укажите название компании-клиента',
+                                            'placeholder' => 'Название компании-клиента'
+                                        ],
+                                        '.project_year' => [
+                                            'type' => 'text',
+                                            'label' => 'Год проекта',
+                                            'help' => 'Год реализации проекта',
+                                            'placeholder' => '2024',
+                                            'size' => 'small'
                                         ]
                                     ]
                                 ]
