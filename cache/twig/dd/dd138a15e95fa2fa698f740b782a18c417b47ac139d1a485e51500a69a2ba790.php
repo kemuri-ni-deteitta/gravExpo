@@ -229,7 +229,7 @@ $context["gallery_item"], "project_year", []), "source" => "services"];
                             <button class=\"filter-btn\" data-filter=\"nestandart\">Нестандартные стенды</button>
                             <button class=\"filter-btn\" data-filter=\"ekskluziv\">Эксклюзивные стенды</button>
                         </div>
-                        <div class=\"filter-status\" id=\"filter-status\"></div>
+
                     </div>
                     
                     <div class=\"portfolio-gallery\">
@@ -987,71 +987,34 @@ $context["item"], "stand_type", []) == "ekskluziv")) {
     filterBtns.forEach(btn => {
         btn.addEventListener('click', function() {
             const filterValue = this.dataset.filter;
-            const filterStatus = document.getElementById('filter-status');
             
             // Update active button
             filterBtns.forEach(b => b.classList.remove('active'));
             this.classList.add('active');
             
             // Filter items
-            let visibleCount = 0;
             portfolioItems.forEach(item => {
                 const itemType = item.dataset.type;
                 
                 if (filterValue === 'all' || itemType === filterValue) {
                     item.classList.remove('filtered-out');
-                    visibleCount++;
                 } else {
                     item.classList.add('filtered-out');
                 }
             });
             
-            // Update filter status
-            if (filterValue === 'all') {
-                filterStatus.textContent = `Показано \${visibleCount} проектов`;
-            } else {
-                const filterLabels = {
-                    'typovye': 'Типовые стенды',
-                    'nestandart': 'Нестандартные стенды',
-                    'ekskluziv': 'Эксклюзивные стенды'
-                };
-                filterStatus.textContent = `Показано \${visibleCount} проектов типа \"\${filterLabels[filterValue]}\"`;
-            }
-            
-            // Scroll to top of portfolio section with smooth animation
-            // Add a small delay to let the filtering animation complete
-            setTimeout(() => {
-                // Force scroll to the very top of the page
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-                
-                // Then scroll to the portfolio content
-                setTimeout(() => {
-                    const portfolioContent = document.getElementById('portfolio-content');
-                    if (portfolioContent) {
-                        portfolioContent.scrollIntoView({ 
-                            behavior: 'smooth', 
-                            block: 'start' 
-                        });
-                    }
-                }, 200);
-            }, 100);
+            // Filter items without automatic scrolling
+            // Users can scroll manually to see the filtered results
         });
     });
     
-    // Initialize filter status on page load
-    const initialFilterBtn = document.querySelector('.filter-btn.active');
-    if (initialFilterBtn) {
-        initialFilterBtn.click();
-    }
+
 });
 ") ? '' : new Markup($tmp, $this->env->getCharset());
-        // line 580
+        // line 543
         echo "
 ";
-        // line 581
+        // line 544
         $this->getAttribute(($context["assets"] ?? null), "addInlineJs", [0 => ($context["portfolio_script"] ?? null)], "method");
     }
 
@@ -1067,7 +1030,7 @@ $context["item"], "stand_type", []) == "ekskluziv")) {
 
     public function getDebugInfo()
     {
-        return array (  1055 => 581,  1052 => 580,  975 => 503,  972 => 502,  970 => 501,  968 => 500,  964 => 499,  961 => 498,  957 => 495,  954 => 494,  746 => 286,  742 => 285,  739 => 284,  731 => 278,  725 => 274,  719 => 270,  704 => 268,  699 => 265,  693 => 263,  691 => 262,  687 => 260,  681 => 257,  677 => 255,  675 => 254,  672 => 253,  666 => 250,  662 => 248,  660 => 247,  657 => 246,  651 => 243,  647 => 241,  645 => 240,  642 => 239,  636 => 236,  632 => 234,  630 => 233,  627 => 232,  622 => 229,  617 => 227,  612 => 226,  608 => 225,  604 => 224,  600 => 223,  596 => 221,  594 => 220,  588 => 217,  583 => 214,  580 => 213,  566 => 212,  561 => 210,  557 => 209,  551 => 208,  545 => 206,  542 => 205,  524 => 204,  521 => 203,  518 => 201,  512 => 198,  509 => 197,  506 => 196,  500 => 192,  496 => 191,  492 => 190,  488 => 189,  484 => 188,  478 => 187,  472 => 185,  467 => 181,  464 => 180,  461 => 179,  459 => 178,  456 => 177,  453 => 176,  450 => 175,  447 => 174,  444 => 172,  441 => 171,  438 => 170,  435 => 169,  432 => 168,  430 => 165,  429 => 164,  427 => 163,  425 => 162,  422 => 161,  419 => 160,  416 => 159,  413 => 158,  410 => 156,  407 => 155,  404 => 154,  401 => 153,  398 => 151,  395 => 150,  389 => 149,  386 => 148,  383 => 147,  380 => 146,  375 => 145,  372 => 144,  369 => 142,  366 => 141,  364 => 140,  361 => 139,  355 => 138,  352 => 137,  349 => 136,  346 => 135,  343 => 134,  340 => 132,  337 => 131,  335 => 129,  334 => 128,  333 => 127,  331 => 126,  329 => 125,  326 => 124,  323 => 123,  317 => 122,  314 => 121,  311 => 120,  308 => 119,  303 => 118,  300 => 117,  297 => 115,  294 => 114,  289 => 113,  286 => 112,  283 => 110,  280 => 109,  277 => 108,  274 => 107,  272 => 106,  268 => 105,  265 => 104,  262 => 103,  259 => 102,  241 => 101,  239 => 100,  224 => 87,  221 => 85,  219 => 84,  216 => 83,  213 => 82,  207 => 81,  204 => 80,  198 => 79,  195 => 78,  192 => 77,  190 => 74,  189 => 73,  188 => 72,  187 => 71,  186 => 70,  185 => 69,  184 => 68,  182 => 67,  180 => 66,  177 => 65,  174 => 64,  172 => 62,  171 => 60,  170 => 59,  169 => 58,  168 => 57,  167 => 56,  166 => 55,  165 => 54,  163 => 53,  161 => 52,  158 => 51,  154 => 50,  151 => 49,  148 => 48,  145 => 47,  142 => 46,  139 => 45,  136 => 44,  133 => 43,  130 => 42,  127 => 41,  124 => 40,  119 => 39,  116 => 38,  113 => 37,  110 => 35,  104 => 34,  101 => 33,  95 => 32,  92 => 31,  90 => 28,  89 => 27,  88 => 26,  87 => 25,  86 => 24,  85 => 23,  84 => 22,  82 => 21,  77 => 20,  74 => 19,  69 => 18,  66 => 16,  63 => 15,  57 => 11,  50 => 7,  46 => 5,  44 => 4,  41 => 3,  31 => 1,);
+        return array (  1018 => 544,  1015 => 543,  975 => 503,  972 => 502,  970 => 501,  968 => 500,  964 => 499,  961 => 498,  957 => 495,  954 => 494,  746 => 286,  742 => 285,  739 => 284,  731 => 278,  725 => 274,  719 => 270,  704 => 268,  699 => 265,  693 => 263,  691 => 262,  687 => 260,  681 => 257,  677 => 255,  675 => 254,  672 => 253,  666 => 250,  662 => 248,  660 => 247,  657 => 246,  651 => 243,  647 => 241,  645 => 240,  642 => 239,  636 => 236,  632 => 234,  630 => 233,  627 => 232,  622 => 229,  617 => 227,  612 => 226,  608 => 225,  604 => 224,  600 => 223,  596 => 221,  594 => 220,  588 => 217,  583 => 214,  580 => 213,  566 => 212,  561 => 210,  557 => 209,  551 => 208,  545 => 206,  542 => 205,  524 => 204,  521 => 203,  518 => 201,  512 => 198,  509 => 197,  506 => 196,  500 => 192,  496 => 191,  492 => 190,  488 => 189,  484 => 188,  478 => 187,  472 => 185,  467 => 181,  464 => 180,  461 => 179,  459 => 178,  456 => 177,  453 => 176,  450 => 175,  447 => 174,  444 => 172,  441 => 171,  438 => 170,  435 => 169,  432 => 168,  430 => 165,  429 => 164,  427 => 163,  425 => 162,  422 => 161,  419 => 160,  416 => 159,  413 => 158,  410 => 156,  407 => 155,  404 => 154,  401 => 153,  398 => 151,  395 => 150,  389 => 149,  386 => 148,  383 => 147,  380 => 146,  375 => 145,  372 => 144,  369 => 142,  366 => 141,  364 => 140,  361 => 139,  355 => 138,  352 => 137,  349 => 136,  346 => 135,  343 => 134,  340 => 132,  337 => 131,  335 => 129,  334 => 128,  333 => 127,  331 => 126,  329 => 125,  326 => 124,  323 => 123,  317 => 122,  314 => 121,  311 => 120,  308 => 119,  303 => 118,  300 => 117,  297 => 115,  294 => 114,  289 => 113,  286 => 112,  283 => 110,  280 => 109,  277 => 108,  274 => 107,  272 => 106,  268 => 105,  265 => 104,  262 => 103,  259 => 102,  241 => 101,  239 => 100,  224 => 87,  221 => 85,  219 => 84,  216 => 83,  213 => 82,  207 => 81,  204 => 80,  198 => 79,  195 => 78,  192 => 77,  190 => 74,  189 => 73,  188 => 72,  187 => 71,  186 => 70,  185 => 69,  184 => 68,  182 => 67,  180 => 66,  177 => 65,  174 => 64,  172 => 62,  171 => 60,  170 => 59,  169 => 58,  168 => 57,  167 => 56,  166 => 55,  165 => 54,  163 => 53,  161 => 52,  158 => 51,  154 => 50,  151 => 49,  148 => 48,  145 => 47,  142 => 46,  139 => 45,  136 => 44,  133 => 43,  130 => 42,  127 => 41,  124 => 40,  119 => 39,  116 => 38,  113 => 37,  110 => 35,  104 => 34,  101 => 33,  95 => 32,  92 => 31,  90 => 28,  89 => 27,  88 => 26,  87 => 25,  86 => 24,  85 => 23,  84 => 22,  82 => 21,  77 => 20,  74 => 19,  69 => 18,  66 => 16,  63 => 15,  57 => 11,  50 => 7,  46 => 5,  44 => 4,  41 => 3,  31 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -1174,7 +1137,7 @@ $context["item"], "stand_type", []) == "ekskluziv")) {
                             <button class=\"filter-btn\" data-filter=\"nestandart\">Нестандартные стенды</button>
                             <button class=\"filter-btn\" data-filter=\"ekskluziv\">Эксклюзивные стенды</button>
                         </div>
-                        <div class=\"filter-status\" id=\"filter-status\"></div>
+
                     </div>
                     
                     <div class=\"portfolio-gallery\">
@@ -1598,65 +1561,28 @@ document.addEventListener('DOMContentLoaded', function() {
     filterBtns.forEach(btn => {
         btn.addEventListener('click', function() {
             const filterValue = this.dataset.filter;
-            const filterStatus = document.getElementById('filter-status');
             
             // Update active button
             filterBtns.forEach(b => b.classList.remove('active'));
             this.classList.add('active');
             
             // Filter items
-            let visibleCount = 0;
             portfolioItems.forEach(item => {
                 const itemType = item.dataset.type;
                 
                 if (filterValue === 'all' || itemType === filterValue) {
                     item.classList.remove('filtered-out');
-                    visibleCount++;
                 } else {
                     item.classList.add('filtered-out');
                 }
             });
             
-            // Update filter status
-            if (filterValue === 'all') {
-                filterStatus.textContent = `Показано \${visibleCount} проектов`;
-            } else {
-                const filterLabels = {
-                    'typovye': 'Типовые стенды',
-                    'nestandart': 'Нестандартные стенды',
-                    'ekskluziv': 'Эксклюзивные стенды'
-                };
-                filterStatus.textContent = `Показано \${visibleCount} проектов типа \"\${filterLabels[filterValue]}\"`;
-            }
-            
-            // Scroll to top of portfolio section with smooth animation
-            // Add a small delay to let the filtering animation complete
-            setTimeout(() => {
-                // Force scroll to the very top of the page
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-                
-                // Then scroll to the portfolio content
-                setTimeout(() => {
-                    const portfolioContent = document.getElementById('portfolio-content');
-                    if (portfolioContent) {
-                        portfolioContent.scrollIntoView({ 
-                            behavior: 'smooth', 
-                            block: 'start' 
-                        });
-                    }
-                }, 200);
-            }, 100);
+            // Filter items without automatic scrolling
+            // Users can scroll manually to see the filtered results
         });
     });
     
-    // Initialize filter status on page load
-    const initialFilterBtn = document.querySelector('.filter-btn.active');
-    if (initialFilterBtn) {
-        initialFilterBtn.click();
-    }
+
 });
 {% endset %}
 
