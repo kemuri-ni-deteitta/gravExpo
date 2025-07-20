@@ -93,7 +93,7 @@ form:
               type: list
               style: vertical
               label: Фотографии стенда
-              help: Добавьте фотографии реализованного стенда
+              help: Добавьте несколько фотографий для полного представления о стенде. Перетаскивайте элементы для изменения порядка.
               collapsed: false
               btnLabel: Добавить фотографию
               
@@ -101,7 +101,8 @@ form:
                 .title:
                   type: text
                   label: Описание фотографии
-                  placeholder: Краткое описание ракурса или особенности
+                  placeholder: 'Например: "Общий вид", "Зона переговоров", "Презентационная зона"'
+                  help: Краткое описание того, что показано на фотографии
                   
                 .image_upload:
                   type: file
@@ -116,14 +117,14 @@ form:
                     - .png
                     - .gif
                     - .webp
-                  help: Загрузите фотографию стенда. Максимальный размер 10MB.
+                                        help: "Загрузите фотографию стенда. Рекомендуемое разрешение: от 1200x800px. Максимальный размер 10MB."
                   avoid_overwriting: true
                   random_name: false
                   
                 .is_main:
                   type: toggle
                   label: Главная фотография
-                  help: Отметьте, если это основная фотография проекта
+                  help: Отметьте основную фотографию проекта (будет отображаться первой в галерее)
                   highlight: 0
                   default: 0
                   options:
@@ -131,6 +132,50 @@ form:
                     0: Нет
                   validate:
                     type: bool
+                    
+                .alt_text:
+                  type: text
+                  label: Альтернативный текст
+                  placeholder: Описание для доступности
+                  help: Описание изображения для людей с нарушениями зрения
+                  
+            gallery_settings:
+              type: section
+              title: Настройки галереи
+              underline: true
+              
+            header.gallery_display:
+              type: select
+              label: Тип отображения галереи
+              help: Выберите, как отображать фотографии на сайте
+              default: grid
+              options:
+                grid: Сетка (по умолчанию)
+                slider: Слайдер
+                masonry: Масонри-сетка
+                list: Список
+                
+            header.images_per_row:
+              type: select
+              label: Количество фотографий в ряду
+              help: Применяется только для сетки
+              default: 3
+              options:
+                2: 2 фотографии
+                3: 3 фотографии
+                4: 4 фотографии
+                
+            header.show_captions:
+              type: toggle
+              label: Показывать подписи к фотографиям
+              help: Отображать описания под фотографиями
+              highlight: 1
+              default: 1
+              options:
+                1: Да
+                0: Нет
+              validate:
+                type: bool
 
         options:
           type: tab

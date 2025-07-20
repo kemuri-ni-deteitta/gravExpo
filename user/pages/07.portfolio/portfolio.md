@@ -1,18 +1,19 @@
 ---
-title: 'Портфолио'
-menu: 'Портфолио'
-template: portfolio
-visible: true
+title: Портфолио
+taxonomy:
+    category:
+        - portfolio
+menu: Портфолио
+child_type: portfolio-item
 routable: true
 cache_enable: false
-child_type: portfolio-item
+visible: true
+template: portfolio
 content:
     items: '@self.children'
     order:
         by: default
         dir: asc
-taxonomy:
-    category: ['portfolio']
 ---
 
 # Портфолио

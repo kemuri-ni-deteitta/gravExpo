@@ -64,58 +64,78 @@
                 {% if page.header.gallery %}
                 <div class="gallery-section">
                     <h2>Фотографии проекта</h2>
-                    <div class="lightbox-gallery">
+                    
+                    {# Gallery display settings #}
+                    {% set display_type = page.header.gallery_display ?: 'grid' %}
+                    {% set images_per_row = page.header.images_per_row ?: 3 %}
+                    {% set show_captions = page.header.show_captions is defined ? page.header.show_captions : true %}
+                    
+                    <div class="lightbox-gallery gallery-{{ display_type }} columns-{{ images_per_row }}">
                         <div class="lightbox-gallery__columns">
                             {% set gallery_id = md5(page.url) %}
+                            {% set image_counter = 0 %}
                             {% for item in page.header.gallery %}
-                                <div class="lightbox-gallery__column">
-                                    {% set item_image = null %}
+                                {% set item_image = null %}
+                                
+                                {# Check for uploaded image first #}
+                                {% if item.image_upload %}
+                                    {% for filepath, filedata in item.image_upload %}
+                                        {% if not item_image and filedata.name %}
+                                            {% set item_image = page.media[filedata.name] %}
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                                
+                                {# If no uploaded image, check for image_name #}
+                                {% if not item_image and item.image_name %}
+                                    {% set item_image = page.media[item.image_name] %}
+                                {% endif %}
+                                
+                                {# Fallback to old image field #}
+                                {% if not item_image and item.image %}
+                                    {% set item_image = page.media[item.image] %}
+                                {% endif %}
+                                
+                                {% if item_image %}
+                                    {% set image_counter = image_counter + 1 %}
+                                    {% set title = item.title ? item.title : ('Фото ' ~ image_counter) %}
+                                    {% set desc = item.desc ? item.desc : '' %}
+                                    {% set alt_text = item.alt_text ? item.alt_text : title %}
+                                    {% set thumb_width = 400 %}
+                                    {% set thumb_height = 300 %}
                                     
-                                    {# Check for uploaded image first #}
-                                    {% if item.image_upload %}
-                                        {% for filepath, filedata in item.image_upload %}
-                                            {% if not item_image and filedata.name %}
-                                                {% set item_image = page.media[filedata.name] %}
-                                            {% endif %}
-                                        {% endfor %}
-                                    {% endif %}
-                                    
-                                    {# If no uploaded image, check for image_name #}
-                                    {% if not item_image and item.image_name %}
-                                        {% set item_image = page.media[item.image_name] %}
-                                    {% endif %}
-                                    
-                                    {# Fallback to old image field #}
-                                    {% if not item_image and item.image %}
-                                        {% set item_image = page.media[item.image] %}
-                                    {% endif %}
-                                    
-                                    {% if item_image %}
-                                        {% set title = item.title ? item.title : '' %}
-                                        {% set desc = item.desc ? item.desc : '' %}
-                                        {% set thumb_width = 400 %}
-                                        {% set thumb_height = 300 %}
-                                        
-                                        <div class="gallery-item">
+                                    <div class="lightbox-gallery__column">
+                                        <div class="gallery-item {{ item.is_main ? 'main-image' : '' }}">
                                             <a href="{{ item_image.url }}" 
                                                class="glightbox" 
                                                data-gallery="gallery-{{ gallery_id }}"
                                                data-title="{{ title }}"
                                                data-description="{{ desc }}">
                                                 <img src="{{ item_image.cropZoom(thumb_width, thumb_height).url }}" 
-                                                     alt="{{ title }}" 
+                                                     alt="{{ alt_text }}" 
                                                      title="{{ title }}"
                                                      style="width: 100%; height: auto; border-radius: 5px;">
                                             </a>
-                                            {% if title %}
+                                            
+                                            {% if item.is_main %}
+                                                <div class="main-image-badge">Главное фото</div>
+                                            {% endif %}
+                                            
+                                            {% if show_captions and title %}
                                                 <div class="gallery-item-title">{{ title }}</div>
                                             {% endif %}
                                         </div>
-                                    {% endif %}
-                                </div>
+                                    </div>
+                                {% endif %}
                             {% endfor %}
                         </div>
                     </div>
+                    
+                    {% if image_counter > 0 %}
+                        <div class="gallery-info">
+                            <p><strong>Всего фотографий:</strong> {{ image_counter }}</p>
+                        </div>
+                    {% endif %}
                 </div>
                 {% endif %}
                 
@@ -287,8 +307,95 @@
     }
     
     .lightbox-gallery .lightbox-gallery__column {
-        width: 100%;
-    }
+    width: 100%;
+}
+
+.gallery-grid .lightbox-gallery__columns {
+    display: grid;
+    gap: 20px;
+}
+
+.gallery-grid.columns-2 .lightbox-gallery__columns {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.gallery-grid.columns-3 .lightbox-gallery__columns {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.gallery-grid.columns-4 .lightbox-gallery__columns {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.gallery-slider .lightbox-gallery__columns {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    padding-bottom: 10px;
+}
+
+.gallery-slider .lightbox-gallery__column {
+    flex: 0 0 300px;
+}
+
+.gallery-masonry .lightbox-gallery__columns {
+    columns: auto;
+    column-gap: 20px;
+}
+
+.gallery-masonry .lightbox-gallery__column {
+    width: 100%;
+    break-inside: avoid;
+    margin-bottom: 20px;
+}
+
+.gallery-list .lightbox-gallery__columns {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.gallery-list .lightbox-gallery__column {
+    width: 100%;
+}
+
+.gallery-list .gallery-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.gallery-list .gallery-item img {
+    width: 200px;
+    height: auto;
+    flex-shrink: 0;
+}
+
+.gallery-list .gallery-item-title {
+    position: static;
+    background: none;
+    color: #333;
+    padding: 0;
+    font-size: 16px;
+}
+
+.gallery-item.main-image {
+    border: 3px solid #28a745;
+    border-radius: 8px;
+}
+
+.gallery-info {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.gallery-info p {
+    margin: 0;
+    color: #666;
+}
 }
 {% endset %}
 

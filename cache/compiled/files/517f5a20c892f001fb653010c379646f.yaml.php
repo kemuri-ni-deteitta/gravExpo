@@ -2,8 +2,8 @@
 return [
     '@class' => 'Grav\\Common\\File\\CompiledYamlFile',
     'filename' => '/home/ivan/grav-admin/user/themes/quark/blueprints/pages/stand-page.yaml',
-    'modified' => 1753025042,
-    'size' => 5507,
+    'modified' => 1753027975,
+    'size' => 7532,
     'data' => [
         'title' => 'Stand Page',
         '@extends' => [
@@ -45,42 +45,80 @@ return [
                                 'header.gallery' => [
                                     'type' => 'list',
                                     'style' => 'vertical',
-                                    'label' => 'Список работ',
-                                    'help' => 'Добавьте фотографии стендов с названиями и описаниями',
+                                    'label' => 'Галерея проектов',
+                                    'help' => 'Добавьте проекты стендов. Для каждого проекта можно загрузить несколько фотографий. Перетаскивайте элементы для изменения порядка.',
                                     'collapsed' => false,
-                                    'btnLabel' => 'Добавить работу',
+                                    'btnLabel' => 'Добавить проект',
                                     'fields' => [
+                                        'project_info' => [
+                                            'type' => 'section',
+                                            'title' => 'Информация о проекте',
+                                            'underline' => true
+                                        ],
                                         '.title' => [
                                             'type' => 'text',
-                                            'label' => 'Название работы',
-                                            'placeholder' => 'Введите название работы'
-                                        ],
-                                        '.image_upload' => [
-                                            'type' => 'file',
-                                            'label' => 'Загрузить новое изображение',
-                                            'destination' => '@self',
-                                            'multiple' => false,
-                                            'limit' => 1,
-                                            'filesize' => 5,
-                                            'accept' => [
-                                                0 => '.jpg',
-                                                1 => '.jpeg',
-                                                2 => '.png',
-                                                3 => '.gif',
-                                                4 => '.webp'
-                                            ],
-                                            'help' => 'Загрузите новое изображение стенда. Максимальный размер 5MB.',
-                                            'avoid_overwriting' => true,
-                                            'random_name' => false
-                                        ],
-                                        '.image_name' => [
-                                            'help' => 'Альтернативно, введите имя уже загруженного файла'
+                                            'label' => 'Название проекта',
+                                            'placeholder' => 'Например: Стенд для ООО \'Технолог\' на WorldFood 2024',
+                                            'help' => 'Полное название проекта с указанием клиента и выставки'
                                         ],
                                         '.desc' => [
                                             'type' => 'textarea',
-                                            'label' => 'Описание (необязательно)',
-                                            'placeholder' => 'Краткое описание работы',
-                                            'rows' => 3
+                                            'label' => 'Описание проекта',
+                                            'placeholder' => 'Краткое описание особенностей и достижений проекта',
+                                            'rows' => 3,
+                                            'help' => 'Опишите ключевые особенности, результаты или интересные решения'
+                                        ],
+                                        'project_images' => [
+                                            'type' => 'section',
+                                            'title' => 'Фотографии проекта',
+                                            'underline' => true
+                                        ],
+                                        '.images' => [
+                                            'type' => 'list',
+                                            'label' => 'Фотографии',
+                                            'help' => 'Добавьте несколько фотографий этого проекта',
+                                            'btnLabel' => 'Добавить фотографию',
+                                            'collapsed' => false,
+                                            'fields' => [
+                                                '.image_upload' => [
+                                                    'type' => 'file',
+                                                    'label' => 'Загрузить фотографию',
+                                                    'destination' => '@self',
+                                                    'multiple' => false,
+                                                    'limit' => 1,
+                                                    'filesize' => 8,
+                                                    'accept' => [
+                                                        0 => '.jpg',
+                                                        1 => '.jpeg',
+                                                        2 => '.png',
+                                                        3 => '.gif',
+                                                        4 => '.webp'
+                                                    ],
+                                                    'help' => 'Загрузите фотографию стенда. Рекомендуемое разрешение: от 1200x800px. Максимальный размер 8MB.',
+                                                    'avoid_overwriting' => true,
+                                                    'random_name' => false
+                                                ],
+                                                '.caption' => [
+                                                    'type' => 'text',
+                                                    'label' => 'Подпись к фотографии',
+                                                    'placeholder' => 'Например: "Общий вид", "Зона переговоров", "Презентационная зона"',
+                                                    'help' => 'Краткое описание того, что показано на фотографии'
+                                                ],
+                                                '.is_main' => [
+                                                    'type' => 'toggle',
+                                                    'label' => 'Главная фотография проекта',
+                                                    'help' => 'Отметьте основную фотографию этого проекта',
+                                                    'highlight' => 0,
+                                                    'default' => 0,
+                                                    'options' => [
+                                                        1 => 'Да',
+                                                        0 => 'Нет'
+                                                    ],
+                                                    'validate' => [
+                                                        'type' => 'bool'
+                                                    ]
+                                                ]
+                                            ]
                                         ],
                                         '.construction_area' => [
                                             'type' => 'text',

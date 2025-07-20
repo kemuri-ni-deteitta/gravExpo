@@ -1,29 +1,47 @@
 ---
 title: 'Типовые стенды'
-media_order: 'nagr2.jpg,solver_logo.jpg'
 menu: 'Типовые стенды'
 visible: true
 template: stand-page
 gallery:
     -
-        title: stand1
-        desc: stand1stand1stand1stand1
-        image_upload:
-            user/pages/03/uslugi/01.razrabotka-stendov/nagr2.jpg:
-                name: nagr2.jpg
-                full_path: nagr2.jpg
-                type: image/jpeg
-                size: 366793
-                path: user/pages/03/uslugi/01.razrabotka-stendov/nagr2.jpg
+        title: '1проект типовой'
+        desc: ОПИСАНИЕ
+        images:
+            -
+                is_main: false
+                image_upload:
+                    user/pages/03.uslugi/01.razrabotka-stendov/01.typovye/nagr2.jpg:
+                        name: nagr2.jpg
+                        full_path: nagr2.jpg
+                        type: image/jpeg
+                        size: 366793
+                        path: user/pages/03.uslugi/01.razrabotka-stendov/01.typovye/nagr2.jpg
+            -
+                caption: '1232131'
+                is_main: false
+                image_upload:
+                    user/pages/03.uslugi/01.razrabotka-stendov/01.typovye/8.jpg:
+                        name: 8.jpg
+                        full_path: 8.jpg
+                        type: image/jpeg
+                        size: 218837
+                        path: user/pages/03.uslugi/01.razrabotka-stendov/01.typovye/8.jpg
+        construction_area: '11'
+        exhibition_name: '1проект НАЗВАНИЕ ВЫСТАВКИ'
+        company_name: 'НАВЗАНИЕ КОМПАНИИ'
+        project_year: '2010'
     -
-        title: stand1222
-        image_upload:
-            user/pages/03/uslugi/01.razrabotka-stendov/solver_logo.jpg:
-                name: solver_logo.jpg
-                full_path: solver_logo.jpg
-                type: image/jpeg
-                size: 15591
-                path: user/pages/03/uslugi/01.razrabotka-stendov/solver_logo.jpg
+        images:
+            -
+                is_main: false
+                image_upload:
+                    user/pages/03.uslugi/01.razrabotka-stendov/01.typovye/2.jpg:
+                        name: 2.jpg
+                        full_path: 2.jpg
+                        type: image/jpeg
+                        size: 287975
+                        path: user/pages/03.uslugi/01.razrabotka-stendov/01.typovye/2.jpg
 ---
 
 # Типовые стенды

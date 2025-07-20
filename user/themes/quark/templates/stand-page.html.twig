@@ -21,65 +21,158 @@
                         <div class="lightbox-gallery__columns">
                             {% set gallery_id = md5(page.url) %}
                             {% for item in page.header.gallery %}
-                                <div class="lightbox-gallery__column">
-                                    {% set item_image = null %}
-                                    
-                                    {# Check for uploaded image first #}
-                                    {% if item.image_upload %}
-                                        {% for filepath, filedata in item.image_upload %}
-                                            {% if not item_image and filedata.name %}
-                                                {% set item_image = page.media[filedata.name] %}
+                                {# Handle new multiple images structure #}
+                                {% if item.images %}
+                                    {# New structure - each project has multiple images #}
+                                    <div class="project-block">
+                                        <div class="project-title">
+                                            <h3>{{ item.title ?: 'Проект' }}</h3>
+                                            {% if item.desc %}
+                                                <p class="project-description">{{ item.desc }}</p>
                                             {% endif %}
-                                        {% endfor %}
-                                    {% endif %}
-                                    
-                                    {# If no uploaded image, check for image_name #}
-                                    {% if not item_image and item.image_name %}
-                                        {% set item_image = page.media[item.image_name] %}
-                                    {% endif %}
-                                    
-                                    {# Fallback to old image field #}
-                                    {% if not item_image and item.image %}
-                                        {% set item_image = page.media[item.image] %}
-                                    {% endif %}
-                                    
-                                    {% if item_image %}
-                                        {% set title = item.title ? item.title : '' %}
-                                        {% set desc = item.desc ? item.desc : '' %}
-                                        {% set thumb_width = 400 %}
-                                        {% set thumb_height = 300 %}
-                                        
-                                        <div class="gallery-item">
-                                            <a href="{{ item_image.url }}" 
-                                               class="glightbox" 
-                                               data-gallery="gallery-{{ gallery_id }}"
-                                               data-title="{{ title }}"
-                                               data-description="{{ desc }}">
-                                                <img src="{{ item_image.cropZoom(thumb_width, thumb_height).url }}" 
-                                                     alt="{{ title }}" 
-                                                     title="{{ title }}"
-                                                     style="width: 100%; height: auto; border-radius: 5px;">
-                                            </a>
-                                            {% if title %}
-                                                <div class="gallery-item-title">{{ title }}</div>
+                                            
+                                            {# Project metadata #}
+                                            {% if item.construction_area or item.exhibition_name or item.company_name or item.project_year %}
+                                                <div class="project-metadata">
+                                                    {% if item.construction_area %}
+                                                        <span class="metadata-badge">{{ item.construction_area }}</span>
+                                                    {% endif %}
+                                                    {% if item.exhibition_name %}
+                                                        <span class="metadata-badge">{{ item.exhibition_name }}</span>
+                                                    {% endif %}
+                                                    {% if item.company_name %}
+                                                        <span class="metadata-badge">{{ item.company_name }}</span>
+                                                    {% endif %}
+                                                    {% if item.project_year %}
+                                                        <span class="metadata-badge">{{ item.project_year }}</span>
+                                                    {% endif %}
+                                                </div>
                                             {% endif %}
                                         </div>
-                                    {% elseif item.image_upload or item.image_name or item.image %}
-                                        <div class="gallery-item">
-                                            <div class="no-image">
-                                                {% if item.image_upload %}
-                                                    {% for filepath, filedata in item.image_upload %}
-                                                        <p>Изображение не найдено: {{ filedata.name ?: filepath }}</p>
+                                        
+                                        <div class="project-images">
+                                            {% set project_gallery_id = gallery_id ~ '-project-' ~ loop.index %}
+                                            {% for img_item in item.images %}
+                                                {% set img_obj = null %}
+                                                
+                                                {# Check for uploaded image #}
+                                                {% if img_item.image_upload %}
+                                                    {% for filepath, filedata in img_item.image_upload %}
+                                                        {% if not img_obj and filedata.name %}
+                                                            {% set img_obj = page.media[filedata.name] %}
+                                                        {% endif %}
                                                     {% endfor %}
-                                                {% elseif item.image_name %}
-                                                    <p>Изображение не найдено: {{ item.image_name }}</p>
-                                                {% elseif item.image %}
-                                                    <p>Изображение не найдено: {{ item.image }}</p>
+                                                {% endif %}
+                                                
+                                                {% if img_obj %}
+                                                    {% set thumb_width = 300 %}
+                                                    {% set thumb_height = 225 %}
+                                                    {% set img_title = img_item.caption ?: (item.title ~ ' - Фото ' ~ loop.index) %}
+                                                    
+                                                    <div class="lightbox-gallery__column">
+                                                        <div class="gallery-item">
+                                                            <a href="{{ img_obj.url }}" 
+                                                               class="glightbox" 
+                                                               data-gallery="gallery-{{ project_gallery_id }}"
+                                                               data-title="{{ img_title }}"
+                                                               data-description="{{ img_item.caption ?: '' }}">
+                                                                <img src="{{ img_obj.cropZoom(thumb_width, thumb_height).url }}" 
+                                                                     alt="{{ img_title }}" 
+                                                                     title="{{ img_title }}"
+                                                                     style="width: 100%; height: auto; border-radius: 5px;">
+                                                            </a>
+                                                            {% if img_item.caption %}
+                                                                <div class="gallery-item-title">{{ img_item.caption }}</div>
+                                                            {% endif %}
+                                                            {% if img_item.is_main %}
+                                                                <div class="main-image-badge">Главное фото</div>
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    {# Legacy structure - single image per item #}
+                                    <div class="lightbox-gallery__column">
+                                        {% set item_image = null %}
+                                        
+                                        {# Check for uploaded image first #}
+                                        {% if item.image_upload %}
+                                            {% for filepath, filedata in item.image_upload %}
+                                                {% if not item_image and filedata.name %}
+                                                    {% set item_image = page.media[filedata.name] %}
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                        
+                                        {# If no uploaded image, check for image_name #}
+                                        {% if not item_image and item.image_name %}
+                                            {% set item_image = page.media[item.image_name] %}
+                                        {% endif %}
+                                        
+                                        {# Fallback to old image field #}
+                                        {% if not item_image and item.image %}
+                                            {% set item_image = page.media[item.image] %}
+                                        {% endif %}
+                                        
+                                        {% if item_image %}
+                                            {% set title = item.title ? item.title : '' %}
+                                            {% set desc = item.desc ? item.desc : '' %}
+                                            {% set thumb_width = 400 %}
+                                            {% set thumb_height = 300 %}
+                                            
+                                            <div class="gallery-item">
+                                                <a href="{{ item_image.url }}" 
+                                                   class="glightbox" 
+                                                   data-gallery="gallery-{{ gallery_id }}"
+                                                   data-title="{{ title }}"
+                                                   data-description="{{ desc }}">
+                                                    <img src="{{ item_image.cropZoom(thumb_width, thumb_height).url }}" 
+                                                         alt="{{ title }}" 
+                                                         title="{{ title }}"
+                                                         style="width: 100%; height: auto; border-radius: 5px;">
+                                                </a>
+                                                {% if title %}
+                                                    <div class="gallery-item-title">{{ title }}</div>
+                                                {% endif %}
+                                                
+                                                {# Show metadata if available #}
+                                                {% if item.construction_area or item.exhibition_name or item.company_name or item.project_year %}
+                                                    <div class="legacy-metadata">
+                                                        {% if item.construction_area %}
+                                                            <small>{{ item.construction_area }}</small>
+                                                        {% endif %}
+                                                        {% if item.exhibition_name %}
+                                                            <small>{{ item.exhibition_name }}</small>
+                                                        {% endif %}
+                                                        {% if item.company_name %}
+                                                            <small>{{ item.company_name }}</small>
+                                                        {% endif %}
+                                                        {% if item.project_year %}
+                                                            <small>{{ item.project_year }}</small>
+                                                        {% endif %}
+                                                    </div>
                                                 {% endif %}
                                             </div>
-                                        </div>
-                                    {% endif %}
-                                </div>
+                                        {% elseif item.image_upload or item.image_name or item.image %}
+                                            <div class="gallery-item">
+                                                <div class="no-image">
+                                                    {% if item.image_upload %}
+                                                        {% for filepath, filedata in item.image_upload %}
+                                                            <p>Изображение не найдено: {{ filedata.name ?: filepath }}</p>
+                                                        {% endfor %}
+                                                    {% elseif item.image_name %}
+                                                        <p>Изображение не найдено: {{ item.image_name }}</p>
+                                                    {% elseif item.image %}
+                                                        <p>Изображение не найдено: {{ item.image }}</p>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
                             {% endfor %}
                         </div>
                     </div>
@@ -182,6 +275,76 @@
 .no-image p {
     margin: 0;
     font-size: 14px;
+}
+
+.project-block {
+    margin-bottom: 40px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    border: 1px solid #e9ecef;
+}
+
+.project-title h3 {
+    margin: 0 0 10px 0;
+    color: #333;
+    font-size: 20px;
+}
+
+.project-description {
+    margin: 0 0 15px 0;
+    color: #666;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.project-metadata {
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.metadata-badge {
+    background: #007bff;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.project-images {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -10px;
+}
+
+.main-image-badge {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    background: #28a745;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: 500;
+}
+
+.legacy-metadata {
+    margin-top: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.legacy-metadata small {
+    background: #e9ecef;
+    color: #495057;
+    padding: 2px 6px;
+    border-radius: 8px;
+    font-size: 10px;
 }
 
 @media only screen and (min-width: 600px) {
