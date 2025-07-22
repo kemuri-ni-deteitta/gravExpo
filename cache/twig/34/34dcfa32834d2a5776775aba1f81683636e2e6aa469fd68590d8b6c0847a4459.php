@@ -133,8 +133,7 @@ function handleDropdownClick(event, element) {
             if (arrow) arrow.style.transform = 'rotate(180deg)';
             
             // Add visual indicator that dropdown is click-opened
-            dropdown.style.border = '2px solid #ff6600';
-            dropdown.style.boxShadow = '0 4px 12px rgba(255, 102, 0, 0.3)';
+            // Removed orange border and shadow
         }
     } else {
         // If dropdown is closed and not clicking on arrow, allow navigation
@@ -667,7 +666,7 @@ window.forceCloseDropdowns = function() {
 </script>
 </head>
 <body id=\"top\" class=\"";
-        // line 634
+        // line 633
         $this->displayBlock('body_classes', $context, $blocks);
         echo "\" style=\"margin: 0 !important; padding: 0 !important; padding-top: 80px !important;\">
     
@@ -677,11 +676,11 @@ window.forceCloseDropdowns = function() {
      <!-- Logo Section - ABSOLUTE LEFT POSITIONING -->
      <div style=\"position: absolute !important; left: 15px !important; top: 0 !important; display: flex !important; align-items: center !important; height: 80px !important; z-index: 100000 !important;\">
          <a href=\"";
-        // line 641
+        // line 640
         echo twig_escape_filter($this->env, ($context["home_url"] ?? null), "html", null, true);
         echo "\" style=\"display: flex !important; align-items: center !important; text-decoration: none !important;\">
              <img src=\"";
-        // line 642
+        // line 641
         echo twig_escape_filter($this->env, $this->env->getExtension('Grav\Common\Twig\Extension\GravExtension')->urlFunc("theme://images/logo/logo.gif"), "html", null, true);
         echo "\" alt=\"";
         echo twig_escape_filter($this->env, $this->getAttribute(($context["site"] ?? null), "title", []), "html", null, true);
@@ -694,85 +693,85 @@ window.forceCloseDropdowns = function() {
         <nav style=\"display: flex !important; align-items: center !important; height: 80px !important;\">
             <ul style=\"display: flex !important; align-items: center !important; margin: 0 !important; padding: 0 !important; list-style: none !important; height: 80px !important; flex-wrap: nowrap !important; white-space: nowrap !important;\">
                 ";
-        // line 650
+        // line 649
         $context['_parent'] = $context;
         $context['_seq'] = twig_ensure_traversable($this->getAttribute($this->getAttribute(($context["pages"] ?? null), "children", []), "visible", []));
         foreach ($context['_seq'] as $context["_key"] => $context["p"]) {
-            // line 651
+            // line 650
             echo "                    ";
             $context["active_page"] = ((($this->getAttribute($context["p"], "active", []) || $this->getAttribute($context["p"], "activeChild", []))) ? ("active") : (""));
-            // line 652
+            // line 651
             echo "                    ";
             $context["has_children"] = ($this->getAttribute($this->getAttribute($this->getAttribute($context["p"], "children", []), "visible", []), "count", []) > 0);
-            // line 653
+            // line 652
             echo "                    ";
             $context["show_children"] = (($context["has_children"] ?? null) && ($this->getAttribute($context["p"], "active", []) || $this->getAttribute($context["p"], "activeChild", [])));
+            // line 653
+            echo "                    ";
             // line 654
             echo "                    ";
-            // line 655
-            echo "                    ";
             if (($this->getAttribute($context["p"], "slug", []) == "portfolio")) {
-                // line 656
+                // line 655
                 echo "                        ";
                 $context["visible_children"] = [];
-                // line 657
+                // line 656
                 echo "                        ";
                 $context['_parent'] = $context;
                 $context['_seq'] = twig_ensure_traversable($this->getAttribute($this->getAttribute($context["p"], "children", []), "visible", []));
                 foreach ($context['_seq'] as $context["_key"] => $context["child"]) {
-                    // line 658
+                    // line 657
                     echo "                            ";
                     if (($this->getAttribute($context["child"], "template", []) != "portfolio-item")) {
-                        // line 659
+                        // line 658
                         echo "                                ";
                         $context["visible_children"] = twig_array_merge(($context["visible_children"] ?? null), [0 => $context["child"]]);
-                        // line 660
+                        // line 659
                         echo "                            ";
                     }
-                    // line 661
+                    // line 660
                     echo "                        ";
                 }
                 $_parent = $context['_parent'];
                 unset($context['_seq'], $context['_iterated'], $context['_key'], $context['child'], $context['_parent'], $context['loop']);
                 $context = array_intersect_key($context, $_parent) + $_parent;
-                // line 662
+                // line 661
                 echo "                        ";
                 $context["has_children"] = (twig_length_filter($this->env, ($context["visible_children"] ?? null)) > 0);
-                // line 663
+                // line 662
                 echo "                        ";
                 $context["show_children"] = (($context["has_children"] ?? null) && ($this->getAttribute($context["p"], "active", []) || $this->getAttribute($context["p"], "activeChild", [])));
-                // line 664
+                // line 663
                 echo "                    ";
             }
-            // line 665
+            // line 664
             echo "                    <li style=\"margin: 0 0.8rem !important; position: relative !important; display: flex !important; align-items: center !important; height: 80px !important; white-space: nowrap !important; flex-shrink: 0 !important; padding: 0.5rem 0 !important; cursor: pointer !important;\" 
                         data-has-children=\"";
-            // line 666
+            // line 665
             echo ((($context["has_children"] ?? null)) ? ("true") : ("false"));
             echo "\">
                         <a href=\"";
-            // line 667
+            // line 666
             echo twig_escape_filter($this->env, $this->getAttribute($context["p"], "url", []), "html", null, true);
             echo "\" style=\"display: flex !important; align-items: center !important; justify-content: center !important; padding: 0.5rem 1rem !important; text-decoration: none !important; color: #2c2c2c !important; font-weight: 500 !important; font-size: 1.1rem !important; transition: all 0.2s ease !important; border-radius: 4px !important; height: 40px !important; white-space: nowrap !important; min-width: fit-content !important; ";
             if (($context["active_page"] ?? null)) {
-                echo "color: #ff6600 !important; background: rgba(255, 102, 0, 0.15) !important;";
+                echo "color: #ff6600 !important;";
             }
             echo "\" 
-                           onmouseover=\"this.style.color='#ff6600'; this.style.background='rgba(255, 102, 0, 0.15)'\" 
-                           onmouseout=\"this.style.color='#2c2c2c'; this.style.background='transparent'; ";
-            // line 669
+                           onmouseover=\"this.style.color='#ff6600'\" 
+                           onmouseout=\"this.style.color='#2c2c2c'; ";
+            // line 668
             if (($context["active_page"] ?? null)) {
-                echo "this.style.color='#ff6600'; this.style.background='rgba(255, 102, 0, 0.15)';";
+                echo "this.style.color='#ff6600';";
             }
             echo "\"
                            ";
-            // line 670
+            // line 669
             if (($context["has_children"] ?? null)) {
                 echo "onclick=\"handleDropdownClick(event, this.parentElement)\"";
             }
             echo ">
                             ";
-            // line 671
+            // line 670
             echo twig_escape_filter($this->env, $this->getAttribute($context["p"], "menu", []), "html", null, true);
             if (($context["has_children"] ?? null)) {
                 echo " <span class=\"dropdown-arrow\" style=\"margin-left: 5px; font-size: 0.7rem; transition: transform 0.2s ease; ";
@@ -781,12 +780,12 @@ window.forceCloseDropdowns = function() {
                 }
                 echo "; pointer-events: none !important; user-select: none !important;\">▼</span>";
             }
-            // line 672
+            // line 671
             echo "                        </a>
                         ";
-            // line 673
+            // line 672
             if (($context["has_children"] ?? null)) {
-                // line 674
+                // line 673
                 echo "                        <ul class=\"dropdown-menu\" style=\"position: absolute !important; top: 100% !important; left: 0 !important; background: #ffffff !important; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important; border-radius: 6px !important; min-width: 200px !important; padding: 0.5rem 0 !important; ";
                 if (($context["show_children"] ?? null)) {
                     echo "display: block !important;";
@@ -795,52 +794,52 @@ window.forceCloseDropdowns = function() {
                 }
                 echo " z-index: 100001 !important; border: 1px solid rgba(0, 0, 0, 0.1) !important; margin-top: -8px !important; flex-direction: column !important; opacity: 0; transform: translateY(-10px); transition: opacity 0.2s ease, transform 0.2s ease; border-top-left-radius: 0 !important; border-top-right-radius: 0 !important;\">
                             ";
-                // line 675
+                // line 674
                 $context['_parent'] = $context;
                 $context['_seq'] = twig_ensure_traversable($this->getAttribute($this->getAttribute($context["p"], "children", []), "visible", []));
                 foreach ($context['_seq'] as $context["_key"] => $context["child"]) {
+                    // line 675
+                    echo "                                ";
                     // line 676
                     echo "                                ";
-                    // line 677
-                    echo "                                ";
                     if ( !(($this->getAttribute($context["p"], "slug", []) == "portfolio") && ($this->getAttribute($context["child"], "template", []) == "portfolio-item"))) {
-                        // line 678
+                        // line 677
                         echo "                                ";
                         $context["child_active"] = ((($this->getAttribute($context["child"], "active", []) || $this->getAttribute($context["child"], "activeChild", []))) ? ("active") : (""));
-                        // line 679
+                        // line 678
                         echo "                                ";
                         $context["child_has_children"] = ($this->getAttribute($this->getAttribute($this->getAttribute($context["child"], "children", []), "visible", []), "count", []) > 0);
-                        // line 680
+                        // line 679
                         echo "                                <li style=\"margin: 0 !important; display: block !important; height: auto !important; position: relative !important;\" 
                                     onmouseenter=\"showChildDropdown(this)\" 
                                     onmouseleave=\"hideChildDropdown(this)\"
                                     data-has-children=\"";
-                        // line 683
+                        // line 682
                         echo ((($context["child_has_children"] ?? null)) ? ("true") : ("false"));
                         echo "\">
                                     <a href=\"";
-                        // line 684
+                        // line 683
                         echo twig_escape_filter($this->env, $this->getAttribute($context["child"], "url", []), "html", null, true);
                         echo "\" style=\"padding: 0.6rem 1rem !important; color: #2c2c2c !important; font-weight: 400 !important; font-size: 1rem !important; display: block !important; text-decoration: none !important; transition: all 0.2s ease !important; border-radius: 0 !important; height: auto !important; white-space: nowrap !important; ";
                         if (($context["child_active"] ?? null)) {
-                            echo "color: #ff6600 !important; background: rgba(255, 102, 0, 0.08) !important;";
+                            echo "color: #ff6600 !important;";
                         }
                         echo "\"
                                        onmouseover=\"this.style.background='#f8f9fa'; this.style.color='#ff6600'\" 
                                        onmouseout=\"this.style.background='transparent'; this.style.color='#2c2c2c'; ";
-                        // line 686
+                        // line 685
                         if (($context["child_active"] ?? null)) {
-                            echo "this.style.color='#ff6600'; this.style.background='rgba(255, 102, 0, 0.08)';";
+                            echo "this.style.color='#ff6600';";
                         }
                         echo "\"
                                        ";
-                        // line 687
+                        // line 686
                         if (($context["child_has_children"] ?? null)) {
                             echo "onclick=\"handleChildDropdownClick(event, this.parentElement)\"";
                         }
                         echo ">
                                         ";
-                        // line 688
+                        // line 687
                         echo twig_escape_filter($this->env, $this->getAttribute($context["child"], "menu", []), "html", null, true);
                         if (($context["child_has_children"] ?? null)) {
                             echo " <span class=\"dropdown-arrow\" style=\"margin-left: 5px; font-size: 0.6rem; transition: transform 0.2s ease; ";
@@ -849,40 +848,40 @@ window.forceCloseDropdowns = function() {
                             }
                             echo "; pointer-events: none !important; user-select: none !important;\">▶</span>";
                         }
-                        // line 689
+                        // line 688
                         echo "                                    </a>
                                     ";
-                        // line 690
+                        // line 689
                         if (($context["child_has_children"] ?? null)) {
-                            // line 691
+                            // line 690
                             echo "                                    <ul class=\"child-dropdown-menu\" style=\"position: absolute !important; left: 100% !important; top: 0 !important; background: #ffffff !important; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important; border-radius: 6px !important; min-width: 200px !important; padding: 0.5rem 0 !important; display: none !important; z-index: 100002 !important; border: 1px solid rgba(0, 0, 0, 0.1) !important; margin-left: 4px !important; flex-direction: column !important; opacity: 0; transform: translateX(-10px); transition: opacity 0.2s ease, transform 0.2s ease;\">
                                         ";
-                            // line 692
+                            // line 691
                             $context['_parent'] = $context;
                             $context['_seq'] = twig_ensure_traversable($this->getAttribute($this->getAttribute($context["child"], "children", []), "visible", []));
                             foreach ($context['_seq'] as $context["_key"] => $context["grandchild"]) {
-                                // line 693
+                                // line 692
                                 echo "                                            ";
                                 $context["grandchild_active"] = ((($this->getAttribute($context["grandchild"], "active", []) || $this->getAttribute($context["grandchild"], "activeChild", []))) ? ("active") : (""));
-                                // line 694
+                                // line 693
                                 echo "                                            <li style=\"margin: 0 !important; display: block !important; height: auto !important;\">
-                                                <a href=\"";
-                                // line 695
+                                                                                        <a href=\"";
+                                // line 694
                                 echo twig_escape_filter($this->env, $this->getAttribute($context["grandchild"], "url", []), "html", null, true);
                                 echo "\" style=\"padding: 0.6rem 1rem !important; color: #2c2c2c !important; font-weight: 400 !important; font-size: 0.9rem !important; display: block !important; text-decoration: none !important; transition: all 0.2s ease !important; border-radius: 0 !important; height: auto !important; white-space: nowrap !important; ";
                                 if (($context["grandchild_active"] ?? null)) {
-                                    echo "color: #ff6600 !important; background: rgba(255, 102, 0, 0.08) !important;";
+                                    echo "color: #ff6600 !important;";
                                 }
                                 echo "\"
-                                                   onmouseover=\"this.style.background='#f8f9fa'; this.style.color='#ff6600'\" 
-                                                   onmouseout=\"this.style.background='transparent'; this.style.color='#2c2c2c'; ";
-                                // line 697
+                                           onmouseover=\"this.style.background='#f8f9fa'; this.style.color='#ff6600'\" 
+                                           onmouseout=\"this.style.background='transparent'; this.style.color='#2c2c2c'; ";
+                                // line 696
                                 if (($context["grandchild_active"] ?? null)) {
-                                    echo "this.style.color='#ff6600'; this.style.background='rgba(255, 102, 0, 0.08)';";
+                                    echo "this.style.color='#ff6600';";
                                 }
                                 echo "\">
                                                     ";
-                                // line 698
+                                // line 697
                                 echo twig_escape_filter($this->env, $this->getAttribute($context["grandchild"], "menu", []), "html", null, true);
                                 echo "
                                                 </a>
@@ -892,32 +891,32 @@ window.forceCloseDropdowns = function() {
                             $_parent = $context['_parent'];
                             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['grandchild'], $context['_parent'], $context['loop']);
                             $context = array_intersect_key($context, $_parent) + $_parent;
-                            // line 702
+                            // line 701
                             echo "                                    </ul>
                                     ";
                         }
-                        // line 704
+                        // line 703
                         echo "                                </li>
                                 ";
                     }
-                    // line 706
+                    // line 705
                     echo "                            ";
                 }
                 $_parent = $context['_parent'];
                 unset($context['_seq'], $context['_iterated'], $context['_key'], $context['child'], $context['_parent'], $context['loop']);
                 $context = array_intersect_key($context, $_parent) + $_parent;
-                // line 707
+                // line 706
                 echo "                        </ul>
                         ";
             }
-            // line 709
+            // line 708
             echo "                    </li>
                 ";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['p'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 711
+        // line 710
         echo "            </ul>
         </nav>
     </div>
@@ -926,38 +925,38 @@ window.forceCloseDropdowns = function() {
     
     <div id=\"page-wrapper\" style=\"margin: 0 !important; padding: 0 !important;\">
     ";
-        // line 718
+        // line 717
         $this->displayBlock('header', $context, $blocks);
-        // line 723
+        // line 722
         echo "
     ";
-        // line 724
+        // line 723
         $this->displayBlock('hero', $context, $blocks);
-        // line 725
+        // line 724
         echo "
         <section id=\"start\">
         ";
-        // line 727
+        // line 726
         $this->displayBlock('body', $context, $blocks);
-        // line 737
+        // line 736
         echo "        </section>
 
     </div>
 
     ";
-        // line 741
+        // line 740
         $this->displayBlock('footer', $context, $blocks);
-        // line 744
+        // line 743
         echo "
     ";
-        // line 745
+        // line 744
         $this->displayBlock('mobile', $context, $blocks);
-        // line 757
+        // line 756
         echo "
 ";
-        // line 758
+        // line 757
         $this->displayBlock('bottom', $context, $blocks);
-        // line 761
+        // line 760
         echo "
 </body>
 </html>";
@@ -1094,40 +1093,40 @@ window.forceCloseDropdowns = function() {
         $this->deferred->resolve($this, $context, $blocks);
     }
 
-    // line 634
+    // line 633
     public function block_body_classes($context, array $blocks = [])
     {
         echo twig_escape_filter($this->env, ($context["body_classes"] ?? null), "html", null, true);
     }
 
-    // line 718
+    // line 717
     public function block_header($context, array $blocks = [])
     {
-        // line 719
+        // line 718
         echo "        <!-- HIDE ORIGINAL HEADER -->
         <section id=\"header\" class=\"section\" style=\"display: none !important;\">
         </section>
     ";
     }
 
-    // line 724
+    // line 723
     public function block_hero($context, array $blocks = [])
     {
     }
 
-    // line 727
+    // line 726
     public function block_body($context, array $blocks = [])
     {
-        // line 728
+        // line 727
         echo "            <section id=\"body-wrapper\" class=\"section\">
                 <section class=\"container ";
-        // line 729
+        // line 728
         echo twig_escape_filter($this->env, ($context["grid_size"] ?? null), "html", null, true);
         echo "\">
                     ";
-        // line 730
+        // line 729
         $this->displayBlock('messages', $context, $blocks);
-        // line 733
+        // line 732
         echo "                    ";
         $this->displayBlock("content_surround", $context, $blocks);
         echo "
@@ -1136,61 +1135,61 @@ window.forceCloseDropdowns = function() {
         ";
     }
 
-    // line 730
+    // line 729
     public function block_messages($context, array $blocks = [])
     {
-        // line 731
+        // line 730
         echo "                        ";
         $__internal_f607aeef2c31a95a7bf963452dff024ffaeb6aafbe4603f9ca3bec57be8633f4 = null;
         try {
-            $__internal_f607aeef2c31a95a7bf963452dff024ffaeb6aafbe4603f9ca3bec57be8633f4 =             $this->loadTemplate("partials/messages.html.twig", "partials/base.html.twig", 731);
+            $__internal_f607aeef2c31a95a7bf963452dff024ffaeb6aafbe4603f9ca3bec57be8633f4 =             $this->loadTemplate("partials/messages.html.twig", "partials/base.html.twig", 730);
         } catch (LoaderError $e) {
             // ignore missing template
         }
         if ($__internal_f607aeef2c31a95a7bf963452dff024ffaeb6aafbe4603f9ca3bec57be8633f4) {
             $__internal_f607aeef2c31a95a7bf963452dff024ffaeb6aafbe4603f9ca3bec57be8633f4->display($context);
         }
-        // line 732
+        // line 731
         echo "                    ";
     }
 
-    // line 741
+    // line 740
     public function block_footer($context, array $blocks = [])
     {
-        // line 742
+        // line 741
         echo "        ";
-        $this->loadTemplate("partials/footer.html.twig", "partials/base.html.twig", 742)->display($context);
-        // line 743
+        $this->loadTemplate("partials/footer.html.twig", "partials/base.html.twig", 741)->display($context);
+        // line 742
         echo "    ";
     }
 
-    // line 745
+    // line 744
     public function block_mobile($context, array $blocks = [])
     {
-        // line 746
+        // line 745
         echo "    <div class=\"mobile-container\">
         <div class=\"overlay\" id=\"overlay\">
             <div class=\"mobile-logo\">
                 ";
+        // line 748
+        $this->loadTemplate("partials/logo.html.twig", "partials/base.html.twig", 748)->display(twig_array_merge($context, ["mobile" => true]));
         // line 749
-        $this->loadTemplate("partials/logo.html.twig", "partials/base.html.twig", 749)->display(twig_array_merge($context, ["mobile" => true]));
-        // line 750
         echo "            </div>
             <nav class=\"overlay-menu\">
                 ";
+        // line 751
+        $this->loadTemplate("partials/navigation.html.twig", "partials/base.html.twig", 751)->display(twig_array_merge($context, ["tree" => true]));
         // line 752
-        $this->loadTemplate("partials/navigation.html.twig", "partials/base.html.twig", 752)->display(twig_array_merge($context, ["tree" => true]));
-        // line 753
         echo "            </nav>
         </div>
     </div>
     ";
     }
 
-    // line 758
+    // line 757
     public function block_bottom($context, array $blocks = [])
     {
-        // line 759
+        // line 758
         echo "    ";
         echo $this->getAttribute(($context["assets"] ?? null), "js", [0 => "bottom"], "method");
         echo "
@@ -1209,7 +1208,7 @@ window.forceCloseDropdowns = function() {
 
     public function getDebugInfo()
     {
-        return array (  1194 => 759,  1191 => 758,  1184 => 753,  1182 => 752,  1178 => 750,  1176 => 749,  1171 => 746,  1168 => 745,  1164 => 743,  1161 => 742,  1158 => 741,  1154 => 732,  1143 => 731,  1140 => 730,  1131 => 733,  1129 => 730,  1125 => 729,  1122 => 728,  1119 => 727,  1114 => 724,  1107 => 719,  1104 => 718,  1098 => 634,  1091 => 50,  1086 => 49,  1083 => 48,  1073 => 45,  1070 => 44,  1068 => 43,  1065 => 42,  1062 => 41,  1059 => 40,  1056 => 39,  1053 => 38,  1050 => 36,  1048 => 35,  1045 => 34,  1042 => 33,  1039 => 32,  1036 => 31,  1031 => 28,  1028 => 27,  1025 => 26,  1022 => 25,  1017 => 24,  1012 => 23,  1009 => 22,  1006 => 21,  999 => 18,  995 => 17,  992 => 16,  990 => 15,  979 => 11,  976 => 10,  973 => 9,  961 => 761,  959 => 758,  956 => 757,  954 => 745,  951 => 744,  949 => 741,  943 => 737,  941 => 727,  937 => 725,  935 => 724,  932 => 723,  930 => 718,  921 => 711,  914 => 709,  910 => 707,  904 => 706,  900 => 704,  896 => 702,  886 => 698,  880 => 697,  871 => 695,  868 => 694,  865 => 693,  861 => 692,  858 => 691,  856 => 690,  853 => 689,  844 => 688,  838 => 687,  832 => 686,  823 => 684,  819 => 683,  814 => 680,  811 => 679,  808 => 678,  805 => 677,  803 => 676,  799 => 675,  790 => 674,  788 => 673,  785 => 672,  776 => 671,  770 => 670,  764 => 669,  755 => 667,  751 => 666,  748 => 665,  745 => 664,  742 => 663,  739 => 662,  733 => 661,  730 => 660,  727 => 659,  724 => 658,  719 => 657,  716 => 656,  713 => 655,  711 => 654,  708 => 653,  705 => 652,  702 => 651,  698 => 650,  685 => 642,  681 => 641,  671 => 634,  87 => 52,  85 => 48,  82 => 47,  80 => 31,  77 => 30,  75 => 21,  72 => 20,  70 => 9,  65 => 7,  61 => 5,  59 => 3,  57 => 2,  55 => 1,  25 => 4,);
+        return array (  1193 => 758,  1190 => 757,  1183 => 752,  1181 => 751,  1177 => 749,  1175 => 748,  1170 => 745,  1167 => 744,  1163 => 742,  1160 => 741,  1157 => 740,  1153 => 731,  1142 => 730,  1139 => 729,  1130 => 732,  1128 => 729,  1124 => 728,  1121 => 727,  1118 => 726,  1113 => 723,  1106 => 718,  1103 => 717,  1097 => 633,  1090 => 50,  1085 => 49,  1082 => 48,  1072 => 45,  1069 => 44,  1067 => 43,  1064 => 42,  1061 => 41,  1058 => 40,  1055 => 39,  1052 => 38,  1049 => 36,  1047 => 35,  1044 => 34,  1041 => 33,  1038 => 32,  1035 => 31,  1030 => 28,  1027 => 27,  1024 => 26,  1021 => 25,  1016 => 24,  1011 => 23,  1008 => 22,  1005 => 21,  998 => 18,  994 => 17,  991 => 16,  989 => 15,  978 => 11,  975 => 10,  972 => 9,  960 => 760,  958 => 757,  955 => 756,  953 => 744,  950 => 743,  948 => 740,  942 => 736,  940 => 726,  936 => 724,  934 => 723,  931 => 722,  929 => 717,  920 => 710,  913 => 708,  909 => 706,  903 => 705,  899 => 703,  895 => 701,  885 => 697,  879 => 696,  870 => 694,  867 => 693,  864 => 692,  860 => 691,  857 => 690,  855 => 689,  852 => 688,  843 => 687,  837 => 686,  831 => 685,  822 => 683,  818 => 682,  813 => 679,  810 => 678,  807 => 677,  804 => 676,  802 => 675,  798 => 674,  789 => 673,  787 => 672,  784 => 671,  775 => 670,  769 => 669,  763 => 668,  754 => 666,  750 => 665,  747 => 664,  744 => 663,  741 => 662,  738 => 661,  732 => 660,  729 => 659,  726 => 658,  723 => 657,  718 => 656,  715 => 655,  712 => 654,  710 => 653,  707 => 652,  704 => 651,  701 => 650,  697 => 649,  684 => 641,  680 => 640,  670 => 633,  87 => 52,  85 => 48,  82 => 47,  80 => 31,  77 => 30,  75 => 21,  72 => 20,  70 => 9,  65 => 7,  61 => 5,  59 => 3,  57 => 2,  55 => 1,  25 => 4,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -1322,8 +1321,7 @@ function handleDropdownClick(event, element) {
             if (arrow) arrow.style.transform = 'rotate(180deg)';
             
             // Add visual indicator that dropdown is click-opened
-            dropdown.style.border = '2px solid #ff6600';
-            dropdown.style.boxShadow = '0 4px 12px rgba(255, 102, 0, 0.3)';
+            // Removed orange border and shadow
         }
     } else {
         // If dropdown is closed and not clicking on arrow, allow navigation
@@ -1888,9 +1886,9 @@ window.forceCloseDropdowns = function() {
                     {% endif %}
                     <li style=\"margin: 0 0.8rem !important; position: relative !important; display: flex !important; align-items: center !important; height: 80px !important; white-space: nowrap !important; flex-shrink: 0 !important; padding: 0.5rem 0 !important; cursor: pointer !important;\" 
                         data-has-children=\"{{ has_children ? 'true' : 'false' }}\">
-                        <a href=\"{{ p.url }}\" style=\"display: flex !important; align-items: center !important; justify-content: center !important; padding: 0.5rem 1rem !important; text-decoration: none !important; color: #2c2c2c !important; font-weight: 500 !important; font-size: 1.1rem !important; transition: all 0.2s ease !important; border-radius: 4px !important; height: 40px !important; white-space: nowrap !important; min-width: fit-content !important; {% if active_page %}color: #ff6600 !important; background: rgba(255, 102, 0, 0.15) !important;{% endif %}\" 
-                           onmouseover=\"this.style.color='#ff6600'; this.style.background='rgba(255, 102, 0, 0.15)'\" 
-                           onmouseout=\"this.style.color='#2c2c2c'; this.style.background='transparent'; {% if active_page %}this.style.color='#ff6600'; this.style.background='rgba(255, 102, 0, 0.15)';{% endif %}\"
+                        <a href=\"{{ p.url }}\" style=\"display: flex !important; align-items: center !important; justify-content: center !important; padding: 0.5rem 1rem !important; text-decoration: none !important; color: #2c2c2c !important; font-weight: 500 !important; font-size: 1.1rem !important; transition: all 0.2s ease !important; border-radius: 4px !important; height: 40px !important; white-space: nowrap !important; min-width: fit-content !important; {% if active_page %}color: #ff6600 !important;{% endif %}\" 
+                           onmouseover=\"this.style.color='#ff6600'\" 
+                           onmouseout=\"this.style.color='#2c2c2c'; {% if active_page %}this.style.color='#ff6600';{% endif %}\"
                            {% if has_children %}onclick=\"handleDropdownClick(event, this.parentElement)\"{% endif %}>
                             {{ p.menu }}{% if has_children %} <span class=\"dropdown-arrow\" style=\"margin-left: 5px; font-size: 0.7rem; transition: transform 0.2s ease; {% if active_page %}opacity: 1 !important;{% endif %}; pointer-events: none !important; user-select: none !important;\">▼</span>{% endif %}
                         </a>
@@ -1905,9 +1903,9 @@ window.forceCloseDropdowns = function() {
                                     onmouseenter=\"showChildDropdown(this)\" 
                                     onmouseleave=\"hideChildDropdown(this)\"
                                     data-has-children=\"{{ child_has_children ? 'true' : 'false' }}\">
-                                    <a href=\"{{ child.url }}\" style=\"padding: 0.6rem 1rem !important; color: #2c2c2c !important; font-weight: 400 !important; font-size: 1rem !important; display: block !important; text-decoration: none !important; transition: all 0.2s ease !important; border-radius: 0 !important; height: auto !important; white-space: nowrap !important; {% if child_active %}color: #ff6600 !important; background: rgba(255, 102, 0, 0.08) !important;{% endif %}\"
+                                    <a href=\"{{ child.url }}\" style=\"padding: 0.6rem 1rem !important; color: #2c2c2c !important; font-weight: 400 !important; font-size: 1rem !important; display: block !important; text-decoration: none !important; transition: all 0.2s ease !important; border-radius: 0 !important; height: auto !important; white-space: nowrap !important; {% if child_active %}color: #ff6600 !important;{% endif %}\"
                                        onmouseover=\"this.style.background='#f8f9fa'; this.style.color='#ff6600'\" 
-                                       onmouseout=\"this.style.background='transparent'; this.style.color='#2c2c2c'; {% if child_active %}this.style.color='#ff6600'; this.style.background='rgba(255, 102, 0, 0.08)';{% endif %}\"
+                                       onmouseout=\"this.style.background='transparent'; this.style.color='#2c2c2c'; {% if child_active %}this.style.color='#ff6600';{% endif %}\"
                                        {% if child_has_children %}onclick=\"handleChildDropdownClick(event, this.parentElement)\"{% endif %}>
                                         {{ child.menu }}{% if child_has_children %} <span class=\"dropdown-arrow\" style=\"margin-left: 5px; font-size: 0.6rem; transition: transform 0.2s ease; {% if child_active %}opacity: 1 !important;{% endif %}; pointer-events: none !important; user-select: none !important;\">▶</span>{% endif %}
                                     </a>
@@ -1916,9 +1914,9 @@ window.forceCloseDropdowns = function() {
                                         {% for grandchild in child.children.visible %}
                                             {% set grandchild_active = (grandchild.active or grandchild.activeChild) ? 'active' : '' %}
                                             <li style=\"margin: 0 !important; display: block !important; height: auto !important;\">
-                                                <a href=\"{{ grandchild.url }}\" style=\"padding: 0.6rem 1rem !important; color: #2c2c2c !important; font-weight: 400 !important; font-size: 0.9rem !important; display: block !important; text-decoration: none !important; transition: all 0.2s ease !important; border-radius: 0 !important; height: auto !important; white-space: nowrap !important; {% if grandchild_active %}color: #ff6600 !important; background: rgba(255, 102, 0, 0.08) !important;{% endif %}\"
-                                                   onmouseover=\"this.style.background='#f8f9fa'; this.style.color='#ff6600'\" 
-                                                   onmouseout=\"this.style.background='transparent'; this.style.color='#2c2c2c'; {% if grandchild_active %}this.style.color='#ff6600'; this.style.background='rgba(255, 102, 0, 0.08)';{% endif %}\">
+                                                                                        <a href=\"{{ grandchild.url }}\" style=\"padding: 0.6rem 1rem !important; color: #2c2c2c !important; font-weight: 400 !important; font-size: 0.9rem !important; display: block !important; text-decoration: none !important; transition: all 0.2s ease !important; border-radius: 0 !important; height: auto !important; white-space: nowrap !important; {% if grandchild_active %}color: #ff6600 !important;{% endif %}\"
+                                           onmouseover=\"this.style.background='#f8f9fa'; this.style.color='#ff6600'\" 
+                                           onmouseout=\"this.style.background='transparent'; this.style.color='#2c2c2c'; {% if grandchild_active %}this.style.color='#ff6600';{% endif %}\">
                                                     {{ grandchild.menu }}
                                                 </a>
                                             </li>

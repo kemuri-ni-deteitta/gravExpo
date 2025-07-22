@@ -233,7 +233,6 @@ body.header-fixed #body-wrapper {
 #header .navbar-section.desktop-menu .dropmenu > ul > li > a:focus,
 #header .navbar-section.desktop-menu .dropmenu > ul > li > a.active {
   color: var(--primary-color) !important;
-  background: rgba(255, 102, 0, 0.15) !important;
 }
 
 /* Ensure the entire li element area is hoverable */
@@ -431,8 +430,7 @@ body.header-fixed #body-wrapper {
 #custom-header nav ul li > a:focus,
 .dropdown-menu li a:focus,
 .child-dropdown-menu li a:focus {
-  outline: 2px solid var(--primary-color) !important;
-  outline-offset: 2px !important;
+  /* Removed orange outline */
 }
 
 /* Mobile dropdown fallback (if needed) */

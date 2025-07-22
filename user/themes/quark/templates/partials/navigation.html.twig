@@ -27,9 +27,9 @@
                 onmouseenter="showDropdown(this)" 
                 onmouseleave="hideDropdown(this)"
                 data-has-children="{{ has_children ? 'true' : 'false' }}">
-                <a href="{{ p.url }}" style="display: flex !important; align-items: center !important; justify-content: center !important; padding: 0.3rem 0.6rem !important; text-decoration: none !important; color: #2c2c2c !important; font-weight: 500 !important; font-size: 0.9rem !important; transition: all 0.2s ease !important; border-radius: 2px !important; height: 28px !important; white-space: nowrap !important; min-width: fit-content !important; {% if active_page %}color: #ff6600 !important; background: rgba(255, 102, 0, 0.08) !important;{% endif %}" 
-                   onmouseover="this.style.color='#ff6600'; this.style.background='rgba(255, 102, 0, 0.08)'" 
-                   onmouseout="this.style.color='#2c2c2c'; this.style.background='transparent'; {% if active_page %}this.style.color='#ff6600'; this.style.background='rgba(255, 102, 0, 0.08)';{% endif %}"
+                <a href="{{ p.url }}" style="display: flex !important; align-items: center !important; justify-content: center !important; padding: 0.3rem 0.6rem !important; text-decoration: none !important; color: #2c2c2c !important; font-weight: 500 !important; font-size: 0.9rem !important; transition: all 0.2s ease !important; border-radius: 2px !important; height: 28px !important; white-space: nowrap !important; min-width: fit-content !important; {% if active_page %}color: #ff6600 !important;{% endif %}" 
+                   onmouseover="this.style.color='#ff6600'" 
+                   onmouseout="this.style.color='#2c2c2c'; {% if active_page %}this.style.color='#ff6600';{% endif %}"
                    {% if has_children %}onclick="handleDropdownClick(event, this.parentElement)"{% endif %}>
                     {{ p.menu }}{% if has_children %} <span class="dropdown-arrow" style="margin-left: 5px; font-size: 0.7rem; transition: transform 0.2s ease; {% if active_page %}opacity: 1 !important;{% endif %}">▼</span>{% endif %}
                 </a>
@@ -44,9 +44,9 @@
                             onmouseenter="showChildDropdown(this)" 
                             onmouseleave="hideChildDropdown(this)"
                             data-has-children="{{ child_has_children ? 'true' : 'false' }}">
-                            <a href="{{ child.url }}" style="padding: 0.6rem 1rem !important; color: #2c2c2c !important; font-weight: 400 !important; font-size: 0.85rem !important; display: block !important; text-decoration: none !important; transition: all 0.2s ease !important; border-radius: 0 !important; height: auto !important; white-space: nowrap !important; {% if child_active %}color: #ff6600 !important; background: rgba(255, 102, 0, 0.08) !important;{% endif %}"
+                            <a href="{{ child.url }}" style="padding: 0.6rem 1rem !important; color: #2c2c2c !important; font-weight: 400 !important; font-size: 0.85rem !important; display: block !important; text-decoration: none !important; transition: all 0.2s ease !important; border-radius: 0 !important; height: auto !important; white-space: nowrap !important; {% if child_active %}color: #ff6600 !important;{% endif %}"
                                onmouseover="this.style.background='#f8f9fa'; this.style.color='#ff6600'" 
-                               onmouseout="this.style.background='transparent'; this.style.color='#2c2c2c'; {% if child_active %}this.style.color='#ff6600'; this.style.background='rgba(255, 102, 0, 0.08)';{% endif %}"
+                               onmouseout="this.style.background='transparent'; this.style.color='#2c2c2c'; {% if child_active %}this.style.color='#ff6600';{% endif %}"
                                {% if child_has_children %}onclick="handleChildDropdownClick(event, this.parentElement)"{% endif %}>
                                 {{ child.menu }}{% if child_has_children %} <span class="dropdown-arrow" style="margin-left: 5px; font-size: 0.6rem; transition: transform 0.2s ease; {% if child_active %}opacity: 1 !important;{% endif %}">▶</span>{% endif %}
                             </a>
@@ -55,9 +55,9 @@
                                 {% for grandchild in child.children.visible %}
                                     {% set grandchild_active = (grandchild.active or grandchild.activeChild) ? 'active' : '' %}
                                     <li style="margin: 0 !important; display: block !important; height: auto !important;">
-                                        <a href="{{ grandchild.url }}" style="padding: 0.6rem 1rem !important; color: #2c2c2c !important; font-weight: 400 !important; font-size: 0.8rem !important; display: block !important; text-decoration: none !important; transition: all 0.2s ease !important; border-radius: 0 !important; height: auto !important; white-space: nowrap !important; {% if grandchild_active %}color: #ff6600 !important; background: rgba(255, 102, 0, 0.08) !important;{% endif %}"
+                                        <a href="{{ grandchild.url }}" style="padding: 0.6rem 1rem !important; color: #2c2c2c !important; font-weight: 400 !important; font-size: 0.8rem !important; display: block !important; text-decoration: none !important; transition: all 0.2s ease !important; border-radius: 0 !important; height: auto !important; white-space: nowrap !important; {% if grandchild_active %}color: #ff6600 !important;{% endif %}"
                                            onmouseover="this.style.background='#f8f9fa'; this.style.color='#ff6600'" 
-                                           onmouseout="this.style.background='transparent'; this.style.color='#2c2c2c'; {% if grandchild_active %}this.style.color='#ff6600'; this.style.background='rgba(255, 102, 0, 0.08)';{% endif %}">
+                                           onmouseout="this.style.background='transparent'; this.style.color='#2c2c2c'; {% if grandchild_active %}this.style.color='#ff6600';{% endif %}">
                                             {{ grandchild.menu }}
                                         </a>
                                     </li>

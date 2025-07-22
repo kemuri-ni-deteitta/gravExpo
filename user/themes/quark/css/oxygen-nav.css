@@ -57,12 +57,10 @@
 .nav-link:hover,
 .nav-link:focus {
     color: #ff6600;
-    background: rgba(255, 102, 0, 0.08);
 }
 
 .nav-link.active {
     color: #ff6600;
-    background: rgba(255, 102, 0, 0.08);
 }
 
 /* Dropdown Arrows */
@@ -159,7 +157,6 @@
 }
 
 .toggle:hover {
-    background: rgba(255, 102, 0, 0.08);
     color: #ff6600;
 }
 
@@ -247,7 +244,6 @@
 }
 
 .close:hover {
-    background: rgba(255, 102, 0, 0.08);
     color: #ff6600;
 }
 
@@ -309,12 +305,10 @@
 
 .nav-mobile-menu .nav-link:hover,
 .nav-mobile-menu .nav-link:focus {
-    background: rgba(255, 102, 0, 0.08);
     color: #ff6600;
 }
 
 .nav-mobile-menu .nav-link.active {
-    background: rgba(255, 102, 0, 0.08);
     color: #ff6600;
 }
 

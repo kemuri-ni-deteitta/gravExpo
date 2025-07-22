@@ -98,8 +98,7 @@ function handleDropdownClick(event, element) {
             if (arrow) arrow.style.transform = 'rotate(180deg)';
             
             // Add visual indicator that dropdown is click-opened
-            dropdown.style.border = '2px solid #ff6600';
-            dropdown.style.boxShadow = '0 4px 12px rgba(255, 102, 0, 0.3)';
+            // Removed orange border and shadow
         }
     } else {
         // If dropdown is closed and not clicking on arrow, allow navigation
@@ -664,9 +663,9 @@ window.forceCloseDropdowns = function() {
                     {% endif %}
                     <li style="margin: 0 0.8rem !important; position: relative !important; display: flex !important; align-items: center !important; height: 80px !important; white-space: nowrap !important; flex-shrink: 0 !important; padding: 0.5rem 0 !important; cursor: pointer !important;" 
                         data-has-children="{{ has_children ? 'true' : 'false' }}">
-                        <a href="{{ p.url }}" style="display: flex !important; align-items: center !important; justify-content: center !important; padding: 0.5rem 1rem !important; text-decoration: none !important; color: #2c2c2c !important; font-weight: 500 !important; font-size: 1.1rem !important; transition: all 0.2s ease !important; border-radius: 4px !important; height: 40px !important; white-space: nowrap !important; min-width: fit-content !important; {% if active_page %}color: #ff6600 !important; background: rgba(255, 102, 0, 0.15) !important;{% endif %}" 
-                           onmouseover="this.style.color='#ff6600'; this.style.background='rgba(255, 102, 0, 0.15)'" 
-                           onmouseout="this.style.color='#2c2c2c'; this.style.background='transparent'; {% if active_page %}this.style.color='#ff6600'; this.style.background='rgba(255, 102, 0, 0.15)';{% endif %}"
+                        <a href="{{ p.url }}" style="display: flex !important; align-items: center !important; justify-content: center !important; padding: 0.5rem 1rem !important; text-decoration: none !important; color: #2c2c2c !important; font-weight: 500 !important; font-size: 1.1rem !important; transition: all 0.2s ease !important; border-radius: 4px !important; height: 40px !important; white-space: nowrap !important; min-width: fit-content !important; {% if active_page %}color: #ff6600 !important;{% endif %}" 
+                           onmouseover="this.style.color='#ff6600'" 
+                           onmouseout="this.style.color='#2c2c2c'; {% if active_page %}this.style.color='#ff6600';{% endif %}"
                            {% if has_children %}onclick="handleDropdownClick(event, this.parentElement)"{% endif %}>
                             {{ p.menu }}{% if has_children %} <span class="dropdown-arrow" style="margin-left: 5px; font-size: 0.7rem; transition: transform 0.2s ease; {% if active_page %}opacity: 1 !important;{% endif %}; pointer-events: none !important; user-select: none !important;">▼</span>{% endif %}
                         </a>
@@ -681,9 +680,9 @@ window.forceCloseDropdowns = function() {
                                     onmouseenter="showChildDropdown(this)" 
                                     onmouseleave="hideChildDropdown(this)"
                                     data-has-children="{{ child_has_children ? 'true' : 'false' }}">
-                                    <a href="{{ child.url }}" style="padding: 0.6rem 1rem !important; color: #2c2c2c !important; font-weight: 400 !important; font-size: 1rem !important; display: block !important; text-decoration: none !important; transition: all 0.2s ease !important; border-radius: 0 !important; height: auto !important; white-space: nowrap !important; {% if child_active %}color: #ff6600 !important; background: rgba(255, 102, 0, 0.08) !important;{% endif %}"
+                                    <a href="{{ child.url }}" style="padding: 0.6rem 1rem !important; color: #2c2c2c !important; font-weight: 400 !important; font-size: 1rem !important; display: block !important; text-decoration: none !important; transition: all 0.2s ease !important; border-radius: 0 !important; height: auto !important; white-space: nowrap !important; {% if child_active %}color: #ff6600 !important;{% endif %}"
                                        onmouseover="this.style.background='#f8f9fa'; this.style.color='#ff6600'" 
-                                       onmouseout="this.style.background='transparent'; this.style.color='#2c2c2c'; {% if child_active %}this.style.color='#ff6600'; this.style.background='rgba(255, 102, 0, 0.08)';{% endif %}"
+                                       onmouseout="this.style.background='transparent'; this.style.color='#2c2c2c'; {% if child_active %}this.style.color='#ff6600';{% endif %}"
                                        {% if child_has_children %}onclick="handleChildDropdownClick(event, this.parentElement)"{% endif %}>
                                         {{ child.menu }}{% if child_has_children %} <span class="dropdown-arrow" style="margin-left: 5px; font-size: 0.6rem; transition: transform 0.2s ease; {% if child_active %}opacity: 1 !important;{% endif %}; pointer-events: none !important; user-select: none !important;">▶</span>{% endif %}
                                     </a>
@@ -692,9 +691,9 @@ window.forceCloseDropdowns = function() {
                                         {% for grandchild in child.children.visible %}
                                             {% set grandchild_active = (grandchild.active or grandchild.activeChild) ? 'active' : '' %}
                                             <li style="margin: 0 !important; display: block !important; height: auto !important;">
-                                                <a href="{{ grandchild.url }}" style="padding: 0.6rem 1rem !important; color: #2c2c2c !important; font-weight: 400 !important; font-size: 0.9rem !important; display: block !important; text-decoration: none !important; transition: all 0.2s ease !important; border-radius: 0 !important; height: auto !important; white-space: nowrap !important; {% if grandchild_active %}color: #ff6600 !important; background: rgba(255, 102, 0, 0.08) !important;{% endif %}"
-                                                   onmouseover="this.style.background='#f8f9fa'; this.style.color='#ff6600'" 
-                                                   onmouseout="this.style.background='transparent'; this.style.color='#2c2c2c'; {% if grandchild_active %}this.style.color='#ff6600'; this.style.background='rgba(255, 102, 0, 0.08)';{% endif %}">
+                                                                                        <a href="{{ grandchild.url }}" style="padding: 0.6rem 1rem !important; color: #2c2c2c !important; font-weight: 400 !important; font-size: 0.9rem !important; display: block !important; text-decoration: none !important; transition: all 0.2s ease !important; border-radius: 0 !important; height: auto !important; white-space: nowrap !important; {% if grandchild_active %}color: #ff6600 !important;{% endif %}"
+                                           onmouseover="this.style.background='#f8f9fa'; this.style.color='#ff6600'" 
+                                           onmouseout="this.style.background='transparent'; this.style.color='#2c2c2c'; {% if grandchild_active %}this.style.color='#ff6600';{% endif %}">
                                                     {{ grandchild.menu }}
                                                 </a>
                                             </li>
