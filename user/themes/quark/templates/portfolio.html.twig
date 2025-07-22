@@ -48,34 +48,19 @@
                             {% endif %}
                             
                             {% for gallery_item in service_child.header.gallery %}
-                                {% if gallery_item.images %}
-                                    {# New structure with multiple images per project #}
-                                    {% set item_data = {
-                                        'page': service_child,
-                                        'gallery_item': gallery_item,
-                                        'stand_type': stand_type,
-                                        'construction_area': gallery_item.construction_area,
-                                        'exhibition_name': gallery_item.exhibition_name,
-                                        'company_name': gallery_item.company_name,
-                                        'project_year': gallery_item.project_year,
-                                        'source': 'services',
-                                        'images': gallery_item.images
-                                    } %}
-                                    {% set all_portfolio_items = all_portfolio_items|merge([item_data]) %}
-                                {% else %}
-                                    {# Legacy structure with single image #}
-                                    {% set item_data = {
-                                        'page': service_child,
-                                        'gallery_item': gallery_item,
-                                        'stand_type': stand_type,
-                                        'construction_area': gallery_item.construction_area,
-                                        'exhibition_name': gallery_item.exhibition_name,
-                                        'company_name': gallery_item.company_name,
-                                        'project_year': gallery_item.project_year,
-                                        'source': 'services'
-                                    } %}
-                                    {% set all_portfolio_items = all_portfolio_items|merge([item_data]) %}
-                                {% endif %}
+                                {# Always create item_data, regardless of structure #}
+                                {% set item_data = {
+                                    'page': service_child,
+                                    'gallery_item': gallery_item,
+                                    'stand_type': stand_type,
+                                    'construction_area': gallery_item.construction_area,
+                                    'exhibition_name': gallery_item.exhibition_name,
+                                    'company_name': gallery_item.company_name,
+                                    'project_year': gallery_item.project_year,
+                                    'source': 'services',
+                                    'images': gallery_item.images ?: null
+                                } %}
+                                {% set all_portfolio_items = all_portfolio_items|merge([item_data]) %}
                             {% endfor %}
                         {% endif %}
                     {% endfor %}
@@ -108,7 +93,15 @@
                                     {% set title = gallery_item.title ?: 'Проект' %}
                                     {% set desc = gallery_item.desc ?: '' %}
                                     
-                                    {# Handle new multiple images structure #}
+                                    {# Ensure all metadata fields have default values #}
+                                    {% set construction_area = item.construction_area ?: gallery_item.construction_area ?: '' %}
+                                    {% set exhibition_name = item.exhibition_name ?: gallery_item.exhibition_name ?: '' %}
+                                    {% set company_name = item.company_name ?: gallery_item.company_name ?: '' %}
+                                    {% set project_year = item.project_year ?: gallery_item.project_year ?: '' %}
+                                    
+
+                                    
+                                    {# Handle multiple images structure #}
                                     {% if item.images %}
                                         {% for img_item in item.images %}
                                             {% set img_obj = null %}
@@ -136,8 +129,10 @@
                                                 {% endif %}
                                             {% endif %}
                                         {% endfor %}
-                                    {% else %}
-                                        {# Legacy single image handling #}
+                                    {% endif %}
+                                    
+                                    {# Legacy single image handling if no images found #}
+                                    {% if project_images|length == 0 %}
                                         {% set item_image = null %}
                                         
                                         {# Check for uploaded image first #}
@@ -230,31 +225,31 @@
                                                         </div>
                                                     {% endif %}
                                                     
-                                                    {% if item.construction_area %}
+                                                    {% if construction_area %}
                                                         <div class="metadata-item">
                                                             <span class="label">Площадь:</span>
-                                                            <span class="value">{{ item.construction_area }}</span>
+                                                            <span class="value">{{ construction_area }}</span>
                                                         </div>
                                                     {% endif %}
                                                     
-                                                    {% if item.exhibition_name %}
+                                                    {% if exhibition_name %}
                                                         <div class="metadata-item">
                                                             <span class="label">Выставка:</span>
-                                                            <span class="value">{{ item.exhibition_name }}</span>
+                                                            <span class="value">{{ exhibition_name }}</span>
                                                         </div>
                                                     {% endif %}
                                                     
-                                                    {% if item.company_name %}
+                                                    {% if company_name %}
                                                         <div class="metadata-item">
                                                             <span class="label">Клиент:</span>
-                                                            <span class="value">{{ item.company_name }}</span>
+                                                            <span class="value">{{ company_name }}</span>
                                                         </div>
                                                     {% endif %}
                                                     
-                                                    {% if item.project_year %}
+                                                    {% if project_year %}
                                                         <div class="metadata-item">
                                                             <span class="label">Год:</span>
-                                                            <span class="value">{{ item.project_year }}</span>
+                                                            <span class="value">{{ project_year }}</span>
                                                         </div>
                                                     {% endif %}
                                                 </div>

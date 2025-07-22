@@ -140,18 +140,18 @@
                                                 
                                                 {# Show metadata if available #}
                                                 {% if item.construction_area or item.exhibition_name or item.company_name or item.project_year %}
-                                                    <div class="legacy-metadata">
+                                                    <div class="project-metadata">
                                                         {% if item.construction_area %}
-                                                            <small>{{ item.construction_area }}</small>
+                                                            <span class="metadata-badge">{{ item.construction_area }}</span>
                                                         {% endif %}
                                                         {% if item.exhibition_name %}
-                                                            <small>{{ item.exhibition_name }}</small>
+                                                            <span class="metadata-badge">{{ item.exhibition_name }}</span>
                                                         {% endif %}
                                                         {% if item.company_name %}
-                                                            <small>{{ item.company_name }}</small>
+                                                            <span class="metadata-badge">{{ item.company_name }}</span>
                                                         {% endif %}
                                                         {% if item.project_year %}
-                                                            <small>{{ item.project_year }}</small>
+                                                            <span class="metadata-badge">{{ item.project_year }}</span>
                                                         {% endif %}
                                                     </div>
                                                 {% endif %}

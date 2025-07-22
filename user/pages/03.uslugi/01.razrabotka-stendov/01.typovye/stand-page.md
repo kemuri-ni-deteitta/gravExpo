@@ -32,8 +32,21 @@ gallery:
         company_name: 'НАВЗАНИЕ КОМПАНИИ'
         project_year: '2010'
     -
+        title: Проект
+        desc: 'Описание проекта'
         images:
             -
+                caption: '23312'
+                is_main: false
+                image_upload:
+                    user/pages/03.uslugi/01.razrabotka-stendov/01.typovye/20250722183810-nagr2.jpg:
+                        name: 20250722183810-nagr2.jpg
+                        full_path: nagr2.jpg
+                        type: image/jpeg
+                        size: 366793
+                        path: user/pages/03.uslugi/01.razrabotka-stendov/01.typovye/20250722183810-nagr2.jpg
+            -
+                caption: '312'
                 is_main: false
                 image_upload:
                     user/pages/03.uslugi/01.razrabotka-stendov/01.typovye/2.jpg:
@@ -42,6 +55,10 @@ gallery:
                         type: image/jpeg
                         size: 287975
                         path: user/pages/03.uslugi/01.razrabotka-stendov/01.typovye/2.jpg
+        construction_area: '3213'
+        exhibition_name: '12312312'
+        company_name: '312312'
+        project_year: '31231'
 ---
 
 # Типовые стенды

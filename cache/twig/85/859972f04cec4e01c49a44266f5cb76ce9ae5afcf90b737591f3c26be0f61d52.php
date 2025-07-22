@@ -434,41 +434,41 @@ class __TwigTemplate_b907b6d946ff3b8680064c803a646028a3242581616b87b7530492c53ed
                         echo "                                                ";
                         if (((($this->getAttribute($context["item"], "construction_area", []) || $this->getAttribute($context["item"], "exhibition_name", [])) || $this->getAttribute($context["item"], "company_name", [])) || $this->getAttribute($context["item"], "project_year", []))) {
                             // line 143
-                            echo "                                                    <div class=\"legacy-metadata\">
+                            echo "                                                    <div class=\"project-metadata\">
                                                         ";
                             // line 144
                             if ($this->getAttribute($context["item"], "construction_area", [])) {
                                 // line 145
-                                echo "                                                            <small>";
+                                echo "                                                            <span class=\"metadata-badge\">";
                                 echo twig_escape_filter($this->env, $this->getAttribute($context["item"], "construction_area", []), "html", null, true);
-                                echo "</small>
+                                echo "</span>
                                                         ";
                             }
                             // line 147
                             echo "                                                        ";
                             if ($this->getAttribute($context["item"], "exhibition_name", [])) {
                                 // line 148
-                                echo "                                                            <small>";
+                                echo "                                                            <span class=\"metadata-badge\">";
                                 echo twig_escape_filter($this->env, $this->getAttribute($context["item"], "exhibition_name", []), "html", null, true);
-                                echo "</small>
+                                echo "</span>
                                                         ";
                             }
                             // line 150
                             echo "                                                        ";
                             if ($this->getAttribute($context["item"], "company_name", [])) {
                                 // line 151
-                                echo "                                                            <small>";
+                                echo "                                                            <span class=\"metadata-badge\">";
                                 echo twig_escape_filter($this->env, $this->getAttribute($context["item"], "company_name", []), "html", null, true);
-                                echo "</small>
+                                echo "</span>
                                                         ";
                             }
                             // line 153
                             echo "                                                        ";
                             if ($this->getAttribute($context["item"], "project_year", [])) {
                                 // line 154
-                                echo "                                                            <small>";
+                                echo "                                                            <span class=\"metadata-badge\">";
                                 echo twig_escape_filter($this->env, $this->getAttribute($context["item"], "project_year", []), "html", null, true);
-                                echo "</small>
+                                echo "</span>
                                                         ";
                             }
                             // line 156
@@ -937,18 +937,18 @@ $context["item"], "image", [])) {
                                                 
                                                 {# Show metadata if available #}
                                                 {% if item.construction_area or item.exhibition_name or item.company_name or item.project_year %}
-                                                    <div class=\"legacy-metadata\">
+                                                    <div class=\"project-metadata\">
                                                         {% if item.construction_area %}
-                                                            <small>{{ item.construction_area }}</small>
+                                                            <span class=\"metadata-badge\">{{ item.construction_area }}</span>
                                                         {% endif %}
                                                         {% if item.exhibition_name %}
-                                                            <small>{{ item.exhibition_name }}</small>
+                                                            <span class=\"metadata-badge\">{{ item.exhibition_name }}</span>
                                                         {% endif %}
                                                         {% if item.company_name %}
-                                                            <small>{{ item.company_name }}</small>
+                                                            <span class=\"metadata-badge\">{{ item.company_name }}</span>
                                                         {% endif %}
                                                         {% if item.project_year %}
-                                                            <small>{{ item.project_year }}</small>
+                                                            <span class=\"metadata-badge\">{{ item.project_year }}</span>
                                                         {% endif %}
                                                     </div>
                                                 {% endif %}

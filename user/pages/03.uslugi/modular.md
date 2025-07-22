@@ -1,7 +1,7 @@
 ---
 title: Услуги
 menu: Услуги
-template: default
+template: modular
 visible: true
 ---
 

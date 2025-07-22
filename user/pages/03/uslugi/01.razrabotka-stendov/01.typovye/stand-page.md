@@ -17,6 +17,7 @@ gallery:
                 path: user/pages/03/uslugi/01.razrabotka-stendov/nagr2.jpg
     -
         title: stand1222
+        desc: 'Описание проекта'
         image_upload:
             user/pages/03/uslugi/01.razrabotka-stendov/solver_logo.jpg:
                 name: solver_logo.jpg
@@ -24,6 +25,10 @@ gallery:
                 type: image/jpeg
                 size: 15591
                 path: user/pages/03/uslugi/01.razrabotka-stendov/solver_logo.jpg
+        construction_area: '15'
+        exhibition_name: 'Выставка 2024'
+        company_name: 'Компания'
+        project_year: '2024'
 ---
 
 # Типовые стенды

@@ -26,7 +26,13 @@ gallery:
                         type: image/jpeg
                         size: 287975
                         path: user/pages/03.uslugi/01.razrabotka-stendov/03.ekskluziv/2.jpg
+        construction_area: '321321'
+        exhibition_name: '312312'
+        company_name: '312312'
+        project_year: '31231312'
     -
+        title: '312312'
+        desc: '312312'
         images:
             -
                 is_main: false
@@ -37,6 +43,10 @@ gallery:
                         type: image/jpeg
                         size: 366793
                         path: user/pages/03.uslugi/01.razrabotka-stendov/03.ekskluziv/20250720200410-nagr2.jpg
+        construction_area: '312312'
+        exhibition_name: '312312'
+        company_name: '3123'
+        project_year: '32131'
 ---
 
 # Эксклюзивные стенды
