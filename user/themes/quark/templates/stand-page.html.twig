@@ -133,7 +133,7 @@
                                                         {% if img_data.image != main_image %}
                                                             <a href="{{ img_data.image.url }}" 
                                                                class="glightbox hidden-lightbox-item" 
-                                                               data-gallery="gallery-{{ gallery_id }}-{{ loop.index }}"
+                                                               data-gallery="gallery-{{ gallery_id }}-{{ loop.parent.loop.index }}"
                                                                data-title="{{ img_data.caption ?: title }}"
                                                                data-description="{{ img_data.caption }}"></a>
                                                         {% endif %}
@@ -364,10 +364,32 @@
 
 {% set gallery_script %}
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize lightbox
     const lightbox = GLightbox({
         touchNavigation: true,
-        loop: true,
+        loop: false,
         autoplayVideos: true
+    });
+    
+    // Hide navigation arrows for single image galleries
+    lightbox.on('open', function() {
+        setTimeout(() => {
+            const slider = document.querySelector('.gslider');
+            if (slider && slider.children.length <= 1) {
+                const prevBtn = document.querySelector('.gprev');
+                const nextBtn = document.querySelector('.gnext');
+                if (prevBtn) prevBtn.style.display = 'none';
+                if (nextBtn) nextBtn.style.display = 'none';
+            }
+        }, 50);
+    });
+    
+    // Show navigation arrows when closing (for next time)
+    lightbox.on('close', function() {
+        const prevBtn = document.querySelector('.gprev');
+        const nextBtn = document.querySelector('.gnext');
+        if (prevBtn) prevBtn.style.display = '';
+        if (nextBtn) nextBtn.style.display = '';
     });
 });
 {% endset %}

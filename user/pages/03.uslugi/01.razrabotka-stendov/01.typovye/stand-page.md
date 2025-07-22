@@ -5,94 +5,74 @@ visible: true
 template: stand-page
 gallery:
     -
-        title: '1проект типовой'
-        desc: ОПИСАНИЕ
+        title: '3123'
+        desc: '12312'
         images:
             -
                 is_main: false
                 image_upload:
-                    user/pages/03.uslugi/01.razrabotka-stendov/01.typovye/nagr2.jpg:
-                        name: nagr2.jpg
+                    user/pages/03.uslugi/01.razrabotka-stendov/01.typovye/20250722194758-nagr2.jpg:
+                        name: 20250722194758-nagr2.jpg
                         full_path: nagr2.jpg
                         type: image/jpeg
                         size: 366793
-                        path: user/pages/03.uslugi/01.razrabotka-stendov/01.typovye/nagr2.jpg
+                        path: user/pages/03.uslugi/01.razrabotka-stendov/01.typovye/20250722194758-nagr2.jpg
             -
-                caption: '1232131'
                 is_main: false
                 image_upload:
-                    user/pages/03.uslugi/01.razrabotka-stendov/01.typovye/8.jpg:
-                        name: 8.jpg
-                        full_path: 8.jpg
+                    user/pages/03.uslugi/01.razrabotka-stendov/01.typovye/20250722194805-5.jpg:
+                        name: 20250722194805-5.jpg
+                        full_path: 5.jpg
                         type: image/jpeg
-                        size: 218837
-                        path: user/pages/03.uslugi/01.razrabotka-stendov/01.typovye/8.jpg
-        construction_area: '11'
-        exhibition_name: '1проект НАЗВАНИЕ ВЫСТАВКИ'
-        company_name: 'НАВЗАНИЕ КОМПАНИИ'
-        project_year: '2010'
+                        size: 244921
+                        path: user/pages/03.uslugi/01.razrabotka-stendov/01.typovye/20250722194805-5.jpg
+        construction_area: '31231'
+        exhibition_name: '312'
+        company_name: '12312'
+        project_year: '31212'
     -
-        title: Проект
-        desc: 'Описание проекта'
+        title: '32'
+        desc: '231'
         images:
             -
-                caption: '23312'
                 is_main: false
                 image_upload:
-                    user/pages/03.uslugi/01.razrabotka-stendov/01.typovye/20250722183810-nagr2.jpg:
-                        name: 20250722183810-nagr2.jpg
-                        full_path: nagr2.jpg
-                        type: image/jpeg
-                        size: 366793
-                        path: user/pages/03.uslugi/01.razrabotka-stendov/01.typovye/20250722183810-nagr2.jpg
-            -
-                caption: '312'
-                is_main: false
-                image_upload:
-                    user/pages/03.uslugi/01.razrabotka-stendov/01.typovye/2.jpg:
-                        name: 2.jpg
+                    user/pages/03.uslugi/01.razrabotka-stendov/01.typovye/20250722194827-2.jpg:
+                        name: 20250722194827-2.jpg
                         full_path: 2.jpg
                         type: image/jpeg
                         size: 287975
-                        path: user/pages/03.uslugi/01.razrabotka-stendov/01.typovye/2.jpg
-        construction_area: '3213'
-        exhibition_name: '12312312'
-        company_name: '312312'
-        project_year: '31231'
-    -
-        title: '3312'
-        desc: '312312'
-        images:
+                        path: user/pages/03.uslugi/01.razrabotka-stendov/01.typovye/20250722194827-2.jpg
             -
                 is_main: false
                 image_upload:
-                    user/pages/03.uslugi/01.razrabotka-stendov/01.typovye/5.jpg:
-                        name: 5.jpg
-                        full_path: 5.jpg
+                    user/pages/03.uslugi/01.razrabotka-stendov/01.typovye/20250722194830-8.jpg:
+                        name: 20250722194830-8.jpg
+                        full_path: 8.jpg
                         type: image/jpeg
-                        size: 244921
-                        path: user/pages/03.uslugi/01.razrabotka-stendov/01.typovye/5.jpg
-        construction_area: '3231'
-        exhibition_name: '321'
-        company_name: '321'
-        project_year: '1231'
-    -
-        title: '3213'
-        desc: '123123'
-        images:
-            -
-                is_main: false
-                image_upload:
-                    user/pages/03.uslugi/01.razrabotka-stendov/01.typovye/20250722190850-5.jpg:
-                        name: 20250722190850-5.jpg
-                        full_path: 5.jpg
-                        type: image/jpeg
-                        size: 244921
-                        path: user/pages/03.uslugi/01.razrabotka-stendov/01.typovye/20250722190850-5.jpg
+                        size: 218837
+                        path: user/pages/03.uslugi/01.razrabotka-stendov/01.typovye/20250722194830-8.jpg
         construction_area: '321'
-        exhibition_name: '312312'
+        exhibition_name: '231'
         company_name: '312'
-        project_year: '3123213'
+        project_year: '321'
+    -
+        title: ываа
+        desc: ываыва
+        images:
+            -
+                is_main: false
+                image_upload:
+                    user/pages/03.uslugi/01.razrabotka-stendov/01.typovye/20250722194849-5.jpg:
+                        name: 20250722194849-5.jpg
+                        full_path: 5.jpg
+                        type: image/jpeg
+                        size: 244921
+                        path: user/pages/03.uslugi/01.razrabotka-stendov/01.typovye/20250722194849-5.jpg
+        construction_area: аыв
+        exhibition_name: аыва
+        company_name: аыва
+        project_year: ываыв
 ---
 
 # Типовые стенды

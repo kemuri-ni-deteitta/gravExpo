@@ -395,7 +395,7 @@ $context["img_item"], "is_main", [])) ? ($this->getAttribute($context["img_item"
                                 // line 136
                                 echo twig_escape_filter($this->env, ($context["gallery_id"] ?? null), "html", null, true);
                                 echo "-";
-                                echo twig_escape_filter($this->env, $this->getAttribute($context["loop"], "index", []), "html", null, true);
+                                echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute($this->getAttribute($context["loop"], "parent", []), "loop", []), "index", []), "html", null, true);
                                 echo "\"
                                                                data-title=\"";
                                 // line 137
@@ -725,17 +725,39 @@ $context["img_item"], "is_main", [])) ? ($this->getAttribute($context["img_item"
 ";
         // line 365
         $context["gallery_script"] = ('' === $tmp = "document.addEventListener('DOMContentLoaded', function() {
+    // Initialize lightbox
     const lightbox = GLightbox({
         touchNavigation: true,
-        loop: true,
+        loop: false,
         autoplayVideos: true
+    });
+    
+    // Hide navigation arrows for single image galleries
+    lightbox.on('open', function() {
+        setTimeout(() => {
+            const slider = document.querySelector('.gslider');
+            if (slider && slider.children.length <= 1) {
+                const prevBtn = document.querySelector('.gprev');
+                const nextBtn = document.querySelector('.gnext');
+                if (prevBtn) prevBtn.style.display = 'none';
+                if (nextBtn) nextBtn.style.display = 'none';
+            }
+        }, 50);
+    });
+    
+    // Show navigation arrows when closing (for next time)
+    lightbox.on('close', function() {
+        const prevBtn = document.querySelector('.gprev');
+        const nextBtn = document.querySelector('.gnext');
+        if (prevBtn) prevBtn.style.display = '';
+        if (nextBtn) nextBtn.style.display = '';
     });
 });
 ") ? '' : new Markup($tmp, $this->env->getCharset());
-        // line 374
+        // line 396
         echo "
 ";
-        // line 375
+        // line 397
         $this->getAttribute(($context["assets"] ?? null), "addInlineJs", [0 => ($context["gallery_script"] ?? null)], "method");
     }
 
@@ -751,7 +773,7 @@ $context["img_item"], "is_main", [])) ? ($this->getAttribute($context["img_item"
 
     public function getDebugInfo()
     {
-        return array (  739 => 375,  736 => 374,  727 => 365,  724 => 364,  722 => 363,  720 => 362,  716 => 361,  713 => 360,  709 => 357,  549 => 197,  545 => 196,  542 => 195,  534 => 189,  528 => 185,  513 => 183,  508 => 180,  502 => 178,  500 => 177,  496 => 175,  490 => 172,  486 => 170,  484 => 169,  481 => 168,  475 => 165,  471 => 163,  469 => 162,  466 => 161,  460 => 158,  456 => 156,  454 => 155,  451 => 154,  445 => 151,  441 => 149,  439 => 148,  433 => 145,  428 => 142,  425 => 141,  411 => 140,  406 => 138,  402 => 137,  396 => 136,  390 => 134,  387 => 133,  369 => 132,  366 => 131,  363 => 129,  357 => 126,  354 => 125,  351 => 124,  345 => 120,  341 => 119,  337 => 118,  333 => 117,  329 => 116,  323 => 115,  317 => 113,  312 => 109,  309 => 108,  306 => 107,  304 => 106,  301 => 105,  298 => 104,  295 => 103,  292 => 102,  289 => 100,  286 => 99,  283 => 98,  280 => 97,  277 => 96,  275 => 93,  274 => 92,  272 => 91,  270 => 90,  267 => 89,  264 => 88,  261 => 87,  258 => 86,  255 => 84,  252 => 83,  249 => 82,  246 => 81,  243 => 79,  240 => 78,  234 => 77,  231 => 76,  228 => 75,  225 => 74,  220 => 73,  217 => 72,  214 => 70,  211 => 69,  208 => 68,  205 => 66,  202 => 65,  196 => 64,  193 => 63,  190 => 62,  187 => 61,  184 => 60,  181 => 58,  178 => 57,  176 => 55,  175 => 54,  174 => 53,  172 => 52,  170 => 51,  167 => 50,  164 => 49,  158 => 48,  155 => 47,  152 => 46,  149 => 45,  144 => 44,  141 => 43,  138 => 41,  135 => 40,  130 => 39,  127 => 38,  124 => 36,  121 => 35,  118 => 34,  115 => 33,  112 => 32,  109 => 30,  106 => 29,  103 => 28,  100 => 27,  98 => 26,  95 => 25,  77 => 24,  75 => 23,  65 => 15,  63 => 14,  57 => 11,  50 => 7,  46 => 5,  44 => 4,  41 => 3,  31 => 1,);
+        return array (  761 => 397,  758 => 396,  727 => 365,  724 => 364,  722 => 363,  720 => 362,  716 => 361,  713 => 360,  709 => 357,  549 => 197,  545 => 196,  542 => 195,  534 => 189,  528 => 185,  513 => 183,  508 => 180,  502 => 178,  500 => 177,  496 => 175,  490 => 172,  486 => 170,  484 => 169,  481 => 168,  475 => 165,  471 => 163,  469 => 162,  466 => 161,  460 => 158,  456 => 156,  454 => 155,  451 => 154,  445 => 151,  441 => 149,  439 => 148,  433 => 145,  428 => 142,  425 => 141,  411 => 140,  406 => 138,  402 => 137,  396 => 136,  390 => 134,  387 => 133,  369 => 132,  366 => 131,  363 => 129,  357 => 126,  354 => 125,  351 => 124,  345 => 120,  341 => 119,  337 => 118,  333 => 117,  329 => 116,  323 => 115,  317 => 113,  312 => 109,  309 => 108,  306 => 107,  304 => 106,  301 => 105,  298 => 104,  295 => 103,  292 => 102,  289 => 100,  286 => 99,  283 => 98,  280 => 97,  277 => 96,  275 => 93,  274 => 92,  272 => 91,  270 => 90,  267 => 89,  264 => 88,  261 => 87,  258 => 86,  255 => 84,  252 => 83,  249 => 82,  246 => 81,  243 => 79,  240 => 78,  234 => 77,  231 => 76,  228 => 75,  225 => 74,  220 => 73,  217 => 72,  214 => 70,  211 => 69,  208 => 68,  205 => 66,  202 => 65,  196 => 64,  193 => 63,  190 => 62,  187 => 61,  184 => 60,  181 => 58,  178 => 57,  176 => 55,  175 => 54,  174 => 53,  172 => 52,  170 => 51,  167 => 50,  164 => 49,  158 => 48,  155 => 47,  152 => 46,  149 => 45,  144 => 44,  141 => 43,  138 => 41,  135 => 40,  130 => 39,  127 => 38,  124 => 36,  121 => 35,  118 => 34,  115 => 33,  112 => 32,  109 => 30,  106 => 29,  103 => 28,  100 => 27,  98 => 26,  95 => 25,  77 => 24,  75 => 23,  65 => 15,  63 => 14,  57 => 11,  50 => 7,  46 => 5,  44 => 4,  41 => 3,  31 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -899,7 +921,7 @@ $context["img_item"], "is_main", [])) ? ($this->getAttribute($context["img_item"
                                                         {% if img_data.image != main_image %}
                                                             <a href=\"{{ img_data.image.url }}\" 
                                                                class=\"glightbox hidden-lightbox-item\" 
-                                                               data-gallery=\"gallery-{{ gallery_id }}-{{ loop.index }}\"
+                                                               data-gallery=\"gallery-{{ gallery_id }}-{{ loop.parent.loop.index }}\"
                                                                data-title=\"{{ img_data.caption ?: title }}\"
                                                                data-description=\"{{ img_data.caption }}\"></a>
                                                         {% endif %}
@@ -1130,10 +1152,32 @@ $context["img_item"], "is_main", [])) ? ($this->getAttribute($context["img_item"
 
 {% set gallery_script %}
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize lightbox
     const lightbox = GLightbox({
         touchNavigation: true,
-        loop: true,
+        loop: false,
         autoplayVideos: true
+    });
+    
+    // Hide navigation arrows for single image galleries
+    lightbox.on('open', function() {
+        setTimeout(() => {
+            const slider = document.querySelector('.gslider');
+            if (slider && slider.children.length <= 1) {
+                const prevBtn = document.querySelector('.gprev');
+                const nextBtn = document.querySelector('.gnext');
+                if (prevBtn) prevBtn.style.display = 'none';
+                if (nextBtn) nextBtn.style.display = 'none';
+            }
+        }, 50);
+    });
+    
+    // Show navigation arrows when closing (for next time)
+    lightbox.on('close', function() {
+        const prevBtn = document.querySelector('.gprev');
+        const nextBtn = document.querySelector('.gnext');
+        if (prevBtn) prevBtn.style.display = '';
+        if (nextBtn) nextBtn.style.display = '';
     });
 });
 {% endset %}

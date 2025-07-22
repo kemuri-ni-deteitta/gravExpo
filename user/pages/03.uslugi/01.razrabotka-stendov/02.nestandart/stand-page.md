@@ -18,6 +18,15 @@ gallery:
                         type: image/jpeg
                         size: 366793
                         path: user/pages/03.uslugi/01.razrabotka-stendov/02.nestandart/20250722183926-nagr2.jpg
+            -
+                is_main: false
+                image_upload:
+                    user/pages/03.uslugi/01.razrabotka-stendov/02.nestandart/20250722194944-5.jpg:
+                        name: 20250722194944-5.jpg
+                        full_path: 5.jpg
+                        type: image/jpeg
+                        size: 244921
+                        path: user/pages/03.uslugi/01.razrabotka-stendov/02.nestandart/20250722194944-5.jpg
         construction_area: '312312312'
         exhibition_name: '3123123'
         company_name: '123123'
@@ -35,6 +44,15 @@ gallery:
                         type: image/jpeg
                         size: 238527
                         path: user/pages/03.uslugi/01.razrabotka-stendov/02.nestandart/3.jpg
+            -
+                is_main: false
+                image_upload:
+                    user/pages/03.uslugi/01.razrabotka-stendov/02.nestandart/20250722194957-2.jpg:
+                        name: 20250722194957-2.jpg
+                        full_path: 2.jpg
+                        type: image/jpeg
+                        size: 287975
+                        path: user/pages/03.uslugi/01.razrabotka-stendov/02.nestandart/20250722194957-2.jpg
         construction_area: '123'
         exhibition_name: '123123'
         company_name: '12312'
