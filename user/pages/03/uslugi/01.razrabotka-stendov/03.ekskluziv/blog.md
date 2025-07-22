@@ -8,42 +8,59 @@ gallery:
     -
         title: 'Эксклюзивный стенд с 3D-проекцией'
         desc: 'Премиальный эксклюзивный стенд с голографической 3D-проекцией'
-        image_upload:
-            user/pages/03/uslugi/01.razrabotka-stendov/03.ekskluziv/20250719041443-nagr2.jpg:
-                name: 20250719041443-nagr2.jpg
-                full_path: nagr2.jpg
-                type: image/jpeg
-                size: 366793
-                path: user/pages/03/uslugi/01.razrabotka-stendov/03.ekskluziv/20250719041443-nagr2.jpg
+        images:
+            -
+                caption: '3D-проекция'
+                is_main: false
+                image_upload:
+                    user/pages/03/uslugi/01.razrabotka-stendov/03.ekskluziv/20250719041443-nagr2.jpg:
+                        name: 20250719041443-nagr2.jpg
+                        full_path: nagr2.jpg
+                        type: image/jpeg
+                        size: 366793
+                        path: user/pages/03/uslugi/01.razrabotka-stendov/03.ekskluziv/20250719041443-nagr2.jpg
+            -
+                caption: 'Премиум материалы'
+                is_main: false
+                image_upload:
+                    user/pages/03/uslugi/01.razrabotka-stendov/03.ekskluziv/20250719041446-solver_logo.jpg:
+                        name: 20250719041446-solver_logo.jpg
+                        full_path: solver_logo.jpg
+                        type: image/jpeg
+                        size: 15591
+                        path: user/pages/03/uslugi/01.razrabotka-stendov/03.ekskluziv/20250719041446-solver_logo.jpg
+        construction_area: '150'
+        exhibition_name: 'Премиум выставка'
+        company_name: 'Эксклюзивная компания'
+        project_year: '2024'
     -
         title: 'Двухэтажный эксклюзивный стенд'
         desc: 'Многоуровневый эксклюзивный стенд с премиальными материалами'
-        image_upload:
-            user/pages/03/uslugi/01.razrabotka-stendov/03.ekskluziv/20250719041446-solver_logo.jpg:
-                name: 20250719041446-solver_logo.jpg
-                full_path: solver_logo.jpg
-                type: image/jpeg
-                size: 15591
-                path: user/pages/03/uslugi/01.razrabotka-stendov/03.ekskluziv/20250719041446-solver_logo.jpg
-    -
-        title: '43423'
-        desc: '312312'
-        image_upload:
-            user/pages/03/uslugi/01.razrabotka-stendov/03.ekskluziv/20250719041514-nagr2.jpg:
-                name: 20250719041514-nagr2.jpg
-                full_path: nagr2.jpg
-                type: image/jpeg
-                size: 366793
-                path: user/pages/03/uslugi/01.razrabotka-stendov/03.ekskluziv/20250719041514-nagr2.jpg
-    -
-        title: 'NEW STANDD'
-        image_upload:
-            user/pages/03/uslugi/01.razrabotka-stendov/03.ekskluziv/1660052115BP_-_GOFROTEHNOLOGII_2022.jpg:
-                name: 1660052115BP_-_GOFROTEHNOLOGII_2022.jpg
-                full_path: 1660052115BP_-_GOFROTEHNOLOGII_2022.jpg
-                type: image/jpeg
-                size: 18484
-                path: user/pages/03/uslugi/01.razrabotka-stendov/03.ekskluziv/1660052115BP_-_GOFROTEHNOLOGII_2022.jpg
+        images:
+            -
+                caption: 'Двухэтажная конструкция'
+                is_main: false
+                image_upload:
+                    user/pages/03/uslugi/01.razrabotka-stendov/03.ekskluziv/20250719041514-nagr2.jpg:
+                        name: 20250719041514-nagr2.jpg
+                        full_path: nagr2.jpg
+                        type: image/jpeg
+                        size: 366793
+                        path: user/pages/03/uslugi/01.razrabotka-stendov/03.ekskluziv/20250719041514-nagr2.jpg
+            -
+                caption: 'Премиум отделка'
+                is_main: false
+                image_upload:
+                    user/pages/03/uslugi/01.razrabotka-stendov/03.ekskluziv/1660052115BP_-_GOFROTEHNOLOGII_2022.jpg:
+                        name: 1660052115BP_-_GOFROTEHNOLOGII_2022.jpg
+                        full_path: 1660052115BP_-_GOFROTEHNOLOGII_2022.jpg
+                        type: image/jpeg
+                        size: 18484
+                        path: user/pages/03/uslugi/01.razrabotka-stendov/03.ekskluziv/1660052115BP_-_GOFROTEHNOLOGII_2022.jpg
+        construction_area: '200'
+        exhibition_name: 'Эксклюзивная выставка'
+        company_name: 'Премиум бренд'
+        project_year: '2024'
 ---
 
 # Эксклюзивные стенды

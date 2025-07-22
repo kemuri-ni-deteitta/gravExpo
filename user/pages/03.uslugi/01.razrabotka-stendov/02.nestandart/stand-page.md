@@ -39,6 +39,23 @@ gallery:
         exhibition_name: '123123'
         company_name: '12312'
         project_year: '312312'
+    -
+        title: '3123'
+        desc: '13213'
+        images:
+            -
+                is_main: false
+                image_upload:
+                    user/pages/03.uslugi/01.razrabotka-stendov/02.nestandart/20250722190704-5.jpg:
+                        name: 20250722190704-5.jpg
+                        full_path: 5.jpg
+                        type: image/jpeg
+                        size: 244921
+                        path: user/pages/03.uslugi/01.razrabotka-stendov/02.nestandart/20250722190704-5.jpg
+        construction_area: '321311'
+        exhibition_name: '3213'
+        company_name: '3131'
+        project_year: '312'
 ---
 
 # Нестандартные стенды

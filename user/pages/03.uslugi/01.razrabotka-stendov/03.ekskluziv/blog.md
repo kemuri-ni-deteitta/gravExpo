@@ -6,6 +6,8 @@ visible: true
 template: stand-page
 gallery:
     -
+        title: 'Эксклюзивный проект'
+        desc: 'Описание эксклюзивного проекта'
         images:
             -
                 caption: '312321'

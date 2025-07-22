@@ -59,6 +59,40 @@ gallery:
         exhibition_name: '12312312'
         company_name: '312312'
         project_year: '31231'
+    -
+        title: '3312'
+        desc: '312312'
+        images:
+            -
+                is_main: false
+                image_upload:
+                    user/pages/03.uslugi/01.razrabotka-stendov/01.typovye/5.jpg:
+                        name: 5.jpg
+                        full_path: 5.jpg
+                        type: image/jpeg
+                        size: 244921
+                        path: user/pages/03.uslugi/01.razrabotka-stendov/01.typovye/5.jpg
+        construction_area: '3231'
+        exhibition_name: '321'
+        company_name: '321'
+        project_year: '1231'
+    -
+        title: '3213'
+        desc: '123123'
+        images:
+            -
+                is_main: false
+                image_upload:
+                    user/pages/03.uslugi/01.razrabotka-stendov/01.typovye/20250722190850-5.jpg:
+                        name: 20250722190850-5.jpg
+                        full_path: 5.jpg
+                        type: image/jpeg
+                        size: 244921
+                        path: user/pages/03.uslugi/01.razrabotka-stendov/01.typovye/20250722190850-5.jpg
+        construction_area: '321'
+        exhibition_name: '312312'
+        company_name: '312'
+        project_year: '3123213'
 ---
 
 # Типовые стенды
