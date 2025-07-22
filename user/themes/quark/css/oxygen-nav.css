@@ -56,11 +56,17 @@
 
 .nav-link:hover,
 .nav-link:focus {
-    color: #ff6600;
+    color: #ffffff;
+    background: #ff6600;
+    border: 1px solid #ff6600;
+    box-shadow: 0 2px 8px rgba(255, 102, 0, 0.3);
 }
 
 .nav-link.active {
-    color: #ff6600;
+    color: #ffffff;
+    background: #ff6600;
+    border: 1px solid #ff6600;
+    box-shadow: 0 2px 8px rgba(255, 102, 0, 0.3);
 }
 
 /* Dropdown Arrows */
@@ -305,11 +311,17 @@
 
 .nav-mobile-menu .nav-link:hover,
 .nav-mobile-menu .nav-link:focus {
-    color: #ff6600;
+    color: #ffffff;
+    background: #ff6600;
+    border: 1px solid #ff6600;
+    box-shadow: 0 2px 8px rgba(255, 102, 0, 0.3);
 }
 
 .nav-mobile-menu .nav-link.active {
-    color: #ff6600;
+    color: #ffffff;
+    background: #ff6600;
+    border: 1px solid #ff6600;
+    box-shadow: 0 2px 8px rgba(255, 102, 0, 0.3);
 }
 
 /* Mobile dropdowns */

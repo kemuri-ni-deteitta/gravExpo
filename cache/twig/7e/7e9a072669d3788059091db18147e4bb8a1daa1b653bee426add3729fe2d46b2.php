@@ -19,6 +19,7 @@ class __TwigTemplate_b4f74d78dd83c566b9fdff2deb5d5c3468d9ea013ebcd2a1cf6e1058819
         parent::__construct($env);
 
         $this->blocks = [
+            'stylesheets' => [$this, 'block_stylesheets'],
             'javascripts' => [$this, 'block_javascripts'],
             'bottom' => [$this, 'block_bottom'],
             'header_navigation' => [$this, 'block_header_navigation'],
@@ -43,35 +44,110 @@ class __TwigTemplate_b4f74d78dd83c566b9fdff2deb5d5c3468d9ea013ebcd2a1cf6e1058819
     }
 
     // line 5
-    public function block_javascripts($context, array $blocks = [])
+    public function block_stylesheets($context, array $blocks = [])
     {
         // line 6
         echo "    ";
+        $this->displayParentBlock("stylesheets", $context, $blocks);
+        echo "
+    <style>
+        .main-content .content {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: #2c2c2c;
+        }
+        
+        .main-content .content h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ff6600;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        
+        .main-content .content h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #2c2c2c;
+            margin-top: 2.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.3;
+        }
+        
+        .main-content .content h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2c2c2c;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+        
+        .main-content .content p {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: #2c2c2c;
+        }
+        
+        .main-content .content ul, 
+        .main-content .content ol {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: #2c2c2c;
+        }
+        
+        .main-content .content li {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            color: #2c2c2c;
+        }
+        
+        .main-content .content strong {
+            font-weight: 600;
+            color: #2c2c2c;
+        }
+        
+        .main-content .content em {
+            font-style: italic;
+            color: #2c2c2c;
+        }
+    </style>
+";
+    }
+
+    // line 74
+    public function block_javascripts($context, array $blocks = [])
+    {
+        // line 75
+        echo "    ";
         if (($context["show_onpage_menu"] ?? null)) {
-            // line 7
+            // line 76
             echo "        ";
             $this->getAttribute(($context["assets"] ?? null), "add", [0 => "theme://js/singlepagenav.min.js"], "method");
-            // line 8
+            // line 77
             echo "    ";
         }
-        // line 9
+        // line 78
         echo "    ";
         $this->displayParentBlock("javascripts", $context, $blocks);
         echo "
 ";
     }
 
-    // line 12
+    // line 81
     public function block_bottom($context, array $blocks = [])
     {
-        // line 13
+        // line 82
         echo "    ";
         $this->displayParentBlock("bottom", $context, $blocks);
         echo "
     ";
-        // line 14
+        // line 83
         if (($context["show_onpage_menu"] ?? null)) {
-            // line 15
+            // line 84
             echo "        <script>
         // singlePageNav initialization & configuration
         \$('ul.navigation').singlePageNav({
@@ -85,24 +161,24 @@ class __TwigTemplate_b4f74d78dd83c566b9fdff2deb5d5c3468d9ea013ebcd2a1cf6e1058819
         }
     }
 
-    // line 27
+    // line 96
     public function block_header_navigation($context, array $blocks = [])
     {
-        // line 28
+        // line 97
         echo "    ";
         if (($context["show_onpage_menu"] ?? null)) {
-            // line 29
+            // line 98
             echo "        <ul class=\"navigation\">
         ";
-            // line 30
+            // line 99
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable($this->getAttribute(($context["page"] ?? null), "collection", [], "method"));
             foreach ($context['_seq'] as $context["_key"] => $context["module"]) {
                 if ( !($this->getAttribute($this->getAttribute($context["module"], "header", []), "visible", []) === false)) {
-                    // line 31
+                    // line 100
                     echo "            ";
                     $context["current_module"] = ((($this->getAttribute($context["module"], "active", []) || $this->getAttribute($context["module"], "activeChild", []))) ? ("active") : (""));
-                    // line 32
+                    // line 101
                     echo "            <li><a class=\"";
                     echo twig_escape_filter($this->env, ($context["current_module"] ?? null), "html", null, true);
                     echo "\" href=\"#";
@@ -116,15 +192,15 @@ class __TwigTemplate_b4f74d78dd83c566b9fdff2deb5d5c3468d9ea013ebcd2a1cf6e1058819
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['module'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 34
+            // line 103
             echo "        ";
             $context['_parent'] = $context;
             $context['_seq'] = twig_ensure_traversable($this->getAttribute(($context["site"] ?? null), "menu", []));
             foreach ($context['_seq'] as $context["_key"] => $context["mitem"]) {
-                // line 35
+                // line 104
                 echo "            <li>
                 <a ";
-                // line 36
+                // line 105
                 if ($this->getAttribute($context["mitem"], "class", [])) {
                     echo "class=\"";
                     echo twig_escape_filter($this->env, $this->getAttribute($context["mitem"], "class", []), "html", null, true);
@@ -134,13 +210,13 @@ class __TwigTemplate_b4f74d78dd83c566b9fdff2deb5d5c3468d9ea013ebcd2a1cf6e1058819
                 echo twig_escape_filter($this->env, $this->getAttribute($context["mitem"], "url", []), "html", null, true);
                 echo "\">
                     ";
-                // line 37
+                // line 106
                 if ($this->getAttribute($context["mitem"], "icon", [])) {
                     echo "<i class=\"fa fa-";
                     echo twig_escape_filter($this->env, $this->getAttribute($context["mitem"], "icon", []), "html", null, true);
                     echo "\"></i>";
                 }
-                // line 38
+                // line 107
                 echo "                    ";
                 echo twig_escape_filter($this->env, $this->getAttribute($context["mitem"], "text", []), "html", null, true);
                 echo "
@@ -151,11 +227,11 @@ class __TwigTemplate_b4f74d78dd83c566b9fdff2deb5d5c3468d9ea013ebcd2a1cf6e1058819
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['mitem'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 42
+            // line 111
             echo "        </ul>
     ";
         } else {
-            // line 44
+            // line 113
             echo "        ";
             $this->displayParentBlock("header_navigation", $context, $blocks);
             echo "
@@ -163,21 +239,21 @@ class __TwigTemplate_b4f74d78dd83c566b9fdff2deb5d5c3468d9ea013ebcd2a1cf6e1058819
         }
     }
 
-    // line 48
+    // line 117
     public function block_hero($context, array $blocks = [])
     {
-        // line 49
+        // line 118
         echo "    ";
         $context['_parent'] = $context;
         $context['_seq'] = twig_ensure_traversable($this->getAttribute(($context["page"] ?? null), "collection", [], "method"));
         foreach ($context['_seq'] as $context["_key"] => $context["module"]) {
             if (($this->getAttribute($context["module"], "template", []) == "modular/hero")) {
-                // line 50
+                // line 119
                 echo "        <div id=\"";
                 echo twig_escape_filter($this->env, $this->env->getExtension('Grav\Common\Twig\Extension\GravExtension')->inflectorFilter("hyphen", $this->getAttribute($context["module"], "menu", [])), "html", null, true);
                 echo "\"></div>
         ";
-                // line 51
+                // line 120
                 echo $this->getAttribute($context["module"], "content", []);
                 echo "
     ";
@@ -188,21 +264,42 @@ class __TwigTemplate_b4f74d78dd83c566b9fdff2deb5d5c3468d9ea013ebcd2a1cf6e1058819
         $context = array_intersect_key($context, $_parent) + $_parent;
     }
 
-    // line 55
+    // line 124
     public function block_body($context, array $blocks = [])
     {
-        // line 56
+        // line 125
+        echo "    ";
+        // line 126
+        echo "    ";
+        if ($this->getAttribute(($context["page"] ?? null), "content", [])) {
+            // line 127
+            echo "        <section class=\"section main-content\" style=\"padding-top: 100px; padding-bottom: 60px;\">
+            <div class=\"container\">
+                <div class=\"content\" style=\"max-width: 800px; margin: 0 auto;\">
+                    ";
+            // line 130
+            echo $this->getAttribute(($context["page"] ?? null), "content", []);
+            echo "
+                </div>
+            </div>
+        </section>
+    ";
+        }
+        // line 135
+        echo "    
+    ";
+        // line 137
         echo "    ";
         $context['_parent'] = $context;
         $context['_seq'] = twig_ensure_traversable($this->getAttribute(($context["page"] ?? null), "collection", [], "method"));
         foreach ($context['_seq'] as $context["_key"] => $context["module"]) {
             if (($this->getAttribute($context["module"], "template", []) != "modular/hero")) {
-                // line 57
+                // line 138
                 echo "        <div id=\"";
                 echo twig_escape_filter($this->env, $this->env->getExtension('Grav\Common\Twig\Extension\GravExtension')->inflectorFilter("hyphen", $this->getAttribute($context["module"], "menu", [])), "html", null, true);
                 echo "\"></div>
         ";
-                // line 58
+                // line 139
                 echo $this->getAttribute($context["module"], "content", []);
                 echo "
     ";
@@ -225,7 +322,7 @@ class __TwigTemplate_b4f74d78dd83c566b9fdff2deb5d5c3468d9ea013ebcd2a1cf6e1058819
 
     public function getDebugInfo()
     {
-        return array (  206 => 58,  201 => 57,  195 => 56,  192 => 55,  181 => 51,  176 => 50,  170 => 49,  167 => 48,  159 => 44,  155 => 42,  144 => 38,  138 => 37,  128 => 36,  125 => 35,  120 => 34,  106 => 32,  103 => 31,  98 => 30,  95 => 29,  92 => 28,  89 => 27,  75 => 15,  73 => 14,  68 => 13,  65 => 12,  58 => 9,  55 => 8,  52 => 7,  49 => 6,  46 => 5,  41 => 1,  39 => 3,  33 => 1,);
+        return array (  303 => 139,  298 => 138,  292 => 137,  289 => 135,  281 => 130,  276 => 127,  273 => 126,  271 => 125,  268 => 124,  257 => 120,  252 => 119,  246 => 118,  243 => 117,  235 => 113,  231 => 111,  220 => 107,  214 => 106,  204 => 105,  201 => 104,  196 => 103,  182 => 101,  179 => 100,  174 => 99,  171 => 98,  168 => 97,  165 => 96,  151 => 84,  149 => 83,  144 => 82,  141 => 81,  134 => 78,  131 => 77,  128 => 76,  125 => 75,  122 => 74,  50 => 6,  47 => 5,  42 => 1,  40 => 3,  34 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -241,6 +338,75 @@ class __TwigTemplate_b4f74d78dd83c566b9fdff2deb5d5c3468d9ea013ebcd2a1cf6e1058819
         return new Source("{% extends 'partials/base.html.twig' %}
 
 {% set show_onpage_menu = header.onpage_menu == true or header.onpage_menu is null %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .main-content .content {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: #2c2c2c;
+        }
+        
+        .main-content .content h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ff6600;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        
+        .main-content .content h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #2c2c2c;
+            margin-top: 2.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.3;
+        }
+        
+        .main-content .content h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2c2c2c;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+        
+        .main-content .content p {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: #2c2c2c;
+        }
+        
+        .main-content .content ul, 
+        .main-content .content ol {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: #2c2c2c;
+        }
+        
+        .main-content .content li {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            color: #2c2c2c;
+        }
+        
+        .main-content .content strong {
+            font-weight: 600;
+            color: #2c2c2c;
+        }
+        
+        .main-content .content em {
+            font-style: italic;
+            color: #2c2c2c;
+        }
+    </style>
+{% endblock %}
 
 {% block javascripts %}
     {% if show_onpage_menu %}
@@ -293,6 +459,18 @@ class __TwigTemplate_b4f74d78dd83c566b9fdff2deb5d5c3468d9ea013ebcd2a1cf6e1058819
 {% endblock %}
 
 {% block body %}
+    {# Display main page content first #}
+    {% if page.content %}
+        <section class=\"section main-content\" style=\"padding-top: 100px; padding-bottom: 60px;\">
+            <div class=\"container\">
+                <div class=\"content\" style=\"max-width: 800px; margin: 0 auto;\">
+                    {{ page.content|raw }}
+                </div>
+            </div>
+        </section>
+    {% endif %}
+    
+    {# Then display modular content #}
     {% for module in page.collection() if module.template != 'modular/hero' %}
         <div id=\"{{ module.menu|hyphenize }}\"></div>
         {{ module.content|raw }}

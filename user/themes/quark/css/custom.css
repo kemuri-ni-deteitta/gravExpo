@@ -530,6 +530,48 @@ h3 {
   font-size: 1.5rem;
 }
 
+/* MAIN CONTENT TEXT - LARGER FONT SIZES */
+body {
+  font-size: 1.3rem;
+  line-height: 1.8;
+}
+
+p {
+  font-size: 1.3rem;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+
+ul, ol {
+  font-size: 1.3rem;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+
+li {
+  font-size: 1.3rem;
+  line-height: 1.8;
+  margin-bottom: 0.8rem;
+}
+
+/* Make lists more readable */
+ul li, ol li {
+  font-size: 1.3rem;
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+/* Strong text in lists */
+ul li strong, ol li strong {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+/* Italic text */
+em, i {
+  font-size: 1.3rem;
+}
+
 /* MODERN FORMS */
 .form-group {
   margin-bottom: 1.5rem;

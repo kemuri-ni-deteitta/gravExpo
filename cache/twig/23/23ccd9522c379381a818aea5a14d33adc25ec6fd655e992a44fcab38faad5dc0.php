@@ -105,16 +105,16 @@ class __TwigTemplate_fa9c158f13fa436beeca64a73e12d07a0d8f2f7738a4c83cf8c26ac24e0
                 <a href=\"";
             // line 30
             echo twig_escape_filter($this->env, $this->getAttribute($context["p"], "url", []), "html", null, true);
-            echo "\" style=\"display: flex !important; align-items: center !important; justify-content: center !important; padding: 0.3rem 0.6rem !important; text-decoration: none !important; color: #2c2c2c !important; font-weight: 500 !important; font-size: 0.9rem !important; transition: all 0.2s ease !important; border-radius: 2px !important; height: 28px !important; white-space: nowrap !important; min-width: fit-content !important; ";
+            echo "\" style=\"display: flex !important; align-items: center !important; justify-content: center !important; padding: 0.3rem 0.6rem !important; text-decoration: none !important; color: #2c2c2c !important; font-weight: 500 !important; font-size: 0.9rem !important; transition: all 0.2s ease !important; border-radius: 2px !important; height: 28px !important; white-space: nowrap !important; min-width: fit-content !important; border: 1px solid transparent !important; ";
             if (($context["active_page"] ?? null)) {
-                echo "color: #ff6600 !important;";
+                echo "color: #ffffff !important; background: #ff6600 !important; border: 1px solid #ff6600 !important; box-shadow: 0 2px 8px rgba(255, 102, 0, 0.3) !important;";
             }
             echo "\" 
-                   onmouseover=\"this.style.color='#ff6600'\" 
-                   onmouseout=\"this.style.color='#2c2c2c'; ";
+                   onmouseover=\"this.style.color='#ffffff'; this.style.background='#ff6600'; this.style.border='1px solid #ff6600'; this.style.boxShadow='0 2px 8px rgba(255, 102, 0, 0.3)'\" 
+                   onmouseout=\"this.style.color='#2c2c2c'; this.style.background='transparent'; this.style.border='1px solid transparent'; this.style.boxShadow='none'; ";
             // line 32
             if (($context["active_page"] ?? null)) {
-                echo "this.style.color='#ff6600';";
+                echo "this.style.color='#ffffff'; this.style.background='#ff6600'; this.style.border='1px solid #ff6600'; this.style.boxShadow='0 2px 8px rgba(255, 102, 0, 0.3)';";
             }
             echo "\"
                    ";
@@ -330,9 +330,9 @@ class __TwigTemplate_fa9c158f13fa436beeca64a73e12d07a0d8f2f7738a4c83cf8c26ac24e0
                 onmouseenter=\"showDropdown(this)\" 
                 onmouseleave=\"hideDropdown(this)\"
                 data-has-children=\"{{ has_children ? 'true' : 'false' }}\">
-                <a href=\"{{ p.url }}\" style=\"display: flex !important; align-items: center !important; justify-content: center !important; padding: 0.3rem 0.6rem !important; text-decoration: none !important; color: #2c2c2c !important; font-weight: 500 !important; font-size: 0.9rem !important; transition: all 0.2s ease !important; border-radius: 2px !important; height: 28px !important; white-space: nowrap !important; min-width: fit-content !important; {% if active_page %}color: #ff6600 !important;{% endif %}\" 
-                   onmouseover=\"this.style.color='#ff6600'\" 
-                   onmouseout=\"this.style.color='#2c2c2c'; {% if active_page %}this.style.color='#ff6600';{% endif %}\"
+                <a href=\"{{ p.url }}\" style=\"display: flex !important; align-items: center !important; justify-content: center !important; padding: 0.3rem 0.6rem !important; text-decoration: none !important; color: #2c2c2c !important; font-weight: 500 !important; font-size: 0.9rem !important; transition: all 0.2s ease !important; border-radius: 2px !important; height: 28px !important; white-space: nowrap !important; min-width: fit-content !important; border: 1px solid transparent !important; {% if active_page %}color: #ffffff !important; background: #ff6600 !important; border: 1px solid #ff6600 !important; box-shadow: 0 2px 8px rgba(255, 102, 0, 0.3) !important;{% endif %}\" 
+                   onmouseover=\"this.style.color='#ffffff'; this.style.background='#ff6600'; this.style.border='1px solid #ff6600'; this.style.boxShadow='0 2px 8px rgba(255, 102, 0, 0.3)'\" 
+                   onmouseout=\"this.style.color='#2c2c2c'; this.style.background='transparent'; this.style.border='1px solid transparent'; this.style.boxShadow='none'; {% if active_page %}this.style.color='#ffffff'; this.style.background='#ff6600'; this.style.border='1px solid #ff6600'; this.style.boxShadow='0 2px 8px rgba(255, 102, 0, 0.3)';{% endif %}\"
                    {% if has_children %}onclick=\"handleDropdownClick(event, this.parentElement)\"{% endif %}>
                     {{ p.menu }}{% if has_children %} <span class=\"dropdown-arrow\" style=\"margin-left: 5px; font-size: 0.7rem; transition: transform 0.2s ease; {% if active_page %}opacity: 1 !important;{% endif %}\">▼</span>{% endif %}
                 </a>

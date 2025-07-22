@@ -570,7 +570,7 @@ $context["img_item"], "is_main", [])) ? ($this->getAttribute($context["img_item"
     color: #007bff;
     text-decoration: none;
     font-weight: 500;
-    font-size: 14px;
+    font-size: 1.3rem;
     transition: color 0.3s ease;
 }
 
@@ -631,7 +631,7 @@ $context["img_item"], "is_main", [])) ? ($this->getAttribute($context["img_item"
     color: white;
     padding: 5px 8px;
     border-radius: 15px;
-    font-size: 12px;
+    font-size: 1rem;
     font-weight: 500;
     display: flex;
     align-items: center;
@@ -639,7 +639,7 @@ $context["img_item"], "is_main", [])) ? ($this->getAttribute($context["img_item"
 }
 
 .image-counter i {
-    font-size: 10px;
+    font-size: 0.9rem;
 }
 
 .hidden-lightbox-item {
@@ -655,7 +655,7 @@ $context["img_item"], "is_main", [])) ? ($this->getAttribute($context["img_item"
 
 .portfolio-title {
     margin: 0 0 15px 0;
-    font-size: 18px;
+    font-size: 1.4rem;
     color: #333;
     font-weight: 600;
 }
@@ -668,7 +668,7 @@ $context["img_item"], "is_main", [])) ? ($this->getAttribute($context["img_item"
     display: flex;
     justify-content: space-between;
     margin-bottom: 8px;
-    font-size: 14px;
+    font-size: 1.3rem;
 }
 
 .metadata-item .label {
@@ -682,9 +682,9 @@ $context["img_item"], "is_main", [])) ? ($this->getAttribute($context["img_item"
 }
 
 .portfolio-description {
-    font-size: 14px;
+    font-size: 1.3rem;
     color: #666;
-    line-height: 1.4;
+    line-height: 1.8;
     margin-top: auto;
 }
 
@@ -1007,7 +1007,7 @@ $context["img_item"], "is_main", [])) ? ($this->getAttribute($context["img_item"
     color: #007bff;
     text-decoration: none;
     font-weight: 500;
-    font-size: 14px;
+    font-size: 1.3rem;
     transition: color 0.3s ease;
 }
 
@@ -1068,7 +1068,7 @@ $context["img_item"], "is_main", [])) ? ($this->getAttribute($context["img_item"
     color: white;
     padding: 5px 8px;
     border-radius: 15px;
-    font-size: 12px;
+    font-size: 1rem;
     font-weight: 500;
     display: flex;
     align-items: center;
@@ -1076,7 +1076,7 @@ $context["img_item"], "is_main", [])) ? ($this->getAttribute($context["img_item"
 }
 
 .image-counter i {
-    font-size: 10px;
+    font-size: 0.9rem;
 }
 
 .hidden-lightbox-item {
@@ -1092,7 +1092,7 @@ $context["img_item"], "is_main", [])) ? ($this->getAttribute($context["img_item"
 
 .portfolio-title {
     margin: 0 0 15px 0;
-    font-size: 18px;
+    font-size: 1.4rem;
     color: #333;
     font-weight: 600;
 }
@@ -1105,7 +1105,7 @@ $context["img_item"], "is_main", [])) ? ($this->getAttribute($context["img_item"
     display: flex;
     justify-content: space-between;
     margin-bottom: 8px;
-    font-size: 14px;
+    font-size: 1.3rem;
 }
 
 .metadata-item .label {
@@ -1119,9 +1119,9 @@ $context["img_item"], "is_main", [])) ? ($this->getAttribute($context["img_item"
 }
 
 .portfolio-description {
-    font-size: 14px;
+    font-size: 1.3rem;
     color: #666;
-    line-height: 1.4;
+    line-height: 1.8;
     margin-top: auto;
 }
 
