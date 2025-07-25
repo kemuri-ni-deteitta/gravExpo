@@ -41,5 +41,9 @@ debugger:
   twig: true
   shutdown:
     close_connection: true
+
 gpm:
   verify_peer: true
+
+strict_mode:
+  blueprint_compat: true

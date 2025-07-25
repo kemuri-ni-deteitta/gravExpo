@@ -2,8 +2,8 @@
 return [
     '@class' => 'Grav\\Common\\File\\CompiledYamlFile',
     'filename' => '/home/ivan/grav-admin/user/config/system.yaml',
-    'modified' => 1753211240,
-    'size' => 575,
+    'modified' => 1753462201,
+    'size' => 615,
     'data' => [
         'absolute_urls' => false,
         'home' => [
@@ -54,6 +54,9 @@ return [
         ],
         'gpm' => [
             'verify_peer' => true
+        ],
+        'strict_mode' => [
+            'blueprint_compat' => true
         ]
     ]
 ];

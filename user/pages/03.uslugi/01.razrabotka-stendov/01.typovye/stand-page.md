@@ -73,6 +73,32 @@ gallery:
         exhibition_name: аыва
         company_name: аыва
         project_year: ываыв
+    -
+        title: '321321321'
+        desc: '3213112'
+        images:
+            -
+                is_main: false
+                image_upload:
+                    user/pages/03.uslugi/01.razrabotka-stendov/01.typovye/20250723122357-2.jpg:
+                        name: 20250723122357-2.jpg
+                        full_path: 2.jpg
+                        type: image/jpeg
+                        size: 287975
+                        path: user/pages/03.uslugi/01.razrabotka-stendov/01.typovye/20250723122357-2.jpg
+            -
+                is_main: false
+                image_upload:
+                    user/pages/03.uslugi/01.razrabotka-stendov/01.typovye/3.jpg:
+                        name: 3.jpg
+                        full_path: 3.jpg
+                        type: image/jpeg
+                        size: 238527
+                        path: user/pages/03.uslugi/01.razrabotka-stendov/01.typovye/3.jpg
+        construction_area: '312312'
+        exhibition_name: '312312'
+        company_name: '312312'
+        project_year: '312312'
 ---
 
 # Типовые стенды

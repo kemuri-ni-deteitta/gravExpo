@@ -43,6 +43,8 @@
     {% if theme_config.skel.enabled %}
         {% do assets.addJs('https://cdn.jsdelivr.net/npm/skel@3.0.1/src/skel.min.js', {group: 'bottom'}) %}
     {% endif %}
+    
+
 {% endblock %}
 
 {% block assets deferred %}

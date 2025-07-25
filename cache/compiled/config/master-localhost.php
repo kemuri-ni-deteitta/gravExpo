@@ -1,8 +1,8 @@
 <?php
 return [
     '@class' => 'Grav\\Common\\Config\\CompiledConfig',
-    'timestamp' => 1753211250,
-    'checksum' => '63a7dfb9d5c93ec7eb527a56bc84b148',
+    'timestamp' => 1753462206,
+    'checksum' => '054d13bb9f8d5f5fc000928ec9280431',
     'files' => [
         'user/config' => [
             'media' => [
@@ -31,7 +31,7 @@ return [
             ],
             'system' => [
                 'file' => 'user/config/system.yaml',
-                'modified' => 1753211240
+                'modified' => 1753462201
             ],
             'versions' => [
                 'file' => 'user/config/versions.yaml',
@@ -4166,7 +4166,7 @@ node_modules'
             'strict_mode' => [
                 'yaml_compat' => false,
                 'twig_compat' => false,
-                'blueprint_compat' => false
+                'blueprint_compat' => true
             ]
         ],
         'versions' => [
