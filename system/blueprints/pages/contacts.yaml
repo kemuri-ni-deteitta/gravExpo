@@ -65,11 +65,22 @@ form:
               validate:
                 required: true
                 
-            header.email:
-              type: email
+            header.emails:
+              type: list
+              style: vertical
               label: Электронная почта
-              help: Основной email адрес компании
-              placeholder: info@expo-land.ru
-              validate:
-                required: true
-                type: email 
+              help: Добавьте email адреса компании
+              collapsed: false
+              btnLabel: Добавить email
+              fields:
+                .email:
+                  type: email
+                  label: Email адрес
+                  placeholder: info@expo-land.ru
+                  validate:
+                    required: true
+                    type: email
+                .description:
+                  type: text
+                  label: Описание
+                  placeholder: Общие вопросы, Поддержка, Продажи и т.д. 

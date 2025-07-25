@@ -5,14 +5,20 @@ visible: true
 template: contacts
 phones:
     -
-        number: '+4444'
-        description: опи
+        number: '+7777'
+        description: 'Первый номер '
     -
-        number: '+777'
-        description: '1212'
+        number: '+7877'
+        description: 'Второй номер'
 address: 'г. Москва, ул. Кульнева, д. 3, стр. 1'
 coordinates: '55.742711, 37.523106'
-email: expo@yandex.com
+emails:
+    -
+        email: first@email.om
+        description: description
+    -
+        email: secnond@email.om
+        description: '312321'
 blueprint: contacts
 header:
     phones:
@@ -26,8 +32,17 @@ header:
             number: '+7 (495) 123-45-69'
             description: 'Техническая поддержка'
     address: 'г. Москва, ул. Кульнева, д. 3, стр. 1'
-    coordinates: '37.6333,55.7533'
-    email: e12321@y.ru
+    coordinates: '55.742711, 37.523106'
+    emails:
+        -
+            email: expo@yandex.com
+            description: 'Общие вопросы'
+        -
+            email: sales@expo-land.ru
+            description: 'Отдел продаж'
+        -
+            email: support@expo-land.ru
+            description: 'Техническая поддержка'
 ---
 
 # Контакты
