@@ -43,27 +43,27 @@
     display: inline-block;             /* 📐 LAYOUT: Makes the heading only as wide as the text */
 }
 
-/* List containers for phones and emails */
-.phone-list, .email-list {
+/* List containers for phones, emails, and social networks */
+.phone-list, .email-list, .social-list {
     list-style: none;                  /* 📐 LAYOUT: Removes bullet points from lists */
     padding: 0;                        /* ⚙️ SPACING: Removes default list padding */
     margin: 0;                         /* ⚙️ SPACING: Removes default list margins */
 }
 
-/* Individual phone/email list items */
-.phone-list li, .email-list li {
-    padding: 0.5rem 0;                 /* ⚙️ SPACING: Vertical padding for each phone/email item */
+/* Individual phone/email/social list items */
+.phone-list li, .email-list li, .social-list li {
+    padding: 0.5rem 0;                 /* ⚙️ SPACING: Vertical padding for each item */
     border-bottom: 1px solid #e9ecef;  /* 🎨 COLOR: Light gray line between items (change #e9ecef to any color) */
-    font-size: 1rem;                   /* 📏 SIZE: Size of phone numbers and email addresses */
+    font-size: 1rem;                   /* 📏 SIZE: Size of all contact information */
 }
 
 /* Remove border from last item in lists */
-.phone-list li:last-child, .email-list li:last-child {
+.phone-list li:last-child, .email-list li:last-child, .social-list li:last-child {
     border-bottom: none;               /* 📐 LAYOUT: Removes bottom border from last item */
 }
 
-/* Description text for phones and emails (the text after "-") */
-.phone-description, .email-description {
+/* Description text for phones, emails, and social networks (the text after "-") */
+.phone-description, .email-description, .social-description {
     font-weight: bold;                 /* 📏 WEIGHT: Makes descriptions bold (change to 'normal' for regular weight) */
     color: #000;                       /* 🎨 COLOR: Black color for descriptions (change #000 to any color) */
     font-style: normal;                /* 📏 STYLE: Normal font style (not italic) */
@@ -85,6 +85,11 @@
 /* Email addresses styling (the actual email addresses, not descriptions) */
 .email-list li a strong {
     font-size: 1rem;                   /* 📏 SIZE: Size of email addresses (same as descriptions) */
+}
+
+/* Social network platform names styling (the actual platform names, not descriptions) */
+.social-list li a strong {
+    font-size: 1rem;                   /* 📏 SIZE: Size of social network platform names (same as descriptions) */
 }
 
 /* Email links on hover (when mouse is over them) */
@@ -122,7 +127,7 @@
 </style>
     {{ page.content|raw }}
     
-    {% if page.header.phones or page.header.address or page.header.emails %}
+    {% if page.header.phones or page.header.address or page.header.emails or page.header.social_networks %}
     <div class="contact-info-section">
         <h2>Контактная информация</h2>
         
@@ -158,6 +163,34 @@
                     <a href="mailto:{{ email.email }}"><strong>{{ email.email }}</strong></a>
                     {% if email.description %}
                     <span class="email-description"> - {{ email.description }}</span>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        
+        {% if page.header.social_networks %}
+        <div class="contact-item">
+            <h3>Социальные сети</h3>
+            <ul class="social-list">
+                {% for social in page.header.social_networks %}
+                <li>
+                    <a href="{{ social.username }}" target="_blank" rel="noopener">
+                        <strong>
+                            {% if social.platform == 'telegram' %}Telegram
+                            {% elseif social.platform == 'whatsapp' %}WhatsApp
+                            {% elseif social.platform == 'vk' %}ВКонтакте
+                            {% elseif social.platform == 'instagram' %}Instagram
+                            {% elseif social.platform == 'facebook' %}Facebook
+                            {% elseif social.platform == 'twitter' %}Twitter/X
+                            {% elseif social.platform == 'youtube' %}YouTube
+                            {% elseif social.platform == 'linkedin' %}LinkedIn
+                            {% else %}{{ social.platform|title }}{% endif %}
+                        </strong>
+                    </a>
+                    {% if social.description %}
+                    <span class="social-description"> - {{ social.description }}</span>
                     {% endif %}
                 </li>
                 {% endfor %}

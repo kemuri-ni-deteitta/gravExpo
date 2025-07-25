@@ -5,20 +5,29 @@ visible: true
 template: contacts
 phones:
     -
-        number: '+7777'
-        description: 'Первый номер '
+        number: '+77777'
+        description: Офис1
     -
-        number: '+7877'
-        description: 'Второй номер'
+        number: '+77777'
+        description: Офис2
 address: 'г. Москва, ул. Кульнева, д. 3, стр. 1'
 coordinates: '55.742711, 37.523106'
 emails:
     -
-        email: first@email.om
-        description: description
+        email: info@expo1.ru
+        description: Имэил
     -
-        email: secnond@email.om
-        description: '312321'
+        email: 2info@expo1.ru
+        description: 'Второй имэил'
+social_networks:
+    -
+        platform: telegram
+        username: '@userTg'
+        description: Telegram
+    -
+        platform: vk
+        username: 'https://vk.com/'
+        description: ВК
 blueprint: contacts
 header:
     phones:
@@ -43,6 +52,19 @@ header:
         -
             email: support@expo-land.ru
             description: 'Техническая поддержка'
+    social_networks:
+        -
+            platform: telegram
+            username: 'https://t.me/expo_land_official'
+            description: 'Основной канал'
+        -
+            platform: vk
+            username: 'https://vk.com/expo_land'
+            description: 'Группа ВКонтакте'
+        -
+            platform: youtube
+            username: 'https://youtube.com/ExpoLandOfficial'
+            description: 'Канал на YouTube'
 ---
 
 # Контакты

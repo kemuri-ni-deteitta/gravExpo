@@ -83,4 +83,38 @@ form:
                 .description:
                   type: text
                   label: Описание
-                  placeholder: Общие вопросы, Поддержка, Продажи и т.д. 
+                  placeholder: Общие вопросы, Поддержка, Продажи и т.д.
+                  
+            header.social_networks:
+              type: list
+              style: vertical
+              label: Социальные сети
+              help: Добавьте ссылки на социальные сети компании
+              collapsed: false
+              btnLabel: Добавить социальную сеть
+              fields:
+                .platform:
+                  type: select
+                  label: Платформа
+                  options:
+                    telegram: Telegram
+                    whatsapp: WhatsApp
+                    vk: ВКонтакте
+                    instagram: Instagram
+                    facebook: Facebook
+                    twitter: Twitter/X
+                    youtube: YouTube
+                    linkedin: LinkedIn
+                    other: Другая
+                  validate:
+                    required: true
+                .username:
+                  type: text
+                  label: Имя пользователя или ссылка
+                  placeholder: '@username или https://t.me/username'
+                  validate:
+                    required: true
+                .description:
+                  type: text
+                  label: Описание
+                  placeholder: Основной канал, Поддержка, Новости и т.д. 

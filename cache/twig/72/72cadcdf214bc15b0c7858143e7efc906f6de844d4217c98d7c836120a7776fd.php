@@ -81,27 +81,27 @@ class __TwigTemplate_7a0ba8d9df11bcaa155dc05f3b8b9b7049afb2cec7c50049eb3f8773889
     display: inline-block;             /* 📐 LAYOUT: Makes the heading only as wide as the text */
 }
 
-/* List containers for phones and emails */
-.phone-list, .email-list {
+/* List containers for phones, emails, and social networks */
+.phone-list, .email-list, .social-list {
     list-style: none;                  /* 📐 LAYOUT: Removes bullet points from lists */
     padding: 0;                        /* ⚙️ SPACING: Removes default list padding */
     margin: 0;                         /* ⚙️ SPACING: Removes default list margins */
 }
 
-/* Individual phone/email list items */
-.phone-list li, .email-list li {
-    padding: 0.5rem 0;                 /* ⚙️ SPACING: Vertical padding for each phone/email item */
+/* Individual phone/email/social list items */
+.phone-list li, .email-list li, .social-list li {
+    padding: 0.5rem 0;                 /* ⚙️ SPACING: Vertical padding for each item */
     border-bottom: 1px solid #e9ecef;  /* 🎨 COLOR: Light gray line between items (change #e9ecef to any color) */
-    font-size: 1rem;                   /* 📏 SIZE: Size of phone numbers and email addresses */
+    font-size: 1rem;                   /* 📏 SIZE: Size of all contact information */
 }
 
 /* Remove border from last item in lists */
-.phone-list li:last-child, .email-list li:last-child {
+.phone-list li:last-child, .email-list li:last-child, .social-list li:last-child {
     border-bottom: none;               /* 📐 LAYOUT: Removes bottom border from last item */
 }
 
-/* Description text for phones and emails (the text after \"-\") */
-.phone-description, .email-description {
+/* Description text for phones, emails, and social networks (the text after \"-\") */
+.phone-description, .email-description, .social-description {
     font-weight: bold;                 /* 📏 WEIGHT: Makes descriptions bold (change to 'normal' for regular weight) */
     color: #000;                       /* 🎨 COLOR: Black color for descriptions (change #000 to any color) */
     font-style: normal;                /* 📏 STYLE: Normal font style (not italic) */
@@ -123,6 +123,11 @@ class __TwigTemplate_7a0ba8d9df11bcaa155dc05f3b8b9b7049afb2cec7c50049eb3f8773889
 /* Email addresses styling (the actual email addresses, not descriptions) */
 .email-list li a strong {
     font-size: 1rem;                   /* 📏 SIZE: Size of email addresses (same as descriptions) */
+}
+
+/* Social network platform names styling (the actual platform names, not descriptions) */
+.social-list li a strong {
+    font-size: 1rem;                   /* 📏 SIZE: Size of social network platform names (same as descriptions) */
 }
 
 /* Email links on hover (when mouse is over them) */
@@ -159,125 +164,207 @@ class __TwigTemplate_7a0ba8d9df11bcaa155dc05f3b8b9b7049afb2cec7c50049eb3f8773889
 */
 </style>
     ";
-        // line 123
+        // line 128
         echo $this->getAttribute(($context["page"] ?? null), "content", []);
         echo "
     
     ";
-        // line 125
-        if ((($this->getAttribute($this->getAttribute(($context["page"] ?? null), "header", []), "phones", []) || $this->getAttribute($this->getAttribute(($context["page"] ?? null), "header", []), "address", [])) || $this->getAttribute($this->getAttribute(($context["page"] ?? null), "header", []), "emails", []))) {
-            // line 126
+        // line 130
+        if (((($this->getAttribute($this->getAttribute(($context["page"] ?? null), "header", []), "phones", []) || $this->getAttribute($this->getAttribute(($context["page"] ?? null), "header", []), "address", [])) || $this->getAttribute($this->getAttribute(($context["page"] ?? null), "header", []), "emails", [])) || $this->getAttribute($this->getAttribute(($context["page"] ?? null), "header", []), "social_networks", []))) {
+            // line 131
             echo "    <div class=\"contact-info-section\">
         <h2>Контактная информация</h2>
         
         ";
-            // line 129
+            // line 134
             if ($this->getAttribute($this->getAttribute(($context["page"] ?? null), "header", []), "address", [])) {
-                // line 130
+                // line 135
                 echo "        <div class=\"contact-item\">
             <h3>Адрес</h3>
             <p><strong>";
-                // line 132
+                // line 137
                 echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute(($context["page"] ?? null), "header", []), "address", []), "html", null, true);
                 echo "</strong></p>
         </div>
         ";
             }
-            // line 135
+            // line 140
             echo "        
         ";
-            // line 136
+            // line 141
             if ($this->getAttribute($this->getAttribute(($context["page"] ?? null), "header", []), "phones", [])) {
-                // line 137
+                // line 142
                 echo "        <div class=\"contact-item\">
             <h3>Телефоны</h3>
             <ul class=\"phone-list\">
                 ";
-                // line 140
+                // line 145
                 $context['_parent'] = $context;
                 $context['_seq'] = twig_ensure_traversable($this->getAttribute($this->getAttribute(($context["page"] ?? null), "header", []), "phones", []));
                 foreach ($context['_seq'] as $context["_key"] => $context["phone"]) {
-                    // line 141
+                    // line 146
                     echo "                <li>
                     <strong>";
-                    // line 142
+                    // line 147
                     echo twig_escape_filter($this->env, $this->getAttribute($context["phone"], "number", []), "html", null, true);
                     echo "</strong>
                     ";
-                    // line 143
+                    // line 148
                     if ($this->getAttribute($context["phone"], "description", [])) {
-                        // line 144
+                        // line 149
                         echo "                    <span class=\"phone-description\"> - ";
                         echo twig_escape_filter($this->env, $this->getAttribute($context["phone"], "description", []), "html", null, true);
                         echo "</span>
                     ";
                     }
-                    // line 146
+                    // line 151
                     echo "                </li>
                 ";
                 }
                 $_parent = $context['_parent'];
                 unset($context['_seq'], $context['_iterated'], $context['_key'], $context['phone'], $context['_parent'], $context['loop']);
                 $context = array_intersect_key($context, $_parent) + $_parent;
-                // line 148
+                // line 153
                 echo "            </ul>
         </div>
         ";
             }
-            // line 151
+            // line 156
             echo "        
         ";
-            // line 152
+            // line 157
             if ($this->getAttribute($this->getAttribute(($context["page"] ?? null), "header", []), "emails", [])) {
-                // line 153
+                // line 158
                 echo "        <div class=\"contact-item\">
             <h3>Электронная почта</h3>
             <ul class=\"email-list\">
                 ";
-                // line 156
+                // line 161
                 $context['_parent'] = $context;
                 $context['_seq'] = twig_ensure_traversable($this->getAttribute($this->getAttribute(($context["page"] ?? null), "header", []), "emails", []));
                 foreach ($context['_seq'] as $context["_key"] => $context["email"]) {
-                    // line 157
+                    // line 162
                     echo "                <li>
                     <a href=\"mailto:";
-                    // line 158
+                    // line 163
                     echo twig_escape_filter($this->env, $this->getAttribute($context["email"], "email", []), "html", null, true);
                     echo "\"><strong>";
                     echo twig_escape_filter($this->env, $this->getAttribute($context["email"], "email", []), "html", null, true);
                     echo "</strong></a>
                     ";
-                    // line 159
+                    // line 164
                     if ($this->getAttribute($context["email"], "description", [])) {
-                        // line 160
+                        // line 165
                         echo "                    <span class=\"email-description\"> - ";
                         echo twig_escape_filter($this->env, $this->getAttribute($context["email"], "description", []), "html", null, true);
                         echo "</span>
                     ";
                     }
-                    // line 162
+                    // line 167
                     echo "                </li>
                 ";
                 }
                 $_parent = $context['_parent'];
                 unset($context['_seq'], $context['_iterated'], $context['_key'], $context['email'], $context['_parent'], $context['loop']);
                 $context = array_intersect_key($context, $_parent) + $_parent;
-                // line 164
+                // line 169
                 echo "            </ul>
         </div>
         ";
             }
-            // line 167
+            // line 172
+            echo "        
+        ";
+            // line 173
+            if ($this->getAttribute($this->getAttribute(($context["page"] ?? null), "header", []), "social_networks", [])) {
+                // line 174
+                echo "        <div class=\"contact-item\">
+            <h3>Социальные сети</h3>
+            <ul class=\"social-list\">
+                ";
+                // line 177
+                $context['_parent'] = $context;
+                $context['_seq'] = twig_ensure_traversable($this->getAttribute($this->getAttribute(($context["page"] ?? null), "header", []), "social_networks", []));
+                foreach ($context['_seq'] as $context["_key"] => $context["social"]) {
+                    // line 178
+                    echo "                <li>
+                    <a href=\"";
+                    // line 179
+                    echo twig_escape_filter($this->env, $this->getAttribute($context["social"], "username", []), "html", null, true);
+                    echo "\" target=\"_blank\" rel=\"noopener\">
+                        <strong>
+                            ";
+                    // line 181
+                    if (($this->getAttribute($context["social"], "platform", []) == "telegram")) {
+                        echo "Telegram
+                            ";
+                    } elseif (($this->getAttribute(                    // line 182
+$context["social"], "platform", []) == "whatsapp")) {
+                        echo "WhatsApp
+                            ";
+                    } elseif (($this->getAttribute(                    // line 183
+$context["social"], "platform", []) == "vk")) {
+                        echo "ВКонтакте
+                            ";
+                    } elseif (($this->getAttribute(                    // line 184
+$context["social"], "platform", []) == "instagram")) {
+                        echo "Instagram
+                            ";
+                    } elseif (($this->getAttribute(                    // line 185
+$context["social"], "platform", []) == "facebook")) {
+                        echo "Facebook
+                            ";
+                    } elseif (($this->getAttribute(                    // line 186
+$context["social"], "platform", []) == "twitter")) {
+                        echo "Twitter/X
+                            ";
+                    } elseif (($this->getAttribute(                    // line 187
+$context["social"], "platform", []) == "youtube")) {
+                        echo "YouTube
+                            ";
+                    } elseif (($this->getAttribute(                    // line 188
+$context["social"], "platform", []) == "linkedin")) {
+                        echo "LinkedIn
+                            ";
+                    } else {
+                        // line 189
+                        echo twig_escape_filter($this->env, twig_title_string_filter($this->env, $this->getAttribute($context["social"], "platform", [])), "html", null, true);
+                    }
+                    // line 190
+                    echo "                        </strong>
+                    </a>
+                    ";
+                    // line 192
+                    if ($this->getAttribute($context["social"], "description", [])) {
+                        // line 193
+                        echo "                    <span class=\"social-description\"> - ";
+                        echo twig_escape_filter($this->env, $this->getAttribute($context["social"], "description", []), "html", null, true);
+                        echo "</span>
+                    ";
+                    }
+                    // line 195
+                    echo "                </li>
+                ";
+                }
+                $_parent = $context['_parent'];
+                unset($context['_seq'], $context['_iterated'], $context['_key'], $context['social'], $context['_parent'], $context['loop']);
+                $context = array_intersect_key($context, $_parent) + $_parent;
+                // line 197
+                echo "            </ul>
+        </div>
+        ";
+            }
+            // line 200
             echo "    </div>
     ";
         }
-        // line 169
+        // line 202
         echo "    
     ";
-        // line 171
+        // line 204
         echo "    ";
         if ($this->getAttribute($this->getAttribute(($context["page"] ?? null), "header", []), "address", [])) {
-            // line 172
+            // line 205
             echo "    <div class=\"map-section\">
         <h2>Как нас найти</h2>
         <div id=\"yandex-map\" style=\"position:relative;overflow:hidden;width:100%;height:400px;background:#f5f5f5;border:1px solid #ddd;display:flex;align-items:center;justify-content:center;\">
@@ -285,7 +372,7 @@ class __TwigTemplate_7a0ba8d9df11bcaa155dc05f3b8b9b7049afb2cec7c50049eb3f8773889
                 <div style=\"font-size:48px;margin-bottom:10px;\">🗺️</div>
                 <div style=\"font-size:18px;margin-bottom:5px;\"><strong>Загрузка карты...</strong></div>
                 <div style=\"font-size:14px;\">";
-            // line 178
+            // line 211
             echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute(($context["page"] ?? null), "header", []), "address", []), "html", null, true);
             echo "</div>
             </div>
@@ -294,11 +381,11 @@ class __TwigTemplate_7a0ba8d9df11bcaa155dc05f3b8b9b7049afb2cec7c50049eb3f8773889
         <script type=\"text/javascript\">
             // Use coordinates from admin panel for precise map location
             var address = \"";
-            // line 184
+            // line 217
             echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute(($context["page"] ?? null), "header", []), "address", []), "html", null, true);
             echo "\";
             var coordinates = \"";
-            // line 185
+            // line 218
             echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute(($context["page"] ?? null), "header", []), "coordinates", []), "html", null, true);
             echo "\";
             var mapContainer = document.getElementById('yandex-map');
@@ -341,7 +428,7 @@ class __TwigTemplate_7a0ba8d9df11bcaa155dc05f3b8b9b7049afb2cec7c50049eb3f8773889
             mapContainer.appendChild(directLink);
         </script>
         <p class=\"map-note\"><em>Карта показывает адрес: ";
-            // line 225
+            // line 258
             echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute(($context["page"] ?? null), "header", []), "address", []), "html", null, true);
             echo "</em></p>
     </div>
@@ -361,7 +448,7 @@ class __TwigTemplate_7a0ba8d9df11bcaa155dc05f3b8b9b7049afb2cec7c50049eb3f8773889
 
     public function getDebugInfo()
     {
-        return array (  345 => 225,  302 => 185,  298 => 184,  289 => 178,  281 => 172,  278 => 171,  275 => 169,  271 => 167,  266 => 164,  259 => 162,  253 => 160,  251 => 159,  245 => 158,  242 => 157,  238 => 156,  233 => 153,  231 => 152,  228 => 151,  223 => 148,  216 => 146,  210 => 144,  208 => 143,  204 => 142,  201 => 141,  197 => 140,  192 => 137,  190 => 136,  187 => 135,  181 => 132,  177 => 130,  175 => 129,  170 => 126,  168 => 125,  163 => 123,  42 => 4,  39 => 3,  29 => 1,);
+        return array (  432 => 258,  389 => 218,  385 => 217,  376 => 211,  368 => 205,  365 => 204,  362 => 202,  358 => 200,  353 => 197,  346 => 195,  340 => 193,  338 => 192,  334 => 190,  331 => 189,  326 => 188,  322 => 187,  318 => 186,  314 => 185,  310 => 184,  306 => 183,  302 => 182,  298 => 181,  293 => 179,  290 => 178,  286 => 177,  281 => 174,  279 => 173,  276 => 172,  271 => 169,  264 => 167,  258 => 165,  256 => 164,  250 => 163,  247 => 162,  243 => 161,  238 => 158,  236 => 157,  233 => 156,  228 => 153,  221 => 151,  215 => 149,  213 => 148,  209 => 147,  206 => 146,  202 => 145,  197 => 142,  195 => 141,  192 => 140,  186 => 137,  182 => 135,  180 => 134,  175 => 131,  173 => 130,  168 => 128,  42 => 4,  39 => 3,  29 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -419,27 +506,27 @@ class __TwigTemplate_7a0ba8d9df11bcaa155dc05f3b8b9b7049afb2cec7c50049eb3f8773889
     display: inline-block;             /* 📐 LAYOUT: Makes the heading only as wide as the text */
 }
 
-/* List containers for phones and emails */
-.phone-list, .email-list {
+/* List containers for phones, emails, and social networks */
+.phone-list, .email-list, .social-list {
     list-style: none;                  /* 📐 LAYOUT: Removes bullet points from lists */
     padding: 0;                        /* ⚙️ SPACING: Removes default list padding */
     margin: 0;                         /* ⚙️ SPACING: Removes default list margins */
 }
 
-/* Individual phone/email list items */
-.phone-list li, .email-list li {
-    padding: 0.5rem 0;                 /* ⚙️ SPACING: Vertical padding for each phone/email item */
+/* Individual phone/email/social list items */
+.phone-list li, .email-list li, .social-list li {
+    padding: 0.5rem 0;                 /* ⚙️ SPACING: Vertical padding for each item */
     border-bottom: 1px solid #e9ecef;  /* 🎨 COLOR: Light gray line between items (change #e9ecef to any color) */
-    font-size: 1rem;                   /* 📏 SIZE: Size of phone numbers and email addresses */
+    font-size: 1rem;                   /* 📏 SIZE: Size of all contact information */
 }
 
 /* Remove border from last item in lists */
-.phone-list li:last-child, .email-list li:last-child {
+.phone-list li:last-child, .email-list li:last-child, .social-list li:last-child {
     border-bottom: none;               /* 📐 LAYOUT: Removes bottom border from last item */
 }
 
-/* Description text for phones and emails (the text after \"-\") */
-.phone-description, .email-description {
+/* Description text for phones, emails, and social networks (the text after \"-\") */
+.phone-description, .email-description, .social-description {
     font-weight: bold;                 /* 📏 WEIGHT: Makes descriptions bold (change to 'normal' for regular weight) */
     color: #000;                       /* 🎨 COLOR: Black color for descriptions (change #000 to any color) */
     font-style: normal;                /* 📏 STYLE: Normal font style (not italic) */
@@ -461,6 +548,11 @@ class __TwigTemplate_7a0ba8d9df11bcaa155dc05f3b8b9b7049afb2cec7c50049eb3f8773889
 /* Email addresses styling (the actual email addresses, not descriptions) */
 .email-list li a strong {
     font-size: 1rem;                   /* 📏 SIZE: Size of email addresses (same as descriptions) */
+}
+
+/* Social network platform names styling (the actual platform names, not descriptions) */
+.social-list li a strong {
+    font-size: 1rem;                   /* 📏 SIZE: Size of social network platform names (same as descriptions) */
 }
 
 /* Email links on hover (when mouse is over them) */
@@ -498,7 +590,7 @@ class __TwigTemplate_7a0ba8d9df11bcaa155dc05f3b8b9b7049afb2cec7c50049eb3f8773889
 </style>
     {{ page.content|raw }}
     
-    {% if page.header.phones or page.header.address or page.header.emails %}
+    {% if page.header.phones or page.header.address or page.header.emails or page.header.social_networks %}
     <div class=\"contact-info-section\">
         <h2>Контактная информация</h2>
         
@@ -534,6 +626,34 @@ class __TwigTemplate_7a0ba8d9df11bcaa155dc05f3b8b9b7049afb2cec7c50049eb3f8773889
                     <a href=\"mailto:{{ email.email }}\"><strong>{{ email.email }}</strong></a>
                     {% if email.description %}
                     <span class=\"email-description\"> - {{ email.description }}</span>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        
+        {% if page.header.social_networks %}
+        <div class=\"contact-item\">
+            <h3>Социальные сети</h3>
+            <ul class=\"social-list\">
+                {% for social in page.header.social_networks %}
+                <li>
+                    <a href=\"{{ social.username }}\" target=\"_blank\" rel=\"noopener\">
+                        <strong>
+                            {% if social.platform == 'telegram' %}Telegram
+                            {% elseif social.platform == 'whatsapp' %}WhatsApp
+                            {% elseif social.platform == 'vk' %}ВКонтакте
+                            {% elseif social.platform == 'instagram' %}Instagram
+                            {% elseif social.platform == 'facebook' %}Facebook
+                            {% elseif social.platform == 'twitter' %}Twitter/X
+                            {% elseif social.platform == 'youtube' %}YouTube
+                            {% elseif social.platform == 'linkedin' %}LinkedIn
+                            {% else %}{{ social.platform|title }}{% endif %}
+                        </strong>
+                    </a>
+                    {% if social.description %}
+                    <span class=\"social-description\"> - {{ social.description }}</span>
                     {% endif %}
                 </li>
                 {% endfor %}
