@@ -367,7 +367,7 @@ $context["social"], "platform", []) == "linkedin")) {
             // line 205
             echo "    <div class=\"map-section\">
         <h2>Как нас найти</h2>
-        <div id=\"yandex-map\" style=\"position:relative;overflow:hidden;width:100%;height:400px;background:#f5f5f5;border:1px solid #ddd;display:flex;align-items:center;justify-content:center;\">
+        <div id=\"yandex-map\" style=\"position:relative;overflow:hidden;width:100%;height:600px;background:#f5f5f5;border:1px solid #ddd;display:flex;align-items:center;justify-content:center;\">
             <div style=\"text-align:center;color:#666;\">
                 <div style=\"font-size:48px;margin-bottom:10px;\">🗺️</div>
                 <div style=\"font-size:18px;margin-bottom:5px;\"><strong>Загрузка карты...</strong></div>
@@ -399,7 +399,7 @@ $context["social"], "platform", []) == "linkedin")) {
             var iframe = document.createElement('iframe');
             iframe.src = 'https://yandex.ru/map-widget/v1/?ll=' + longitude + ',' + latitude + '&z=17&l=map&pt=' + longitude + ',' + latitude + ',pm2rdm&source=constructor';
             iframe.width = '100%';
-            iframe.height = '400';
+            iframe.height = '600';
             iframe.frameBorder = '0';
             iframe.style.border = '0';
             iframe.allowFullscreen = true;
@@ -409,28 +409,7 @@ $context["social"], "platform", []) == "linkedin")) {
             mapContainer.style.background = 'none';
             mapContainer.style.border = 'none';
             mapContainer.appendChild(iframe);
-            
-            // Add a note about the address
-            var addressNote = document.createElement('div');
-            addressNote.style.cssText = 'margin-top:10px;padding:10px;background:#f0f8ff;border-left:3px solid #0066cc;font-size:12px;color:#666;';
-            addressNote.innerHTML = '<strong>Адрес компании:</strong> ' + address + '<br><small>Карта показывает точное местоположение компании по координатам: ' + coordinates + '</small>';
-            mapContainer.appendChild(addressNote);
-            
-            // Add direct link to Yandex Maps with coordinates
-            var directLink = document.createElement('div');
-            directLink.style.cssText = 'margin-top:10px;text-align:center;';
-            var link = document.createElement('a');
-            link.href = 'https://yandex.ru/maps/?ll=' + longitude + ',' + latitude + '&z=17&l=map&pt=' + longitude + ',' + latitude + ',pm2rdm&text=' + encodeURIComponent(address);
-            link.target = '_blank';
-            link.style.cssText = 'color:#0066cc;text-decoration:none;font-weight:bold;';
-            link.textContent = '🔍 Открыть в Яндекс Картах';
-            directLink.appendChild(link);
-            mapContainer.appendChild(directLink);
         </script>
-        <p class=\"map-note\"><em>Карта показывает адрес: ";
-            // line 258
-            echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute(($context["page"] ?? null), "header", []), "address", []), "html", null, true);
-            echo "</em></p>
     </div>
     ";
         }
@@ -448,7 +427,7 @@ $context["social"], "platform", []) == "linkedin")) {
 
     public function getDebugInfo()
     {
-        return array (  432 => 258,  389 => 218,  385 => 217,  376 => 211,  368 => 205,  365 => 204,  362 => 202,  358 => 200,  353 => 197,  346 => 195,  340 => 193,  338 => 192,  334 => 190,  331 => 189,  326 => 188,  322 => 187,  318 => 186,  314 => 185,  310 => 184,  306 => 183,  302 => 182,  298 => 181,  293 => 179,  290 => 178,  286 => 177,  281 => 174,  279 => 173,  276 => 172,  271 => 169,  264 => 167,  258 => 165,  256 => 164,  250 => 163,  247 => 162,  243 => 161,  238 => 158,  236 => 157,  233 => 156,  228 => 153,  221 => 151,  215 => 149,  213 => 148,  209 => 147,  206 => 146,  202 => 145,  197 => 142,  195 => 141,  192 => 140,  186 => 137,  182 => 135,  180 => 134,  175 => 131,  173 => 130,  168 => 128,  42 => 4,  39 => 3,  29 => 1,);
+        return array (  389 => 218,  385 => 217,  376 => 211,  368 => 205,  365 => 204,  362 => 202,  358 => 200,  353 => 197,  346 => 195,  340 => 193,  338 => 192,  334 => 190,  331 => 189,  326 => 188,  322 => 187,  318 => 186,  314 => 185,  310 => 184,  306 => 183,  302 => 182,  298 => 181,  293 => 179,  290 => 178,  286 => 177,  281 => 174,  279 => 173,  276 => 172,  271 => 169,  264 => 167,  258 => 165,  256 => 164,  250 => 163,  247 => 162,  243 => 161,  238 => 158,  236 => 157,  233 => 156,  228 => 153,  221 => 151,  215 => 149,  213 => 148,  209 => 147,  206 => 146,  202 => 145,  197 => 142,  195 => 141,  192 => 140,  186 => 137,  182 => 135,  180 => 134,  175 => 131,  173 => 130,  168 => 128,  42 => 4,  39 => 3,  29 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -667,7 +646,7 @@ $context["social"], "platform", []) == "linkedin")) {
     {% if page.header.address %}
     <div class=\"map-section\">
         <h2>Как нас найти</h2>
-        <div id=\"yandex-map\" style=\"position:relative;overflow:hidden;width:100%;height:400px;background:#f5f5f5;border:1px solid #ddd;display:flex;align-items:center;justify-content:center;\">
+        <div id=\"yandex-map\" style=\"position:relative;overflow:hidden;width:100%;height:600px;background:#f5f5f5;border:1px solid #ddd;display:flex;align-items:center;justify-content:center;\">
             <div style=\"text-align:center;color:#666;\">
                 <div style=\"font-size:48px;margin-bottom:10px;\">🗺️</div>
                 <div style=\"font-size:18px;margin-bottom:5px;\"><strong>Загрузка карты...</strong></div>
@@ -690,7 +669,7 @@ $context["social"], "platform", []) == "linkedin")) {
             var iframe = document.createElement('iframe');
             iframe.src = 'https://yandex.ru/map-widget/v1/?ll=' + longitude + ',' + latitude + '&z=17&l=map&pt=' + longitude + ',' + latitude + ',pm2rdm&source=constructor';
             iframe.width = '100%';
-            iframe.height = '400';
+            iframe.height = '600';
             iframe.frameBorder = '0';
             iframe.style.border = '0';
             iframe.allowFullscreen = true;
@@ -700,25 +679,7 @@ $context["social"], "platform", []) == "linkedin")) {
             mapContainer.style.background = 'none';
             mapContainer.style.border = 'none';
             mapContainer.appendChild(iframe);
-            
-            // Add a note about the address
-            var addressNote = document.createElement('div');
-            addressNote.style.cssText = 'margin-top:10px;padding:10px;background:#f0f8ff;border-left:3px solid #0066cc;font-size:12px;color:#666;';
-            addressNote.innerHTML = '<strong>Адрес компании:</strong> ' + address + '<br><small>Карта показывает точное местоположение компании по координатам: ' + coordinates + '</small>';
-            mapContainer.appendChild(addressNote);
-            
-            // Add direct link to Yandex Maps with coordinates
-            var directLink = document.createElement('div');
-            directLink.style.cssText = 'margin-top:10px;text-align:center;';
-            var link = document.createElement('a');
-            link.href = 'https://yandex.ru/maps/?ll=' + longitude + ',' + latitude + '&z=17&l=map&pt=' + longitude + ',' + latitude + ',pm2rdm&text=' + encodeURIComponent(address);
-            link.target = '_blank';
-            link.style.cssText = 'color:#0066cc;text-decoration:none;font-weight:bold;';
-            link.textContent = '🔍 Открыть в Яндекс Картах';
-            directLink.appendChild(link);
-            mapContainer.appendChild(directLink);
         </script>
-        <p class=\"map-note\"><em>Карта показывает адрес: {{ page.header.address }}</em></p>
     </div>
     {% endif %}
 {% endblock %} ", "contacts.html.twig", "/home/ivan/grav-admin/user/themes/quark/templates/contacts.html.twig");
